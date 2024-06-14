@@ -1,16 +1,16 @@
 # main links
 main:
-  - title: "Theme Documentation"
-    url: https://perstarke-webdev.de/oneflow-jekyll-theme
+  - title: "Github.com"
+    url: https://github.com/yongzzai
     blank: true
-    description: "The documentation for this theme, on https://perstarke-webdev.de"
-  - title: "Section 1"
+    description: "Hello"
+  - title: "Teaching"
     url: /#section-1
     blank: false
-  - title: "Section 2"
+  - title: "Projects"
     url: /#section-2
     blank: false
-  - title: "Section 3"
+  - title: "Publication"
     url: /#section-3
     blank: false
   - title: "Section 4"
