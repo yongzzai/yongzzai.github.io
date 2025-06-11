@@ -1,0 +1,56 @@
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .sidebar, .main-content {
+        width: 100%;
+        padding: 20px;
+    }
+    
+    .main-content {
+        margin-top: 20px;
+    }
+}
+
+/* Enhanced responsiveness */
+@media (max-width: 1100px) {
+    .page-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .sidebar {
+        margin-bottom: 20px;
+    }
+    
+    .main-content {
+        width: 100%;
+        padding: 20px;
+        margin-right: 0;
+    }
+}
+
+/* Update media queries to match new widths */
+@media (max-width: 1500px) {
+    .page-container {
+        padding: 0 40px;
+    }
+    
+    .main-content {
+        margin-right: 60px;
+    }
+}
+
+/* Update the zoom behavior query */
+@media (min-width: 1101px) and (max-width: 1800px) {
+    .page-container {
+        padding: 0 40px;
+    }
+    
+    .main-content {
+        margin-right: 60px;
+    }
+}
