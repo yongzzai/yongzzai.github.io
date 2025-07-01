@@ -84,61 +84,20 @@ body.light-mode .mode-text {
     .theme-toggle {
         margin-top: 15px;
         gap: 10px;
-        flex-direction: column;
+        flex-direction: row; /* Keep horizontal layout */
         align-items: center;
-    }
-    
-    .switch-label {
-        width: 65px;
-        height: 32px;
-        touch-action: manipulation; /* Improves touch responsiveness */
-    }
-    
-    .switch-label .dark-icon,
-    .switch-label .light-icon {
-        font-size: 14px;
-    }
-    
-    .switch-label .dark-icon {
-        left: 10px;
-    }
-    
-    .switch-label .light-icon {
-        right: 8px;
-    }
-    
-    .slider {
-        width: 24px;
-        height: 24px;
-        top: 4px;
-        left: 4px;
-    }
-    
-    .theme-switch:checked + .switch-label .slider {
-        transform: translateX(33px);
-    }
-    
-    .mode-text {
-        font-size: 13px;
-        text-align: center;
-        margin-top: 5px;
-    }
-}
-
-@media (max-width: 480px) {
-    .theme-toggle {
-        margin-top: 12px;
-        gap: 8px;
+        justify-content: center;
     }
     
     .switch-label {
         width: 60px;
         height: 30px;
+        touch-action: manipulation; /* Improves touch responsiveness */
     }
     
     .switch-label .dark-icon,
     .switch-label .light-icon {
-        font-size: 13px;
+        font-size: 12px;
     }
     
     .switch-label .dark-icon {
@@ -146,7 +105,7 @@ body.light-mode .mode-text {
     }
     
     .switch-label .light-icon {
-        right: 7px;
+        right: 6px;
     }
     
     .slider {
@@ -162,14 +121,55 @@ body.light-mode .mode-text {
     
     .mode-text {
         font-size: 12px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-toggle {
+        margin-top: 12px;
+        gap: 8px;
+        flex-direction: row; /* Keep horizontal layout */
+    }
+    
+    .switch-label {
+        width: 55px;
+        height: 28px;
+    }
+    
+    .switch-label .dark-icon,
+    .switch-label .light-icon {
+        font-size: 11px;
+    }
+    
+    .switch-label .dark-icon {
+        left: 7px;
+    }
+    
+    .switch-label .light-icon {
+        right: 6px;
+    }
+    
+    .slider {
+        width: 20px;
+        height: 20px;
+        top: 4px;
+        left: 4px;
+    }
+    
+    .theme-switch:checked + .switch-label .slider {
+        transform: translateX(27px);
+    }
+    
+    .mode-text {
+        font-size: 11px;
     }
 }
 
 /* Improve accessibility for touch devices */
 @media (hover: none) {
-    .switch-label {
-        min-height: 44px; /* Minimum touch target size */
-        min-width: 44px;
+    .theme-toggle {
+        padding: 10px; /* Add padding around the toggle for better touch area */
     }
     
     .switch-label:active {
