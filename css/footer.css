@@ -1,0 +1,148 @@
+.footer {
+    width: 100%;
+    background-color: rgba(50, 50, 50, 0.7);
+    padding: 25px 0; /* Reduced from 40px to 25px */
+    margin-top: 60px; /* Reduced from 80px to 60px */
+    backdrop-filter: blur(5px);
+}
+
+body.light-mode .footer {
+    background-color: rgba(235, 235, 235, 0.7);
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 0 20px;
+    min-width: 250px;
+}
+
+.footer-section h3 {
+    color: var(--heading-color);
+    font-size: 16px; /* Reduced from 18px */
+    margin-bottom: 15px; /* Reduced from 20px */
+    position: relative;
+    padding-bottom: 8px; /* Reduced from 10px */
+}
+
+.footer-section h3:after {
+    content: '';
+    position: absolute;
+    width: 40px;
+    height: 2px;
+    background: linear-gradient(90deg, var(--heading-color), transparent);
+    bottom: 0;
+    left: 0;
+}
+
+.footer-section p {
+    color: var(--text-color-secondary);
+    font-size: 13px; /* Reduced from 14px */
+    line-height: 1.6; /* Reduced from 1.8 */
+    margin-bottom: 8px; /* Reduced from 10px */
+}
+
+.footer-section p i {
+    width: 18px; /* Reduced from 20px */
+    margin-right: 8px; /* Reduced from 10px */
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin-bottom: 8px; /* Reduced from 10px */
+}
+
+.footer-links a {
+    color: var(--text-color-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    font-size: 13px; /* Added font size */
+}
+
+.footer-links a:hover {
+    color: var(--heading-color);
+    transform: translateX(5px);
+}
+
+@media (max-width: 768px) {
+    .footer {
+        padding: 20px 0; /* Even smaller on mobile */
+    }
+    
+    .footer-section {
+        flex-basis: 100%;
+        margin-bottom: 20px; /* Reduced from 30px */
+    }
+}
+
+/* Enhanced Mobile Optimizations for Footer */
+@media (max-width: 480px) {
+    .footer {
+        padding: 15px 0;
+        margin-top: 40px;
+    }
+    
+    .footer-container {
+        padding: 0 15px;
+    }
+    
+    .footer-section {
+        margin: 0 10px;
+        margin-bottom: 15px;
+        min-width: auto;
+    }
+    
+    .footer-section h3 {
+        font-size: 14px;
+        margin-bottom: 10px;
+        padding-bottom: 6px;
+    }
+    
+    .footer-section h3:after {
+        width: 30px;
+        height: 1.5px;
+    }
+    
+    .footer-section p {
+        font-size: 12px;
+        line-height: 1.5;
+        margin-bottom: 6px;
+    }
+    
+    .footer-section p i {
+        width: 16px;
+        margin-right: 6px;
+    }
+    
+    .footer-links a {
+        font-size: 12px;
+    }
+    
+    .footer-links li {
+        margin-bottom: 6px;
+    }
+}
+
+/* Attribution footer mobile optimization */
+@media (max-width: 768px) {
+    .attribution {
+        position: static;
+        text-align: center;
+        padding: 10px;
+        font-size: 9px;
+        opacity: 0.5;
+    }
+}

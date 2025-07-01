@@ -1,0 +1,319 @@
+/* Mobile First Responsive Design */
+
+/* Extra Small Mobile (320px - 480px) */
+@media (max-width: 480px) {
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+    
+    .navbar {
+        height: 60px;
+        padding: 0 10px;
+    }
+    
+    .logo {
+        font-size: 18px !important;
+    }
+    
+    .page-container {
+        flex-direction: column;
+        margin-top: 70px;
+        width: 95%;
+        padding: 0 10px;
+        gap: 20px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        padding: 20px 15px;
+        margin-right: 0;
+        margin-bottom: 15px;
+        order: 1;
+    }
+    
+    .container {
+        width: 180px;
+        height: 250px;
+    }
+    
+    .overlay, .card {
+        width: 180px;
+        height: 250px;
+    }
+    
+    .name {
+        font-size: 20px;
+        margin-top: 15px;
+    }
+    
+    .social-links {
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .social-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    .theme-toggle {
+        margin-top: 15px;
+    }
+    
+    .mode-text {
+        font-size: 12px;
+    }
+    
+    .main-content {
+        width: 100%;
+        padding: 20px 15px;
+        margin-right: 0;
+        order: 2;
+    }
+    
+    .main-content h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+    
+    .main-content p {
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+    }
+    
+    .btn {
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+    
+    /* Tabs adjustments for mobile */
+    .tabs-wrapper {
+        flex-wrap: nowrap;
+    }
+    
+    .tab-scroll-btn {
+        width: 25px;
+        height: 25px;
+        margin: 0 2px;
+    }
+    
+    .tab-btn {
+        padding: 12px 15px;
+        font-size: 11px;
+        margin: 0 2px;
+    }
+    
+    .tab-content {
+        padding: 15px;
+    }
+    
+    .tab-content h3 {
+        font-size: 18px;
+        margin-bottom: 15px;
+    }
+    
+    .tab-content ul li {
+        margin-bottom: 15px;
+    }
+    
+    .year, .project-date {
+        font-size: 11px;
+        margin-bottom: 5px;
+    }
+    
+    .project-content h4, .conference-details h4, .pub-details h4 {
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    
+    .project-content p, .conference-details p, .pub-details p {
+        font-size: 12px;
+        line-height: 1.5;
+    }
+    
+    .abstract {
+        font-size: 11px;
+        line-height: 1.4;
+        padding: 10px;
+    }
+    
+    /* Footer adjustments */
+    .footer {
+        padding: 20px 10px;
+    }
+    
+    .footer-container {
+        padding: 0 10px;
+    }
+    
+    .footer h3 {
+        font-size: 16px;
+    }
+    
+    .footer p {
+        font-size: 12px;
+    }
+}
+
+/* Small Mobile (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .navbar {
+        height: 65px;
+    }
+    
+    .page-container {
+        flex-direction: column;
+        margin-top: 80px;
+        width: 90%;
+        padding: 0 15px;
+        gap: 25px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        padding: 25px 20px;
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .container {
+        width: 200px;
+        height: 280px;
+    }
+    
+    .overlay, .card {
+        width: 200px;
+        height: 280px;
+    }
+    
+    .name {
+        font-size: 22px;
+    }
+    
+    .social-links {
+        gap: 20px;
+    }
+    
+    .main-content {
+        width: 100%;
+        padding: 25px 20px;
+        margin-right: 0;
+    }
+    
+    .main-content h1 {
+        font-size: 26px;
+    }
+    
+    .main-content p {
+        font-size: 15px;
+        line-height: 1.7;
+    }
+    
+    .tab-btn {
+        padding: 13px 18px;
+        font-size: 12px;
+    }
+    
+    .tab-content {
+        padding: 20px;
+    }
+}
+
+/* Tablet (769px - 1100px) */
+@media (min-width: 769px) and (max-width: 1100px) {
+    .page-container {
+        flex-direction: column;
+        margin-top: 90px;
+        width: 85%;
+        gap: 30px;
+    }
+    
+    .sidebar {
+        width: 100%;
+        max-width: 600px;
+        padding: 30px;
+        margin-right: 0;
+        margin-bottom: 25px;
+        align-self: center;
+    }
+    
+    .main-content {
+        width: 100%;
+        max-width: 800px;
+        padding: 30px;
+        margin-right: 0;
+        align-self: center;
+    }
+    
+    .container {
+        margin: 0 auto;
+    }
+    
+    .social-links {
+        justify-content: center;
+    }
+}
+
+/* Small Desktop (1101px - 1500px) */
+@media (min-width: 1101px) and (max-width: 1500px) {
+    .page-container {
+        padding: 0 30px;
+        gap: 40px;
+    }
+    
+    .main-content {
+        margin-right: 40px;
+    }
+}
+
+/* Large Desktop (1501px+) */
+@media (min-width: 1501px) {
+    .page-container {
+        padding: 0 60px;
+        gap: 50px;
+    }
+    
+    .main-content {
+        margin-right: 80px;
+    }
+}
+
+/* Landscape orientation for mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .page-container {
+        margin-top: 70px;
+    }
+    
+    .sidebar {
+        padding: 15px;
+    }
+    
+    .container {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .overlay, .card {
+        width: 150px;
+        height: 200px;
+    }
+    
+    .name {
+        font-size: 18px;
+        margin-top: 10px;
+    }
+    
+    .social-links {
+        margin-top: 10px;
+        gap: 10px;
+    }
+    
+    .social-icon {
+        width: 30px;
+        height: 30px;
+        font-size: 14px;
+    }
+}

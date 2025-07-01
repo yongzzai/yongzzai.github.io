@@ -1,0 +1,179 @@
+/* Theme Toggle Switch */
+.theme-toggle {
+    margin-top: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+.theme-switch {
+    opacity: 0;
+    position: absolute;
+}
+
+.switch-label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 70px; /* Increased from 60px */
+    height: 35px; /* Increased from 30px */
+    background-color: var(--button-bg);
+    border-radius: 100px;
+    position: relative;
+    transition: background-color 0.3s ease;
+}
+
+.switch-label .dark-icon,
+.switch-label .light-icon {
+    font-size: 16px; /* Increased from 14px */
+    position: absolute;
+    /* Center icons vertically */
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.switch-label .dark-icon {
+    left: 12px; /* Adjusted position */
+    color: #f1c40f; /* Moon color */
+}
+
+.switch-label .light-icon {
+    right: 10px; /* Changed from 12px to 10px to move further right */
+    color: #f39c12; /* Sun color */
+}
+
+.slider {
+    position: absolute;
+    top: 4px; /* Adjusted for new height */
+    left: 4px; /* Adjusted for new height */
+    width: 27px; /* Increased from 24px */
+    height: 27px; /* Increased from 24px */
+    border-radius: 50%;
+    background-color: var(--heading-color);
+    transition: 0.3s;
+}
+
+.theme-switch:checked + .switch-label .slider {
+    transform: translateX(35px); /* Adjusted for new width */
+}
+
+/* Mode text styling */
+.mode-text {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-color);
+    font-family: 'Montserrat', sans-serif;
+    transition: color 0.3s ease;
+}
+
+/* Update text content when light mode is active */
+.theme-switch:checked ~ .mode-text {
+    content: "Light Mode";
+}
+
+body.light-mode .mode-text {
+    content: "Light Mode";
+}
+
+/* Mobile Optimizations for Theme Toggle */
+@media (max-width: 768px) {
+    .theme-toggle {
+        margin-top: 15px;
+        gap: 10px;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .switch-label {
+        width: 65px;
+        height: 32px;
+        touch-action: manipulation; /* Improves touch responsiveness */
+    }
+    
+    .switch-label .dark-icon,
+    .switch-label .light-icon {
+        font-size: 14px;
+    }
+    
+    .switch-label .dark-icon {
+        left: 10px;
+    }
+    
+    .switch-label .light-icon {
+        right: 8px;
+    }
+    
+    .slider {
+        width: 24px;
+        height: 24px;
+        top: 4px;
+        left: 4px;
+    }
+    
+    .theme-switch:checked + .switch-label .slider {
+        transform: translateX(33px);
+    }
+    
+    .mode-text {
+        font-size: 13px;
+        text-align: center;
+        margin-top: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .theme-toggle {
+        margin-top: 12px;
+        gap: 8px;
+    }
+    
+    .switch-label {
+        width: 60px;
+        height: 30px;
+    }
+    
+    .switch-label .dark-icon,
+    .switch-label .light-icon {
+        font-size: 13px;
+    }
+    
+    .switch-label .dark-icon {
+        left: 8px;
+    }
+    
+    .switch-label .light-icon {
+        right: 7px;
+    }
+    
+    .slider {
+        width: 22px;
+        height: 22px;
+        top: 4px;
+        left: 4px;
+    }
+    
+    .theme-switch:checked + .switch-label .slider {
+        transform: translateX(30px);
+    }
+    
+    .mode-text {
+        font-size: 12px;
+    }
+}
+
+/* Improve accessibility for touch devices */
+@media (hover: none) {
+    .switch-label {
+        min-height: 44px; /* Minimum touch target size */
+        min-width: 44px;
+    }
+    
+    .switch-label:active {
+        transform: scale(0.95);
+        transition: transform 0.1s ease;
+    }
+}
