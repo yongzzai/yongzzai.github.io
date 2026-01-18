@@ -1,0 +1,134 @@
+/* Gooey Navigation Styles */
+.gooey-nav-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.gooey-nav-container nav ul {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+}
+
+.gooey-nav-container nav ul li {
+    position: relative;
+}
+
+.gooey-nav-container nav ul li a {
+    display: block;
+    padding: 12px 24px;
+    color: var(--text-color-secondary);
+    text-decoration: none;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 30px;
+    transition: color 0.3s ease;
+    position: relative;
+    z-index: 3;
+}
+
+.gooey-nav-container nav ul li.active a {
+    color: #fff;
+}
+
+.gooey-nav-container nav ul li:hover a {
+    color: var(--heading-color);
+}
+
+/* Effect layers */
+.gooey-nav-container .effect {
+    position: absolute;
+    pointer-events: none;
+    border-radius: 30px;
+    z-index: 1;
+    transition: left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                top 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                width 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+                height 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gooey-nav-container .effect.filter {
+    background: linear-gradient(135deg, rgba(138, 100, 255, 0.9), rgba(88, 50, 200, 0.9));
+    filter: url(#gooey-filter);
+    overflow: visible;
+}
+
+.gooey-nav-container .effect.text {
+    display: none;
+}
+
+/* Particle styles */
+.gooey-nav-container .particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    pointer-events: none;
+    animation: particle-move var(--time, 1200ms) cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.gooey-nav-container .particle .point {
+    display: block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color, white);
+    transform: scale(var(--scale, 1)) rotate(var(--rotate, 0deg));
+    animation: particle-fade var(--time, 1200ms) ease-out forwards;
+}
+
+@keyframes particle-move {
+    0% {
+        transform: translate(var(--start-x, 0), var(--start-y, 0));
+    }
+    100% {
+        transform: translate(var(--end-x, 0), var(--end-y, 0));
+    }
+}
+
+@keyframes particle-fade {
+    0% {
+        opacity: 1;
+        transform: scale(var(--scale, 1)) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) rotate(var(--rotate, 0deg));
+    }
+}
+
+/* Color variables for particles */
+.gooey-nav-container {
+    --color-1: #8a64ff;
+    --color-2: #5832c8;
+    --color-3: #a78bfa;
+    --color-4: #c4b5fd;
+}
+
+/* Light mode adjustments */
+body.light-mode .gooey-nav-container .effect.filter {
+    background: linear-gradient(135deg, rgba(138, 100, 255, 1), rgba(88, 50, 200, 1));
+}
+
+body.light-mode .gooey-nav-container nav ul li a {
+    color: var(--text-color-secondary);
+}
+
+body.light-mode .gooey-nav-container nav ul li.active a,
+body.light-mode .gooey-nav-container nav ul li:hover a {
+    color: var(--heading-color);
+}
+
+/* SVG Filter (hidden) */
+.gooey-svg-filter {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}

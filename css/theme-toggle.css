@@ -1,179 +1,215 @@
-/* Theme Toggle Switch */
+/* Theme Toggle - Pull Chain Light Switch (Fixed Top Right) */
 .theme-toggle {
-    margin-top: 20px;
-    position: relative;
+    position: fixed;
+    top: 0;
+    right: 40px;
+    z-index: 9999;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 15px;
+    justify-content: flex-start;
+    padding-top: 0;
 }
 
 .theme-switch {
     opacity: 0;
     position: absolute;
+    pointer-events: none;
 }
 
+/* Pull Chain Container */
 .switch-label {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
     cursor: pointer;
-    width: 70px; /* Increased from 60px */
-    height: 35px; /* Increased from 30px */
-    background-color: var(--button-bg);
-    border-radius: 100px;
     position: relative;
-    transition: background-color 0.3s ease;
+    padding-top: 0;
 }
 
+/* The chain/rope coming from ceiling */
+.switch-label::before {
+    content: '';
+    width: 3px;
+    height: 80px;
+    background: linear-gradient(
+        to bottom,
+        var(--text-color-secondary) 0%,
+        var(--text-color-secondary) 50%,
+        transparent 50%,
+        transparent 100%
+    );
+    background-size: 3px 10px;
+    position: relative;
+    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* The pull ball/handle */
+.slider {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #ffd700, #daa520);
+    box-shadow: 
+        0 3px 6px rgba(0, 0, 0, 0.3),
+        inset 0 2px 3px rgba(255, 255, 255, 0.4);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+
+.slider::before {
+    content: '';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 12px;
+    background: var(--text-color-secondary);
+    border-radius: 3px;
+}
+
+/* Light bulb icons removed - clean chain only */
 .switch-label .dark-icon,
 .switch-label .light-icon {
-    font-size: 16px; /* Increased from 14px */
-    position: absolute;
-    /* Center icons vertically */
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 1;
+    display: none;
 }
 
-.switch-label .dark-icon {
-    left: 12px; /* Adjusted position */
-    color: #f1c40f; /* Moon color */
+/* Pull animation on hover */
+.switch-label:hover .slider {
+    transform: translateY(12px);
 }
 
-.switch-label .light-icon {
-    right: 10px; /* Changed from 12px to 10px to move further right */
-    color: #f39c12; /* Sun color */
+.switch-label:hover::before {
+    height: 92px;
 }
 
-.slider {
-    position: absolute;
-    top: 4px; /* Adjusted for new height */
-    left: 4px; /* Adjusted for new height */
-    width: 27px; /* Increased from 24px */
-    height: 27px; /* Increased from 24px */
-    border-radius: 50%;
-    background-color: var(--heading-color);
-    transition: 0.3s;
+/* Active/pulling state */
+.switch-label:active .slider {
+    transform: translateY(22px);
+}
+
+.switch-label:active::before {
+    height: 102px;
+}
+
+/* When light mode is ON (chain pulled) */
+.theme-switch:checked + .switch-label .dark-icon {
+    opacity: 0;
+}
+
+.theme-switch:checked + .switch-label .light-icon {
+    opacity: 1;
+    color: #ffdd00;
+    text-shadow: 0 0 15px rgba(255, 221, 0, 1), 0 0 30px rgba(255, 221, 0, 0.6);
+}
+
+.theme-switch:checked + .switch-label:hover .light-icon {
+    opacity: 1;
 }
 
 .theme-switch:checked + .switch-label .slider {
-    transform: translateX(35px); /* Adjusted for new width */
+    background: linear-gradient(145deg, #ffed4a, #f6d365);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.2),
+        0 0 15px rgba(255, 215, 0, 0.4),
+        inset 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-/* Mode text styling */
+/* Mode text - hidden for fixed position */
 .mode-text {
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--text-color);
+    display: none;
+}
+
+/* Pull hint text */
+.pull-hint {
+    position: absolute;
+    right: 45px;
+    top: 75px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-color-secondary);
     font-family: 'Montserrat', sans-serif;
-    transition: color 0.3s ease;
+    opacity: 0.7;
+    white-space: nowrap;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
-/* Update text content when light mode is active */
-.theme-switch:checked ~ .mode-text {
-    content: "Light Mode";
+.theme-toggle:hover .pull-hint {
+    opacity: 0;
 }
 
-body.light-mode .mode-text {
-    content: "Light Mode";
-}
-
-/* Mobile Optimizations for Theme Toggle */
+/* Mobile Optimizations */
 @media (max-width: 768px) {
     .theme-toggle {
-        margin-top: 15px;
-        gap: 10px;
-        flex-direction: row; /* Keep horizontal layout */
-        align-items: center;
-        justify-content: center;
+        right: 20px;
     }
     
-    .switch-label {
-        width: 60px;
-        height: 30px;
-        touch-action: manipulation; /* Improves touch responsiveness */
+    .switch-label::before {
+        height: 50px;
+    }
+    
+    .switch-label:hover::before {
+        height: 60px;
+    }
+    
+    .slider {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .slider::before {
+        width: 6px;
+        height: 8px;
+        top: -8px;
     }
     
     .switch-label .dark-icon,
     .switch-label .light-icon {
-        font-size: 12px;
-    }
-    
-    .switch-label .dark-icon {
-        left: 8px;
-    }
-    
-    .switch-label .light-icon {
-        right: 6px;
-    }
-    
-    .slider {
-        width: 22px;
-        height: 22px;
-        top: 4px;
-        left: 4px;
-    }
-    
-    .theme-switch:checked + .switch-label .slider {
-        transform: translateX(30px);
-    }
-    
-    .mode-text {
-        font-size: 12px;
-        text-align: center;
+        font-size: 14px;
+        top: 28px;
     }
 }
 
 @media (max-width: 480px) {
     .theme-toggle {
-        margin-top: 12px;
-        gap: 8px;
-        flex-direction: row; /* Keep horizontal layout */
+        right: 15px;
     }
     
-    .switch-label {
-        width: 55px;
-        height: 28px;
+    .switch-label::before {
+        height: 40px;
+    }
+    
+    .switch-label:hover::before {
+        height: 50px;
+    }
+    
+    .slider {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .slider::before {
+        width: 5px;
+        height: 6px;
+        top: -6px;
     }
     
     .switch-label .dark-icon,
     .switch-label .light-icon {
-        font-size: 11px;
-    }
-    
-    .switch-label .dark-icon {
-        left: 7px;
-    }
-    
-    .switch-label .light-icon {
-        right: 6px;
-    }
-    
-    .slider {
-        width: 20px;
-        height: 20px;
-        top: 4px;
-        left: 4px;
-    }
-    
-    .theme-switch:checked + .switch-label .slider {
-        transform: translateX(27px);
-    }
-    
-    .mode-text {
-        font-size: 11px;
+        font-size: 12px;
+        top: 22px;
     }
 }
 
 /* Improve accessibility for touch devices */
 @media (hover: none) {
     .theme-toggle {
-        padding: 10px; /* Add padding around the toggle for better touch area */
+        padding: 0;
     }
     
-    .switch-label:active {
-        transform: scale(0.95);
-        transition: transform 0.1s ease;
+    .switch-label:active .slider {
+        transform: translateY(15px);
     }
 }

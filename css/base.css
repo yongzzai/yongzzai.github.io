@@ -1,7 +1,7 @@
 /* Base styles and typography */
 :root {
-    /* Dark Mode (Default) */
-    --bg-color: #464646;
+    /* Dark Mode (Default) - Purple tinted */
+    --bg-color: #1a1625;
     --text-color: #f5f5f5;
     --text-color-secondary: #ddd;
     --card-bg: rgba(255, 255, 255, 0.05);
@@ -13,21 +13,6 @@
     --shadow-color: rgba(0, 0, 0, 0.3);
     --gradient-start: #fff;
     --gradient-end: transparent;
-}
-
-/* Update cursor styles */
-html, body {
-    cursor: url('../assets/cursor.cur'), auto;
-}
-
-/* Change from :active to :hover for interactive elements */
-a:hover, button:hover, 
-input:hover, textarea:hover,
-.tab-btn:hover, .social-icon:hover,
-.btn:hover, .abstract-toggle:hover,
-label:hover, select:hover,
-[role="button"]:hover {
-    cursor: url('../assets/cursor-active.cur'), auto !important;
 }
 
 body.light-mode {
@@ -54,12 +39,6 @@ body {
     flex-direction: column;
     min-height: 100vh;
     background-color: var(--bg-color);
-    background-image: url('../assets/background.png');
-    background-size: 80%; /* Reduce from 95% */
-    background-position: center 25%; /* Move background up slightly */
-    background-repeat: no-repeat; /* Prevent tiling */
-    background-attachment: fixed;
-    background-blend-mode: soft-light; /* Changed from multiply to soft-light for better visibility */
     font-family: 'Poppins', sans-serif;
     color: var(--text-color);
     width: 100%;
@@ -212,7 +191,6 @@ body.light-mode .navbar {
     letter-spacing: 1px;
     padding: 15px 0;
     font-family: 'Montserrat', sans-serif;
-    text-transform: lowercase; /* Makes yongzzai.com lowercase if you prefer that style */
 }
 
 /* Add a subtle animation to the logo */

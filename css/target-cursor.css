@@ -1,0 +1,73 @@
+/* Target Cursor Styles */
+.target-cursor-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 99999;
+    mix-blend-mode: difference;
+}
+
+.target-cursor-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.target-cursor-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 3px solid #fff;
+    box-sizing: border-box;
+}
+
+.corner-tl {
+    border-right: none;
+    border-bottom: none;
+    transform: translate(-18px, -18px);
+}
+
+.corner-tr {
+    border-left: none;
+    border-bottom: none;
+    transform: translate(6px, -18px);
+}
+
+.corner-br {
+    border-left: none;
+    border-top: none;
+    transform: translate(6px, 6px);
+}
+
+.corner-bl {
+    border-right: none;
+    border-top: none;
+    transform: translate(-18px, 6px);
+}
+
+/* Hide default cursor when target cursor is active */
+body.hide-cursor,
+body.hide-cursor * {
+    cursor: none !important;
+}
+
+/* Cursor targets - add this class to elements you want the cursor to frame */
+.cursor-target {
+    /* Elements with this class will be framed by the cursor on hover */
+}
+
+/* Mobile - hide custom cursor */
+@media (max-width: 768px), (hover: none) {
+    .target-cursor-wrapper {
+        display: none !important;
+    }
+    
+    body.hide-cursor,
+    body.hide-cursor * {
+        cursor: auto !important;
+    }
+}

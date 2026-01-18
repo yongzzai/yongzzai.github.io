@@ -1,0 +1,81 @@
+/* Shiny Text Animation */
+.philosophy-line {
+    font-size: 1.1rem;
+    margin: 0 0 20px 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.3em;
+}
+
+.philosophy-label {
+    color: var(--text-color-secondary);
+    font-weight: 400;
+}
+
+.shiny-text {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 1.15em;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+/* Add subtle glow effect */
+.shiny-text-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.shiny-text-wrapper::after {
+    content: attr(data-text);
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 700;
+    font-size: 1.15em;
+    font-style: italic;
+    letter-spacing: 0.02em;
+    color: transparent;
+    filter: blur(8px);
+    opacity: 0.4;
+    background: linear-gradient(90deg, #8a64ff, #a78bfa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Hover effect - brighten the shine */
+.shiny-text:hover {
+    filter: brightness(1.2);
+}
+
+/* Light mode adjustments */
+[data-theme="light"] .shiny-text-wrapper::after {
+    background: linear-gradient(90deg, #6b4ed9, #8a64ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    opacity: 0.3;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .philosophy-line {
+        font-size: 1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.2em;
+    }
+}
+
+@media (max-width: 480px) {
+    .philosophy-line {
+        font-size: 0.9rem;
+    }
+}

@@ -6,7 +6,7 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#464646">
+    <meta name="theme-color" content="#1a1625">
     <title>Yongjae Lee</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,12 +22,28 @@
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/footer.css">
+    <link rel="stylesheet" href="css/gooey-nav.css">
+    <link rel="stylesheet" href="css/text-type.css">
+    <link rel="stylesheet" href="css/target-cursor.css">
+    <link rel="stylesheet" href="css/animated-list.css">
+    <link rel="stylesheet" href="css/tech-stack.css">
+    <link rel="stylesheet" href="css/rotating-text.css">
+    <link rel="stylesheet" href="css/shiny-text.css">
 </head>
 <body>
+    <!-- Pull Chain Light Toggle - Fixed Top Right -->
+    <div class="theme-toggle">
+        <span class="pull-hint">Pull! →</span>
+        <input type="checkbox" id="theme-switch" class="theme-switch">
+        <label for="theme-switch" class="switch-label">
+            <span class="slider round"></span>
+        </label>
+    </div>
+
     <!-- Add navbar at the top of the page -->
     <div class="navbar">
         <div class="nav-container">
-            <div class="logo">yongzzai.com</div>
+            <div class="logo">Be Progressive but Realistic</div>
         </div>
     </div>
     
@@ -42,267 +58,76 @@
             <h2 class="name">Yongjae Lee</h2>
             
             <div class="social-links">
-                <a href="https://www.linkedin.com/in/yongjae-lee-93b935312/" target="_blank" class="social-icon">
+                <a href="https://www.linkedin.com/in/yongjae-lee-93b935312/" target="_blank" class="social-icon cursor-target">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a href="https://www.researchgate.net/profile/Yongjae-Lee-14?ev=hdr_xprf" target="_blank" class="social-icon researchgate">
+                <a href="https://www.researchgate.net/profile/Yongjae-Lee-14?ev=hdr_xprf" target="_blank" class="social-icon researchgate cursor-target">
                     <i class="fab fa-researchgate"></i>
                 </a>
-                <a href="https://github.com/yongzzai" target="_blank" class="social-icon">
+                <a href="https://github.com/yongzzai" target="_blank" class="social-icon cursor-target">
                     <i class="fab fa-github"></i>
                 </a>
-                <a href="https://scholar.google.com/citations?user=YxFIm0AAAAAJ" target="_blank" class="social-icon google-scholar">
+                <a href="https://scholar.google.com/citations?user=YxFIm0AAAAAJ" target="_blank" class="social-icon google-scholar cursor-target">
                     <i class="fas fa-graduation-cap"></i>
                 </a>
-            </div>
-            
-            <div class="theme-toggle">
-                <input type="checkbox" id="theme-switch" class="theme-switch">
-                <label for="theme-switch" class="switch-label">
-                    <i class="fas fa-moon dark-icon"></i>
-                    <i class="fas fa-sun light-icon"></i>
-                    <span class="slider round"></span>
-                </label>
-                <span class="mode-text"> ← Dark Mode</span>
             </div>
         </div>
         
         <!-- Main Content Area -->
         <div class="main-content">
-            <h1>Biography</h1>
-            <p>Welcome to yongzzai.com!<br> 
+            <div class="text-type" id="text-type">
+                <span class="text-type__content"></span><span class="text-type__cursor">|</span>
+            </div>
+            <p>
                 I'm Yongjae Lee, a Master's candidate in Industrial Data Science & Engineering.
                 "yongzzai" is my chinese nickname I've been using since my high school years in Shenzhen, China.
-                My research focuses on Business Process Management, Process Mining, and Graph Data Science.
-                I primarily explore methods—such as Graph Representation Learning and Graph Databases—to analyze business processes.
-                My research philosophy, "Be progressive but realistic," drives me 
-                to continuously seek practical innovations that bridge academic insights with real-world applications.
             </p>
             
-            <a class="btn btn-outline-primary btn-page-header" href="assets/cv.pdf" target="_blank" rel="noopener">
+            <p class="interest-line">
+                My Core Research Areas are in&nbsp;
+                <span class="rotating-text" id="rotating-text">
+                    <span class="rotating-text__word"></span>
+                </span>
+            </p>
+                        
+            <a class="btn btn-outline-primary btn-page-header cursor-target" href="assets/cv.pdf" target="_blank" rel="noopener">
                 <i class="fas fa-file-pdf"></i> About Lee
             </a>
             
-            <!-- Tabs Section -->
+            <!-- Tabs Section with Gooey Nav -->
             <div class="tabs-container">
-                <div class="tabs-wrapper">
-                    <button class="tab-scroll-btn tab-scroll-left" aria-label="Scroll tabs left">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="tabs">
-                        <button class="tab-btn active" data-tab="tech">Tech Stack</button>
-                        <button class="tab-btn" data-tab="projects">Project</button>
-                        <button class="tab-btn" data-tab="conference">Conference</button>
-                        <button class="tab-btn" data-tab="publication">Publication</button>
-                        <button class="tab-btn" data-tab="teaching">Teaching</button>
-                    </div>
-                    <button class="tab-scroll-btn tab-scroll-right" aria-label="Scroll tabs right">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
+                <!-- SVG Filter for Gooey Effect -->
+                <svg class="gooey-svg-filter">
+                    <defs>
+                        <filter id="gooey-filter">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+                            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -10" result="goo" />
+                            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+                        </filter>
+                    </defs>
+                </svg>
+                
+                <div class="gooey-nav-container">
+                    <nav>
+                        <ul>
+                            <li class="active cursor-target" data-tab="tech"><a href="#">Tech Stack</a></li>
+                            <li class="cursor-target" data-tab="projects"><a href="#">Project</a></li>
+                            <li class="cursor-target" data-tab="conference"><a href="#">Conference</a></li>
+                            <li class="cursor-target" data-tab="publication"><a href="#">Publication</a></li>
+                            <li class="cursor-target" data-tab="teaching"><a href="#">Teaching</a></li>
+                        </ul>
+                    </nav>
+                    <span class="effect filter"></span>
+                    <span class="effect text"></span>
                 </div>
                 
                 <div class="tab-content">
-                    <!-- Teaching Experience Content -->
-                    <div class="tab-pane" id="teaching">
-                        <h3>Teaching Experience</h3>
-                        <ul>
-                            <li>
-                                <span class="year">2025.06<br>- 2025.07</span>
-                                <div class="details">
-                                    <h4>Teaching Assistant</h4>
-                                    <p>LG Electronics Term Project Guidance<br>
-                                    [A RAG-based Customer Claim Analysis System with Interface for LGE.]</p>
-                                </div>
-                            </li>
-
-                            <li>
-                                <span class="year">2025.06</span>
-                                <div class="details">
-                                    <h4>Teaching and Practicum Assistant</h4>
-                                    <p>Object-Centric Process Mining Classroom Training for LG Electronics (supported by Celonis)</p>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="year">2024.06</span>
-                                <div class="details">
-                                    <h4>Teaching and Practicum Assistant</h4>
-                                    <p>Process Mining Classroom Training for LG Electronics</p>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="year">2024.03<br>- 2024.07</span>
-                                <div class="details">
-                                    <h4>Teaching and Practicum Assistant</h4>
-                                    <p>Data Structure and Algorithms (undergraduate course)</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Projects Content -->
-                    <div class="tab-pane" id="projects">
-                        <h3>Projects</h3>
-                        <ul class="project-list">
-                            <li class="project-item">
-                                <span class="project-date">2023.02<br>- 2026.02</span>
-                                <div class="project-content">
-                                    <h4>A Study on eXplainable Process Learning (XPL) Methodology based on Artificial Intelligence</h4>
-                                    <p>XPL aims to develop an AI-based explainable process mining methodology to create an automation
-                                        tool capable of process monitoring, detection, analysis, and improvement.</p>
-                                </div>
-                            </li>
-                            <li class="project-item">
-                                <span class="project-date">2024.02<br>- 2026.02</span>
-                                <div class="project-content">
-                                    <h4>Development of Process Mining and AI-based Affectionate Intelligence Technology for 
-                                        Customer-Specific Behavior Modeling (with LG Electronics)</h4>
-                                    <p>This project aims to develop a methodology for managing the customer's product usage process from a process perspective. This project
-                                        also seeks to create technology that enables the analysis and management of customer behavior while reflecting their preferences.</p>
-                                </div>
-                            </li>
-                            <li class="project-item">
-                                <span class="project-date">2023.06<br>- 2025.02</span>
-                                <div class="project-content">
-                                    <h4>Human Centered – Carbon Neutral Global Supply Chain Research Center</h4>
-                                    <p>This project aims to secure core technologies for building an ecosystem that prioritizes safety and environmental sustainability across 
-                                        an integrated supply chain—spanning maritime, port, and land transport. These support informed decision-making to enhance the resilience and recovery capacity of the logistics system.</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <!-- Conference Proceeding Content -->
-                    <div class="tab-pane" id="conference">
-                        <h3>Conference</h3>
-                        <ul class="conference-list">
-                            <li>
-                                <span class="year">2025.11<br>KIIE<br>presenter</span>
-                                <div class="conference-details">
-                                    <h4>DHiM: A Dual-Modality Hierarchical Network for Multi-Perspective Business Process Anomaly Detection</h4>
-                                    <p><em>Korean Institute of Industrial Engineers, Daejeon</em></p>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="year">2025.09<br>BPM2025<br>Main Track<br>presenter</span>
-                                <div class="conference-details">
-                                    <h4>Multi-task trained Graph Neural Network for Business Process Anomaly Detection with a Limited Number of Labeled Anomalies</h4>
-                                    <p><em>23rd International Conference on Business Process Management, Seville</em></p>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="year">2025.07<br>ICPR28<br>presenter</span>
-                                <div class="conference-details">
-                                    <h4>Process-Aware Prediction of Procurement Lead Time for Shipyard Delay Mitigation</h4>
-                                    <p><em>International Conference on Production Research 2025, Bogota</em></p>
-                                </div>
-                            </li>
-                            <li>
-                                <span class="year">2023.09<br>LOGMS2023<br>presenter</span>
-                                <div class="conference-details">
-                                    <h4>Import Container Dwell Time: Analysis of Determinant Factors with Explainable Artificial Intelligence</h4>
-                                    <p><em>The 11th International Conference on Logistics and Maritime Systems, Busan</em></p>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Publication Content -->
-                    <div class="tab-pane" id="publication">
-                        <h3>Publication</h3>
-                        <ul class="publication-list">
-                            
-                            <li>
-                                <span class="year">2025.08</span>
-                                <div class="pub-details">
-                                    <h4>Multi-task Trained Graph Neural Network for Business Process Anomaly Detection with a Limited Number of Labeled Anomalies</h4>
-                                    <p><em>Lecture Notes in Computer Science, 16044, pp 361-378</em></p>
-                                    <p><strong class="underline">Lee, Y.</strong>, Kim, D., Kim, D., & Bae, H.</p>
-                                    <p class="abstract-toggle"><a href="javascript:void(0)">Show Abstract</a></p>
-                                    <div class="abstract">
-                                        Anomaly detection in business processes is crucial to prevent erroneous organizational decision-making. 
-                                        Existing anomaly detection methods often assume access to a clean event log without anomalies, a scenario 
-                                        that is impractical in the real world. To solve this problem, MuGAD is proposed, a novel framework that 
-                                        detects anomalies in scenarios where only a limited number of labeled anomalies are available. 
-                                        By converting traces into a newly designed graph structure, the framework captures the control flow, 
-                                        order of events, and attribute information, facilitating the effective use of graph neural networks. 
-                                        Furthermore, MuGAD uses a two-stage training procedure designed to (1) reduce the risks posed by unlabeled traces and 
-                                        (2) enable the detection of anomalous traces and events. Comparative experiments are conducted on five real-life event 
-                                        logs to validate our proposed framework. The experimental results indicate that MuGAD outperforms the existing methods 
-                                        and provides better detection accuracy along with better interpretability in terms of F1-score.
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <span class="year">2024.12</span>
-                                <div class="pub-details">
-                                    <h4>Identifying Key factors influencing Import Container Dwell time using eXplainable Artificial Intelligence</h4>
-                                    <p><em>Maritime Transport Research, 7, 100116</em></p>
-                                    <p><strong class="underline">Lee, Y.</strong>, Park, K., Lee, H., Son, J., Kim, S., & Bae, H.</p>
-                                    <p class="abstract-toggle"><a href="javascript:void(0)">Show Abstract</a></p>
-                                    <div class="abstract">In a container terminal, the length of time that containers remain in the yard, known as Container Dwell Time (CDT),
-                                         is considered one of the significant operational indicators due to its direct correlation with terminal productivity and efficiency. 
-                                         However, due to complex processing procedure and the involvement of various logistics stakeholders, CDT is subject to high uncertainty, 
-                                         making it more difficult for the terminal to manage. To address this issue, this paper presents a comprehensive framework to identify 
-                                         the Key Factors (KFs) influencing prolongation of CDT for import containers. In order to elucidate abnormal cases from dataset which 
-                                         contains yard loading information, the Process Mining (PM) method is utilized. Subsequently, XAI has been utilized to identify the KFs 
-                                         of import CDT. To reflect reality as closely as possible, we collected event data from a container terminal in Busan, Korea. Based on experiments,
-                                          the KFs thus identified were: 1) Temperature, 2) Weight of container, 3) Voyage number of container 4) Block, 5) Shipping company, 
-                                          and 6) Month of discharging. To conclude, we formulated domain knowledge-based interpretations of the six most influential KFs.
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <span class="year">2024.08</span>
-                                <div class="pub-details">
-                                    <h4>Predictive Process Monitoring for Remaining Time Prediction with Transfer Learning</h4>
-                                    <p><em>ICIC Express Letters, 18(8), 851-858</em></p>
-                                    <p>Nur, I.A., Mustafa, K.I., Hanif, R.M., Kim, D., <strong class="underline">Lee, Y.</strong>, & Bae, H.</p>
-                                    <p class="abstract-toggle"><a href="javascript:void(0)">Show Abstract</a></p>
-                                    <div class="abstract">Recent advancements in predictive process monitoring (PPM) have led to an
-                                        improved performance by incorporating deep learning methodologies. However, some of
-                                        these approaches employ a massive parameter architecture that requires a large dataset for
-                                        training, posing challenges in many business process management scenarios. This study
-                                        presents a transformer-based model with transfer learning for estimating remaining time
-                                        prediction. We aim to improve the efficiency of business process management by accurately predicting the remaining time of a process. Additionally, we assessed the feasibility
-                                        and transferability of the transfer learning method to enhance the performance of predictive process monitoring. We conducted experiments on four publicly available event logs.
-                                        Our proposed architecture outperforms prior work, with a significant 53% improvement
-                                        over the best baseline in the Helpdesk dataset. Additionally, the use of transfer learning
-                                        leads to both positive and negative performance outcomes, depending on characteristics
-                                        of the source and target process model.</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    
-                    <!-- Tech Stack Content -->
-                    <div class="tab-pane active" id="tech">
-                        <h3>Tech Stack</h3>
-                        
-                        <p><strong>Programming Languages</strong><br>
-                            <img src="https://img.shields.io/badge/Python-1C69B9?style=flat&logo=Python&logoColor=white"/>
-                            <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black"/>
-                        </p>
-                        <p><strong>Framework</strong><br>
-                            <img src="https://img.shields.io/badge/PyTorch-B7150F?style=flat&logo=PyTorch&logoColor=white"/>
-                            <img src="https://img.shields.io/badge/FastAPI-009688?flat&logo=fastapi&logoColor=white"/>
-                        </p>
-                        <p><strong>Markup</strong><br>
-                            <img src="https://img.shields.io/badge/HTML-E34F26?style=flat&logo=html5&logoColor=white"/>
-                            <img src="https://img.shields.io/badge/CSS-1572B6?flat&logo=css3&logoColor=white"/>
-                            <img src="https://img.shields.io/badge/LaTeX-919191?style=flat&logo=latex&logoColor=white"/>
-                        </p>
-                        <p><strong>Database</strong><br> 
-                            <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=mysql&logoColor=white"/>
-                            <img src="https://img.shields.io/badge/PostgreSQL-4169E1?flat&logo=postgresql&logoColor=white"/>
-                            <img src="https://img.shields.io/badge/Neo4j-008CC1?style=flat&logo=neo4j&logoColor=white"/>
-                        </p>
-                        <p><strong>Simulation</strong><br> 
-                            <img src="https://img.shields.io/badge/Plant%20Simulation%20(Siemens)-gray?style=flat"/>
-                        </p>
-                        
-                    </div>
+                    <!-- Content loaded dynamically from /content/ folder -->
+                    <div class="tab-pane active" id="tech"></div>
+                    <div class="tab-pane" id="teaching"></div>
+                    <div class="tab-pane" id="projects"></div>
+                    <div class="tab-pane" id="conference"></div>
+                    <div class="tab-pane" id="publication"></div>
                 </div>
             </div>
         </div>
@@ -324,7 +149,13 @@
         <a href="https://kr.lovepik.com/images/png-line.html" target="_blank" rel="noopener">Png vectors by Lovepik.com</a>
     </div>
     
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="js/script.js"></script>
+    <script src="js/target-cursor.js"></script>
+    <script src="js/animated-list.js"></script>
+    <script src="js/rotating-text.js"></script>
+    <script src="js/shiny-text.js"></script>
 </body>
 </html>
 

@@ -1,0 +1,47 @@
+/* Text Typing Animation Styles */
+.text-type {
+    display: inline-block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--heading-color);
+    margin-bottom: 20px;
+}
+
+.text-type__content {
+    display: inline;
+}
+
+.text-type__cursor {
+    display: inline-block;
+    margin-left: 2px;
+    font-weight: 400;
+    color: var(--heading-color);
+    animation: blink 1s ease-in-out infinite;
+}
+
+.text-type__cursor--hidden {
+    opacity: 0;
+}
+
+@keyframes blink {
+    0%, 50% {
+        opacity: 1;
+    }
+    51%, 100% {
+        opacity: 0;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .text-type {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .text-type {
+        font-size: 1.2rem;
+    }
+}

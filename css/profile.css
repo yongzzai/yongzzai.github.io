@@ -121,9 +121,12 @@
     background-color: rgba(70, 70, 70, 0.3);
     border-radius: 16px;
     backdrop-filter: blur(5px);
-    display: flex; /* Add this */
-    flex-direction: column; /* Add this */
-    align-items: center; /* Add this to center all children horizontally */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: fit-content;
+    position: sticky;
+    top: 100px;
 }
 
 .name {
@@ -147,4 +150,41 @@
     background: linear-gradient(90deg, transparent, var(--heading-color), transparent);
     bottom: -10px;
     left: 30%;
+}
+
+/* Sidebar Tech Stack */
+.sidebar-tech-stack {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    width: 100%;
+    text-align: center;
+}
+
+.sidebar-tech-stack h4 {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--heading-color);
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar-tech-stack p {
+    font-size: 13px;
+    margin-bottom: 12px;
+    color: var(--text-color-secondary);
+}
+
+.sidebar-tech-stack strong {
+    display: block;
+    margin-bottom: 6px;
+    color: var(--text-color);
+    font-size: 12px;
+}
+
+.sidebar-tech-stack img {
+    margin: 2px;
+    height: 20px;
 }
