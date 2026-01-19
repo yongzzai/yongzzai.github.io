@@ -1,0 +1,45 @@
+/* Antigravity Background Styles */
+#antigravity-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+#antigravity-bg canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Ensure the background doesn't interfere with scrolling */
+body {
+    overflow-x: hidden;
+}
+
+/* Optional: Add a subtle fade effect at edges */
+#antigravity-bg::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        transparent 50%,
+        var(--bg-color) 100%
+    );
+    opacity: 0.3;
+}
+
+/* Light mode adjustments - particles will still be visible */
+body.light-mode #antigravity-bg::after {
+    opacity: 0.4;
+}
