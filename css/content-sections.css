@@ -31,6 +31,23 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Light mode border adjustments */
+body.light-mode .tab-pane li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .tab-pane li:last-child {
+    border-bottom: none;
+}
+
+body.light-mode .tab-pane li:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .tab-pane li:last-child:hover {
+    border-bottom: none;
+}
+
 .tab-pane li:last-child {
     border-bottom: none;
     padding-bottom: 0;
@@ -99,6 +116,23 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
+/* Light mode border adjustments for projects */
+body.light-mode .project-item {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .project-item:last-child {
+    border-bottom: none;
+}
+
+body.light-mode .project-item:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .project-item:last-child:hover {
+    border-bottom: none;
+}
+
 .project-item:last-child {
     border-bottom: none;
     padding-bottom: 0;
@@ -160,6 +194,27 @@
     background-color: transparent;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Light mode border adjustments for publication and conference */
+body.light-mode .publication-list li,
+body.light-mode .conference-list li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .publication-list li:last-child,
+body.light-mode .conference-list li:last-child {
+    border-bottom: none;
+}
+
+body.light-mode .publication-list li:hover,
+body.light-mode .conference-list li:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+body.light-mode .publication-list li:last-child:hover,
+body.light-mode .conference-list li:last-child:hover {
+    border-bottom: none;
 }
 
 .publication-list li:last-child,
