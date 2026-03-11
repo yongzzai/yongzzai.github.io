@@ -16,7 +16,8 @@ const PillNav = ({
   pillTextColor,
   hoverCircleColor,
   onMobileMenuClick,
-  initialLoadAnimation = true
+  initialLoadAnimation = true,
+  fullWidth = false,
 }) => {
   const resolvedPillTextColor = pillTextColor ?? baseColor;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -29,6 +30,8 @@ const PillNav = ({
   const mobileMenuRef = useRef(null);
   const navItemsRef = useRef(null);
   const logoRef = useRef(null);
+
+  const hasLogo = !!(logo || logoComponent);
 
   useEffect(() => {
     const layout = () => {
@@ -53,12 +56,6 @@ const PillNav = ({
           transformOrigin: `50% ${originY}px`
         });
 
-        const label = pill.querySelector('.pill-label');
-        const white = pill.querySelector('.pill-label-hover');
-
-        if (label) gsap.set(label, { y: 0 });
-        if (white) gsap.set(white, { y: h + 12, opacity: 0 });
-
         const index = circleRefs.current.indexOf(circle);
         if (index === -1) return;
 
@@ -66,15 +63,6 @@ const PillNav = ({
         const tl = gsap.timeline({ paused: true });
 
         tl.to(circle, { scale: 1.2, xPercent: -50, duration: 2, ease, overwrite: 'auto' }, 0);
-
-        if (label) {
-          tl.to(label, { y: -(h + 8), duration: 2, ease, overwrite: 'auto' }, 0);
-        }
-
-        if (white) {
-          gsap.set(white, { y: Math.ceil(h + 100), opacity: 0 });
-          tl.to(white, { y: 0, opacity: 1, duration: 2, ease, overwrite: 'auto' }, 0);
-        }
 
         tlRefs.current[index] = tl;
       });
@@ -100,20 +88,12 @@ const PillNav = ({
 
       if (logoEl) {
         gsap.set(logoEl, { scale: 0 });
-        gsap.to(logoEl, {
-          scale: 1,
-          duration: 0.6,
-          ease
-        });
+        gsap.to(logoEl, { scale: 1, duration: 0.6, ease });
       }
 
       if (navItems) {
         gsap.set(navItems, { width: 0, overflow: 'hidden' });
-        gsap.to(navItems, {
-          width: 'auto',
-          duration: 0.6,
-          ease
-        });
+        gsap.to(navItems, { width: 'auto', duration: 0.6, ease });
       }
     }
 
@@ -178,41 +158,23 @@ const PillNav = ({
         gsap.set(menu, { visibility: 'visible' });
         gsap.fromTo(
           menu,
-          { opacity: 0, y: 10, scaleY: 1 },
-          {
-            opacity: 1,
-            y: 0,
-            scaleY: 1,
-            duration: 0.3,
-            ease,
-            transformOrigin: 'top center'
-          }
+          { opacity: 0, y: 10 },
+          { opacity: 1, y: 0, duration: 0.3, ease, transformOrigin: 'top center' }
         );
       } else {
         gsap.to(menu, {
           opacity: 0,
           y: 10,
-          scaleY: 1,
           duration: 0.2,
           ease,
           transformOrigin: 'top center',
-          onComplete: () => {
-            gsap.set(menu, { visibility: 'hidden' });
-          }
+          onComplete: () => gsap.set(menu, { visibility: 'hidden' }),
         });
       }
     }
 
     onMobileMenuClick?.();
   };
-
-  const isExternalLink = href =>
-    href.startsWith('http://') ||
-    href.startsWith('https://') ||
-    href.startsWith('//') ||
-    href.startsWith('mailto:') ||
-    href.startsWith('tel:') ||
-    href.startsWith('#');
 
   const cssVars = {
     ['--base']: baseColor,
@@ -222,23 +184,38 @@ const PillNav = ({
     ...(hoverCircleColor && { ['--hover-circle']: hoverCircleColor }),
   };
 
-  return (
-    <div className="pill-nav-container">
-      <nav className={`pill-nav ${className}`} aria-label="Primary" style={cssVars}>
-        <a
-          className="pill-logo"
-          href="#"
-          aria-label="Home"
-          onMouseEnter={handleLogoEnter}
-          ref={el => { logoRef.current = el; }}
-        >
-          {logoComponent
-            ? <span ref={logoImgRef}>{logoComponent}</span>
-            : <img src={logo} alt={logoAlt} ref={logoImgRef} />
-          }
-        </a>
+  const containerClass = `pill-nav-container${fullWidth ? ' is-full-width' : ''}`;
 
+  return (
+    <div className={containerClass}>
+      <nav className={`pill-nav ${className}`} aria-label="Primary" style={cssVars}>
+        {/* Mobile-only logo (only if logo provided) */}
+        {hasLogo && (
+          <a className="pill-logo mobile-only" href="#" aria-label="Home">
+            {logoComponent
+              ? <span>{logoComponent}</span>
+              : <img src={logo} alt={logoAlt} />
+            }
+          </a>
+        )}
+
+        {/* Desktop: glass pill container */}
         <div className="pill-nav-items desktop-only" ref={navItemsRef}>
+          {hasLogo && (
+            <a
+              className="pill-logo"
+              href="#"
+              aria-label="Home"
+              onMouseEnter={handleLogoEnter}
+              ref={el => { logoRef.current = el; }}
+            >
+              {logoComponent
+                ? <span ref={logoImgRef}>{logoComponent}</span>
+                : <img src={logo} alt={logoAlt} ref={logoImgRef} />
+              }
+            </a>
+          )}
+
           <ul className="pill-list" role="menubar">
             {items.map((item, i) => (
               <li key={item.href || `item-${i}`} role="none">
@@ -255,12 +232,7 @@ const PillNav = ({
                     aria-hidden="true"
                     ref={el => { circleRefs.current[i] = el; }}
                   />
-                  <span className="label-stack">
-                    <span className="pill-label">{item.label}</span>
-                    <span className="pill-label-hover" aria-hidden="true">
-                      {item.label}
-                    </span>
-                  </span>
+                  <span className="pill-label">{item.label}</span>
                 </a>
               </li>
             ))}

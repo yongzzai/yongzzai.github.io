@@ -1,6 +1,9 @@
 import { FaHome } from 'react-icons/fa'
+import { useRef } from 'react'
+import { gsap } from 'gsap'
 import PillNav from './ui/PillNav'
 import TextType from './ui/TextType'
+import GlassSurface from './ui/GlassSurface'
 
 const navItems = [
   { label: 'Projects', href: '#research' },
@@ -9,11 +12,20 @@ const navItems = [
   { label: 'Teaching', href: '#teaching' },
 ]
 
-const HomeIcon = () => (
-  <FaHome size={18} color="#ffffff" />
-)
-
 export function Navbar() {
+  const logoRef = useRef(null)
+  const logoTweenRef = useRef(null)
+
+  const handleLogoEnter = () => {
+    logoTweenRef.current?.kill()
+    gsap.set(logoRef.current, { rotate: 0 })
+    logoTweenRef.current = gsap.to(logoRef.current, {
+      rotate: 360,
+      duration: 0.25,
+      ease: 'power2.easeOut',
+    })
+  }
+
   return (
     <header
       style={{
@@ -31,37 +43,66 @@ export function Navbar() {
         style={{
           width: '100%',
           maxWidth: '64rem',
-          padding: '0 1.5rem',
+          padding: '1em 1.5rem 0',
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'flex-start',
+          alignItems: 'center',
+          gap: '10px',
           pointerEvents: 'none',
         }}
       >
-        <div style={{ pointerEvents: 'auto', paddingTop: '1em' }}>
-          <TextType
-            text={['Welcome to yongzzai.com!', 'Good to See You!']}
-            loop={true}
-            typingSpeed={60}
-            deletingSpeed={40}
-            pauseDuration={1500}
-            showCursor={true}
-            cursorCharacter="|"
-            style={{ fontSize: '1.25rem', fontWeight: 600, color: '#1a1a1a', lineHeight: 1.4 }}
-          />
+        {/* Left: GlassSurface pill with typing text */}
+        <div style={{ flex: 1, pointerEvents: 'auto' }}>
+          <GlassSurface width="100%" height={42} borderRadius={21}>
+            <div style={{ paddingLeft: '20px', paddingRight: '20px', width: '100%' }}>
+              <TextType
+                text={['Welcome to yongzzai.com!', 'Good to See You!']}
+                loop={true}
+                typingSpeed={60}
+                deletingSpeed={40}
+                pauseDuration={1500}
+                showCursor={true}
+                cursorCharacter="|"
+                style={{ fontSize: '0.95rem', fontWeight: 600, color: '#1a1a1a', lineHeight: 1, whiteSpace: 'nowrap' }}
+              />
+            </div>
+          </GlassSurface>
         </div>
-        <div style={{ pointerEvents: 'auto' }}>
-          <PillNav
-          logoComponent={<HomeIcon />}
-          items={navItems}
-          ease="power2.easeOut"
-          baseColor="#555555"
-          pillColor="#1a1a1a"
-          hoveredPillTextColor="#ffffff"
-          pillTextColor="#ffffff"
-          hoverCircleColor="#3b5bdb"
-          initialLoadAnimation={false}
-          />
+
+        {/* Center: GlassSurface home button */}
+        <div style={{ pointerEvents: 'auto', flexShrink: 0 }}>
+          <GlassSurface width={42} height={42} borderRadius={21}>
+            <a
+              href="#"
+              ref={logoRef}
+              onMouseEnter={handleLogoEnter}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                width: '100%',
+                height: '100%',
+                textDecoration: 'none',
+              }}
+            >
+              <FaHome size={18} color="#1a1a1a" />
+            </a>
+          </GlassSurface>
+        </div>
+
+        {/* Right: GlassSurface pill nav */}
+        <div style={{ flex: 1, pointerEvents: 'auto' }}>
+          <GlassSurface width="100%" height={42} borderRadius={21}>
+            <PillNav
+              items={navItems}
+              ease="power2.easeOut"
+              pillColor="rgba(0, 0, 0, 0.07)"
+              hoveredPillTextColor="#1a1a1a"
+              pillTextColor="#1a1a1a"
+              hoverCircleColor="rgba(0, 0, 0, 0.1)"
+              initialLoadAnimation={false}
+              fullWidth={true}
+            />
+          </GlassSurface>
         </div>
       </div>
     </header>

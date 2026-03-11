@@ -27,7 +27,11 @@
     width: 100%;
     justify-content: space-between;
     padding: 0 0.75rem;
-    background: var(--base, #2d2d2d);
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.2);
     border-radius: 9999px;
   }
 }
@@ -36,9 +40,43 @@
   position: relative;
   display: flex;
   align-items: center;
-  height: var(--nav-h);
-  background: var(--base, #000);
+  height: 100%;
+  width: 100%;
   border-radius: 9999px;
+}
+
+/* Ensure flex is maintained when desktop-only class is applied */
+.pill-nav-items.desktop-only {
+  display: flex;
+}
+
+/* Logo inside the glass pill container */
+.pill-nav-items > .pill-logo {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+/* Full-width mode for symmetric layout */
+.pill-nav-container.is-full-width {
+  width: 100%;
+  height: 100%;
+  margin-top: 0;
+}
+
+.pill-nav-container.is-full-width .pill-nav {
+  width: 100%;
+  height: 100%;
+}
+
+.pill-nav-container.is-full-width .pill-nav-items {
+  width: 100%;
+  height: 100%;
+}
+
+.pill-nav-container.is-full-width .pill-list {
+  width: 100%;
+  height: 100%;
+  justify-content: center;
 }
 
 .pill-logo {
@@ -51,8 +89,20 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  margin-right: 6px;
   transition: background 0.25s ease;
+  flex-shrink: 0;
+}
+
+/* Mobile-only logo override */
+.pill-logo.mobile-only {
+  display: none;
+  margin-right: 0;
+}
+
+@media (max-width: 900px) {
+  .pill-logo.mobile-only {
+    display: inline-flex;
+  }
 }
 
 .pill-logo:hover {
@@ -207,9 +257,12 @@
   top: 4em;
   left: 1rem;
   right: 1rem;
-  background: var(--base, #f0f0f0);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   border-radius: 27px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
   z-index: 998;
   opacity: 0;
   transform-origin: top center;
