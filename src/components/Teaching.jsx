@@ -14,7 +14,7 @@ export function Teaching() {
       <ul className="space-y-4">
         {teaching.map((item, i) => (
           <BlurFade key={i} delay={i * 0.08}>
-            <li className="grid grid-cols-[8rem_1fr] gap-6 border-b border-border pb-4 last:border-0">
+            <li className="grid grid-cols-1 sm:grid-cols-[8rem_1fr] gap-1 sm:gap-6 border-b border-border pb-4 last:border-0">
               <span className="font-mono text-xs text-mono pt-1 leading-snug">{item.period}</span>
               <div className="space-y-1">
                 <h3 className="text-sm font-semibold text-ink">{item.role}</h3>

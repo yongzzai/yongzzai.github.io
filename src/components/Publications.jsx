@@ -15,7 +15,7 @@ export function Publications() {
       <ol className="space-y-4">
         {publications.map((pub, i) => (
           <BlurFade key={i} delay={i * 0.08}>
-            <li className="grid grid-cols-[5rem_1fr] gap-6 border-b border-border pb-4 last:border-0">
+            <li className="grid grid-cols-1 sm:grid-cols-[5rem_1fr] gap-1 sm:gap-6 border-b border-border pb-4 last:border-0">
               <span className="font-mono text-xs text-mono pt-1 leading-snug">{pub.year}</span>
               <div className="space-y-1">
                 <h3 className="text-sm font-semibold text-ink leading-snug">{pub.title}</h3>

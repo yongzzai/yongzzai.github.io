@@ -15,7 +15,7 @@ export function Conferences() {
       <ol className="space-y-4">
         {conferences.map((conf, i) => (
           <BlurFade key={i} delay={i * 0.08}>
-            <li className="grid grid-cols-[5rem_1fr] gap-6 border-b border-border pb-4 last:border-0">
+            <li className="grid grid-cols-1 sm:grid-cols-[5rem_1fr] gap-1 sm:gap-6 border-b border-border pb-4 last:border-0">
               <div className="font-mono text-xs text-mono pt-1 leading-snug whitespace-pre-line">
                 {conf.year}{'\n'}{conf.venue_short}
               </div>

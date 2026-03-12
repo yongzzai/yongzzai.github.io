@@ -174,15 +174,15 @@ export function Hero() {
     <section className="relative min-h-screen flex flex-col justify-start max-w-5xl mx-auto px-6 pt-28">
       <div className="grid md:grid-cols-[1fr_auto] gap-12 items-start">
         {/* Left: text */}
-        <div className="flex flex-col justify-between" style={{ minHeight: 370 }}>
+        <div className="flex flex-col justify-between md:min-h-[370px]">
           <div>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold text-ink leading-tight mb-5">
               <SplitText text="Yongjae Lee" delay={0.08} />
             </h1>
 
-            <motion.div className="flex items-center gap-2 text-lg font-light mb-6" {...fadeUp(0.55)}>
+            <motion.div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-base sm:text-lg font-light mb-6" {...fadeUp(0.55)}>
               <span className="text-ink font-medium">Associate Research Engineer</span>
-              <span className="text-muted">·</span>
+              <span className="text-muted hidden sm:inline">·</span>
               <span className="text-muted">Studying</span>
               <RotatingText
                 texts={['Process Intelligence', 'Data Science']}
