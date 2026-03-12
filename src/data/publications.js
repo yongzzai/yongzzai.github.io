@@ -1,6 +1,6 @@
 export const publications = [
   {
-    year: '2026.02',
+    year: 'In Press',
     title: 'Process-Aware Procurement Lead Time Prediction for Shipyard Delay Mitigation',
     venue: 'ArXiv Preprint, arXiv:2601.19296',
     authors: 'Lee, Y., Park, E., Park, D., Kim, D., Choi, J., & Bae, H.',
@@ -13,9 +13,9 @@ export const publications = [
     highlight: true,
   },
   {
-    year: 'In Press',
+    year: '2025.12',
     title: 'JustDense: Just using Dense instead of Sequence Mixer for Time Series Analysis',
-    venue: 'In Proceedings of 2025 IEEE International Conference on Big Data (IEEE BigData 2025)',
+    venue: 'In Proceedings of the 2025 IEEE International Conference on Big Data (IEEE BigData 2025)',
     authors: 'Park, T., Lee, Y. (co-first), Park, D., Kim, D., & Bae, H.',
     highlight: true,
   },
