@@ -270,12 +270,12 @@ export function Hero() {
               { image: '/assets/special/Rome.jpg', text: 'Rome' },
               { image: '/assets/special/Toledo.jpg', text: 'Toledo' },
               { image: '/assets/special/Granada.jpg', text: 'Granada' },
-              { image: '/assets/special/Granada2.jpg', text: 'Granada' },
               { image: '/assets/special/Jeju.jpg', text: 'Jeju' },
               { image: '/assets/special/Seoul.jpg', text: 'Seoul' },
               { image: '/assets/special/Army.JPG', text: 'Military' },
               { image: '/assets/special/BPM Conference.jpg', text: 'BPM2025' },
               { image: '/assets/special/ICPR Conference.JPG', text: 'ICPR28' },
+              { image: '/assets/special/LOGMS2023.jpg', text: 'LOGMS2023' },
               { image: '/assets/special/Graduation (BSc).jpg', text: 'B.Sc.' },
               { image: '/assets/special/Graduation(MSc).JPG', text: 'M.Sc.' },
             ]}
