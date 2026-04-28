@@ -5,9 +5,6 @@ export function Publications() {
   return (
     <section id="publications" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
-        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
-          02 — Publications
-        </p>
         <h2 className="text-3xl font-semibold text-ink mb-2">Publications</h2>
         <p className="text-xs text-muted mb-12">* Excluding Korean Publications</p>
       </BlurFade>

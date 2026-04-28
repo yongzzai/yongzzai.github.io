@@ -5,9 +5,6 @@ export function Teaching() {
   return (
     <section id="teaching" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
-        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
-          04 — Teaching
-        </p>
         <h2 className="text-3xl font-semibold text-ink mb-12">Teaching</h2>
       </BlurFade>
 

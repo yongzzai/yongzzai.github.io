@@ -5,9 +5,6 @@ export function Conferences() {
   return (
     <section id="conferences" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
-        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
-          03 — Conferences
-        </p>
         <h2 className="text-3xl font-semibold text-ink mb-2">Conference Presentations</h2>
         <p className="text-xs text-muted mb-12">* First-author and presenter only</p>
       </BlurFade>

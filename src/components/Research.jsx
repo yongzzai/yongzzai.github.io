@@ -6,9 +6,6 @@ export function Research() {
   return (
     <section id="research" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
-        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
-          01 — Projects
-        </p>
         <h2 className="text-3xl font-semibold text-ink mb-12">Projects</h2>
       </BlurFade>
 

@@ -262,22 +262,22 @@ export function Hero() {
         <div style={{ height: '280px' }}>
           <CircularGallery
             items={[
-              { image: '/assets/special/Daejeon.JPG', text: 'Daejeon' },
-              { image: '/assets/special/Shanghai.JPG', text: 'Shanghai' },
-              { image: '/assets/special/Hongkong.JPG', text: 'Hong Kong' },
-              { image: '/assets/special/Lijiang.JPG', text: 'Lijiang' },
-              { image: '/assets/special/Bogota.JPG', text: 'Bogotá' },
-              { image: '/assets/special/Rome.jpg', text: 'Rome' },
-              { image: '/assets/special/Toledo.jpg', text: 'Toledo' },
-              { image: '/assets/special/Granada.jpg', text: 'Granada' },
-              { image: '/assets/special/Jeju.jpg', text: 'Jeju' },
-              { image: '/assets/special/Seoul.jpg', text: 'Seoul' },
-              { image: '/assets/special/Army.JPG', text: 'Military' },
-              { image: '/assets/special/BPM Conference.jpg', text: 'BPM2025' },
-              { image: '/assets/special/ICPR Conference.JPG', text: 'ICPR28' },
-              { image: '/assets/special/LOGMS2023.jpg', text: 'LOGMS2023' },
-              { image: '/assets/special/Graduation (BSc).jpg', text: 'B.Sc.' },
-              { image: '/assets/special/Graduation(MSc).JPG', text: 'M.Sc.' },
+              { image: '/assets/special/Daejeon.webp', text: 'Daejeon' },
+              { image: '/assets/special/Shanghai.webp', text: 'Shanghai' },
+              { image: '/assets/special/Hongkong.webp', text: 'Hong Kong' },
+              { image: '/assets/special/Lijiang.webp', text: 'Lijiang' },
+              { image: '/assets/special/Bogota.webp', text: 'Bogotá' },
+              { image: '/assets/special/Rome.webp', text: 'Rome' },
+              { image: '/assets/special/Toledo.webp', text: 'Toledo' },
+              { image: '/assets/special/Granada.webp', text: 'Granada' },
+              { image: '/assets/special/Jeju.webp', text: 'Jeju' },
+              { image: '/assets/special/Seoul.webp', text: 'Seoul' },
+              { image: '/assets/special/Army.webp', text: 'Military' },
+              { image: '/assets/special/BPM Conference.webp', text: 'BPM2025' },
+              { image: '/assets/special/ICPR Conference.webp', text: 'ICPR28' },
+              { image: '/assets/special/LOGMS2023.webp', text: 'LOGMS2023' },
+              { image: '/assets/special/Graduation (BSc).webp', text: 'B.Sc.' },
+              { image: '/assets/special/Graduation(MSc).webp', text: 'M.Sc.' },
             ]}
             bend={3}
             textColor="#1a1a1a"
