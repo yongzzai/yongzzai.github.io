@@ -1,9 +1,17 @@
 export const publications = [
   {
-    year: 'In Press',
+    year: '2026.05',
+    title: 'LoopUS: Recasting Pretrained LLMs into Looped Latent Refinement Models',
+    venue: 'ArXiv Preprint, arXiv:2605.11011',
+    authors: 'Park, T., Lee, Y., Kim, D., & Bae, H.',
+    highlight: true,
+  },  
+  {
+    year: '2026.05',
     title: 'Process-Aware Procurement Lead Time Prediction for Shipyard Delay Mitigation',
-    venue: 'ArXiv Preprint, arXiv:2601.19296',
+    venue: 'In Proceedings of the 28th International Conference on Production Research 2025 (ICPR28)',
     authors: 'Lee, Y., Park, E., Park, D., Kim, D., Choi, J., & Bae, H.',
+    highlight: true,
   },
   {
     year: '2026.02',
@@ -22,7 +30,7 @@ export const publications = [
   {
     year: '2025.08',
     title: 'Multi-task Trained Graph Neural Network for Business Process Anomaly Detection with a Limited Number of Labeled Anomalies',
-    venue: 'Lecture Notes in Computer Science, 16044, pp 361–378',
+    venue: 'In Proceedings of the International Conference on Business Process Management (BPM2025)',
     authors: 'Lee, Y., Kim, D., Kim, D., & Bae, H.',
     highlight: true,
   },

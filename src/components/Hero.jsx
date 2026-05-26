@@ -270,6 +270,7 @@ export function Hero() {
               { image: '/assets/special/Rome.webp', text: 'Rome' },
               { image: '/assets/special/Toledo.webp', text: 'Toledo' },
               { image: '/assets/special/Granada.webp', text: 'Granada' },
+              { image: '/assets/special/Osaka.webp', text: 'Osaka' },
               { image: '/assets/special/Jeju.webp', text: 'Jeju' },
               { image: '/assets/special/Seoul.webp', text: 'Seoul' },
               { image: '/assets/special/Army.webp', text: 'Military' },
