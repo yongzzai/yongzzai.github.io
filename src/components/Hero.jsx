@@ -181,7 +181,7 @@ export function Hero() {
             </h1>
 
             <motion.div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-base sm:text-lg font-light mb-6" {...fadeUp(0.55)}>
-              <span className="text-ink font-medium">Ph.D. Student</span>
+              <span className="text-ink font-medium">Scientific Assistant (Ph.D. Student)</span>
               <span className="text-muted hidden sm:inline">·</span>
               <span className="text-muted">Studying</span>
               <RotatingText
@@ -194,29 +194,29 @@ export function Hero() {
               <div className="flex items-start gap-2 text-sm">
                 <span className="text-highlight text-lg mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-medium">Scientific Assistant<span className="text-muted font-normal">(2026.08 ~)</span></div>
-                  <div className="text-muted">Hasso Plattner Institute (Potsdam University), Potsdam</div>
+                  <div className="text-body font-medium">Scientific Assistant (Ph.D. Student) <span className="text-muted font-normal">(2026.08 ~)</span></div>
+                  <div className="text-muted">Hasso Plattner Institute (Potsdam University), Potsdam, Germany</div>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-sm">
                 <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
                 <div>
                   <div className="text-body font-medium">Associate Research Engineer <span className="text-muted font-normal">(2026.03 ~ 2026.06)</span></div>
-                  <div className="text-muted">Industrial Artificial Intelligence Research Institute, Busan</div>
+                  <div className="text-muted">Industrial Artificial Intelligence Research Institute, Busan, South Korea</div>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-sm">
                 <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
                 <div>
                   <div className="text-body font-medium">M.Sc. in Industrial Data Science &amp; Engineering <span className="text-muted font-normal">(2024.03 ~ 2026.02)</span></div>
-                  <div className="text-muted">Pusan National University, Busan</div>
+                  <div className="text-muted">Pusan National University, Busan, South Korea</div>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-sm">
                 <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
                 <div>
                   <div className="text-body font-medium">B.Sc. in Industrial Engineering <span className="text-muted font-normal">(2018.03 ~ 2024.02)</span></div>
-                  <div className="text-muted">Pusan National University, Busan</div>
+                  <div className="text-muted">Pusan National University, Busan, South Korea</div>
                 </div>
               </div>
             </motion.div>
