@@ -1,8 +1,8 @@
 export const projects = [
   {
     period: '2024.02 – 2026.06',
-    title: 'Development of Personalized Smart Driving Logic Using Process Mining',
-    description: 'Industry collaboration with LG Electronics: process mining and AI-based technology for customer-specific behavior modeling using product usage log',
+    title: 'Development of Personalized Smart Driving Logic Using Process Mining (Funded by LG Electronics)',
+    description: 'Process mining and AI-based technology for customer-specific behavior modeling using product usage log',
     tags: ['Process Mining', 'LG Electronics', 'Customer Behavior'],
   },
   {
