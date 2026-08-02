@@ -286,6 +286,9 @@ export function Hero() {
               { image: '/assets/special/LOGMS2023.webp', text: 'LOGMS2023' },
               { image: '/assets/special/Graduation (BSc).webp', text: 'B.Sc.' },
               { image: '/assets/special/Graduation(MSc).webp', text: 'M.Sc.' },
+              { image: '/assets/special/Berlin.webp', text: 'Berlin' },
+              { image: '/assets/special/Prague.webp', text: 'Prague' },
+              { image: '/assets/special/Dresden.webp', text: 'Dresden' },
             ]}
             bend={3}
             textColor="#1a1a1a"
