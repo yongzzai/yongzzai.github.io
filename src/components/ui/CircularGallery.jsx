@@ -45,7 +45,7 @@ function createTextTexture(gl, text, font = 'bold 30px monospace', color = 'blac
 }
 
 class Title {
-  constructor({ gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif' }) {
+  constructor({ gl, plane, renderer, text, textColor = '#545050', font = '30px sans-serif', placement = 'above', scale = 0.15 }) {
     autoBind(this)
     this.gl = gl
     this.plane = plane
@@ -53,6 +53,8 @@ class Title {
     this.text = text
     this.textColor = textColor
     this.font = font
+    this.placement = placement
+    this.scale = scale
     this.createMesh()
   }
   createMesh() {
@@ -85,16 +87,17 @@ class Title {
     })
     this.mesh = new Mesh(this.gl, { geometry, program })
     const aspect = width / height
-    const textHeight = this.plane.scale.y * 0.15
+    const textHeight = this.plane.scale.y * this.scale
     const textWidth = textHeight * aspect
     this.mesh.scale.set(textWidth, textHeight, 1)
-    this.mesh.position.y = this.plane.scale.y * 0.5 + textHeight * 0.5 + 0.05
+    const offset = this.plane.scale.y * 0.5 + textHeight * 0.5 + 0.05
+    this.mesh.position.y = this.placement === 'below' ? -offset : offset
     this.mesh.setParent(this.plane)
   }
 }
 
 class Media {
-  constructor({ geometry, gl, image, index, length, renderer, scene, screen, text, viewport, bend, textColor, borderRadius = 0, font }) {
+  constructor({ geometry, gl, image, index, length, renderer, scene, screen, text, caption, viewport, bend, textColor, captionColor, borderRadius = 0, font, captionFont, captionScale }) {
     this.extra = 0
     this.geometry = geometry
     this.gl = gl
@@ -105,11 +108,15 @@ class Media {
     this.scene = scene
     this.screen = screen
     this.text = text
+    this.caption = caption
     this.viewport = viewport
     this.bend = bend
     this.textColor = textColor
+    this.captionColor = captionColor
     this.borderRadius = borderRadius
     this.font = font
+    this.captionFont = captionFont
+    this.captionScale = captionScale
     this.createShader()
     this.createMesh()
     this.createTitle()
@@ -196,6 +203,18 @@ class Media {
       textColor: this.textColor,
       font: this.font,
     })
+    if (this.caption) {
+      this.captionTitle = new Title({
+        gl: this.gl,
+        plane: this.plane,
+        renderer: this.renderer,
+        text: this.caption,
+        textColor: this.captionColor,
+        font: this.captionFont,
+        placement: 'below',
+        scale: this.captionScale,
+      })
+    }
   }
   update(scroll, direction) {
     this.plane.position.x = this.x - scroll.current - this.extra
@@ -253,7 +272,7 @@ class Media {
 }
 
 class App {
-  constructor(container, { items, bend, textColor = '#ffffff', borderRadius = 0, font = 'bold 30px Figtree', scrollSpeed = 2, scrollEase = 0.05, autoPlay = 0.4 } = {}) {
+  constructor(container, { items, bend, textColor = '#ffffff', captionColor, borderRadius = 0, font = 'bold 30px Figtree', captionFont, captionScale, scrollSpeed = 2, scrollEase = 0.05, autoPlay = 0.4 } = {}) {
     this.container = container
     this.scrollSpeed = scrollSpeed
     this.autoPlay = autoPlay
@@ -266,7 +285,7 @@ class App {
     this.createScene()
     this.onResize()
     this.createGeometry()
-    this.createMedias(items, bend, textColor, borderRadius, font)
+    this.createMedias(items, bend, textColor, borderRadius, font, captionColor, captionFont, captionScale)
     this.update()
     this.addEventListeners()
   }
@@ -287,7 +306,7 @@ class App {
   createGeometry() {
     this.planeGeometry = new Plane(this.gl, { heightSegments: 50, widthSegments: 100 })
   }
-  createMedias(items, bend = 1, textColor, borderRadius, font) {
+  createMedias(items, bend = 1, textColor, borderRadius, font, captionColor, captionFont, captionScale) {
     this.mediasImages = [...items, ...items]
     this.medias = this.mediasImages.map((data, index) => new Media({
       geometry: this.planeGeometry,
@@ -299,11 +318,15 @@ class App {
       scene: this.scene,
       screen: this.screen,
       text: data.text,
+      caption: data.caption,
       viewport: this.viewport,
       bend,
       textColor,
+      captionColor,
       borderRadius,
       font,
+      captionFont,
+      captionScale,
     }))
   }
   onTouchDown(e) {
@@ -406,14 +429,22 @@ export default function CircularGallery({
   items,
   bend = 3,
   textColor = '#ffffff',
+  captionColor = '#7a7a7a',
   borderRadius = 0.05,
   font = 'bold 30px sans-serif',
+  captionFont = '22px sans-serif',
+  // On-screen caption height as a fraction of the photo height. This — not the
+  // px in `captionFont` — is what sizes the caption; the font px only sets the
+  // resolution of the texture it's rasterised into.
+  captionScale = 0.16,
   scrollSpeed = 2,
   scrollEase = 0.05,
 }) {
   const containerRef = useRef(null)
   useEffect(() => {
-    const app = new App(containerRef.current, { items, bend, textColor, borderRadius, font, scrollSpeed, scrollEase })
+    const app = new App(containerRef.current, {
+      items, bend, textColor, captionColor, borderRadius, font, captionFont, captionScale, scrollSpeed, scrollEase,
+    })
     return () => { app.destroy() }
   }, [])
   return <div className="circular-gallery" ref={containerRef} />

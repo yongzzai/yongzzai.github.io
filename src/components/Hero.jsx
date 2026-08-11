@@ -181,30 +181,32 @@ export function Hero() {
             </h1>
 
             <motion.div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-base sm:text-lg font-light mb-6" {...fadeUp(0.55)}>
-              <span className="text-ink font-medium">Scientific Assistant (Ph.D. Student)</span>
+              <span className="text-ink font-medium">Ph.D. Student</span>
               <span className="text-muted hidden sm:inline">·</span>
-              <span className="text-muted">Studying</span>
-              <RotatingText
-                texts={['Process Intelligence', 'Artificial Intelligence', 'Data Systems']}
-                className="text-highlight font-medium"
-              />
+              <span className="flex items-center gap-x-2 text-sm sm:text-base">
+                <span className="text-muted">Studying</span>
+                <RotatingText
+                  texts={['Business Process Management', 'Process-Aware Agentic Systems', 'Deep Learning for BPM']}
+                  className="text-highlight font-medium"
+                />
+              </span>
             </motion.div>
 
             <motion.div className="flex flex-col gap-3 mb-4" {...fadeUp(0.7)}>
               <div className="flex items-start gap-2 text-sm">
                 <span className="text-highlight text-lg mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-medium">Scientific Assistant (Ph.D. Student) <span className="text-muted font-normal">(2026.08 ~)</span></div>
-                  <div className="text-muted">Hasso Plattner Institute (Potsdam University), Potsdam, Germany</div>
+                  <div className="text-body font-medium">Ph.D. in Computer Science <span className="text-muted font-normal">(2026.08 ~ Present)</span></div>
+                  <div className="text-muted">Hasso Plattner Institute (Universität Potsdam), Potsdam, Germany</div>
                 </div>
               </div>
-              <div className="flex items-start gap-2 text-sm">
+              {/* <div className="flex items-start gap-2 text-sm">
                 <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
                 <div>
                   <div className="text-body font-medium">Associate Research Engineer <span className="text-muted font-normal">(2026.03 ~ 2026.06)</span></div>
                   <div className="text-muted">Industrial Artificial Intelligence Research Institute, Busan, South Korea</div>
                 </div>
-              </div>
+              </div> */}
               <div className="flex items-start gap-2 text-sm">
                 <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
                 <div>
@@ -239,8 +241,10 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
         >
-          <div className="relative rounded-2xl overflow-hidden" style={{ width: 260, height: 370 }}>
-            <LetterGlitch />
+          {/* The glitch field spills past this box via `spread` so it can be large
+              without widening the column and squeezing the bio text. */}
+          <div className="relative" style={{ width: 260, height: 370 }}>
+            <LetterGlitch spread={80} />
             <div className="absolute inset-0 flex items-center justify-center">
               <HoloCard />
             </div>
@@ -269,26 +273,28 @@ export function Hero() {
         <div style={{ height: '280px' }}>
           <CircularGallery
             items={[
-              { image: '/assets/special/Daejeon.webp', text: 'Daejeon' },
-              { image: '/assets/special/Shanghai.webp', text: 'Shanghai' },
-              { image: '/assets/special/Hongkong.webp', text: 'Hong Kong' },
-              { image: '/assets/special/Lijiang.webp', text: 'Lijiang' },
-              { image: '/assets/special/Bogota.webp', text: 'Bogotá' },
-              { image: '/assets/special/Rome.webp', text: 'Rome' },
-              { image: '/assets/special/Toledo.webp', text: 'Toledo' },
-              { image: '/assets/special/Granada.webp', text: 'Granada' },
-              { image: '/assets/special/Osaka.webp', text: 'Osaka' },
-              { image: '/assets/special/Jeju.webp', text: 'Jeju' },
-              { image: '/assets/special/Seoul.webp', text: 'Seoul' },
-              { image: '/assets/special/Army.webp', text: 'Military' },
-              { image: '/assets/special/BPM Conference.webp', text: 'BPM2025' },
-              { image: '/assets/special/ICPR Conference.webp', text: 'ICPR28' },
-              { image: '/assets/special/LOGMS2023.webp', text: 'LOGMS2023' },
-              { image: '/assets/special/Graduation (BSc).webp', text: 'B.Sc.' },
-              { image: '/assets/special/Graduation(MSc).webp', text: 'M.Sc.' },
-              { image: '/assets/special/Berlin.webp', text: 'Berlin' },
-              { image: '/assets/special/Prague.webp', text: 'Prague' },
-              { image: '/assets/special/Dresden.webp', text: 'Dresden' },
+              { image: '/assets/special/Daejeon.webp', text: 'Daejeon', caption: 'born and raised'},
+              { image: '/assets/special/Shanghai.webp', text: 'Shanghai', caption: 'with my brother'},
+              { image: '/assets/special/Hongkong.webp', text: 'Hong Kong', caption: 'with city lights'},
+              { image: '/assets/special/Lijiang.webp', text: 'Lijiang', caption: 'with my dad' },
+              { image: '/assets/special/Bogota.webp', text: 'Bogotá', caption: 'with traditional clothes' },
+              { image: '/assets/special/Rome.webp', text: 'Rome', caption: "in St. Peter's Basilica" },
+              { image: '/assets/special/(Hala) Madrid.webp', text: 'Madrid', caption: 'Hala Madrid!!' },
+              { image: '/assets/special/Paris.webp', text: 'Paris', caption: "Ici c'est Paris!!" },
+              { image: '/assets/special/Toledo.webp', text: 'Toledo', caption: 'with Prof. Bae' },
+              { image: '/assets/special/Granada.webp', text: 'Granada', caption: 'photo by Dohee 👍' },
+              { image: '/assets/special/Osaka.webp', text: 'Osaka', caption: 'photo by my mom' },
+              { image: '/assets/special/Jeju.webp', text: 'Jeju', caption: 'with my colleagues' },
+              { image: '/assets/special/Seoul.webp', text: 'Seoul', caption: 'photo by Younghoon' },
+              { image: '/assets/special/Army.webp', text: 'Military', caption: 'with Seungjoon' },
+              { image: '/assets/special/BPM Conference.webp', text: 'BPM2025', caption: 'with BPM community' },
+              { image: '/assets/special/ICPR Conference.webp', text: 'ICPR28', caption: 'photo by Eunhee' },
+              { image: '/assets/special/LOGMS2023.webp', text: 'LOGMS2023', caption: 'first conference' },
+              { image: '/assets/special/Graduation (BSc).webp', text: 'B.Sc.', caption: 'become a graduate' },
+              { image: '/assets/special/Graduation(MSc).webp', text: 'M.Sc.', caption: 'become a researcher' },
+              { image: '/assets/special/Berlin.webp', text: 'Berlin', caption: 'come to study' },
+              { image: '/assets/special/Prague.webp', text: 'Prague', caption: 'with my brother' },
+              { image: '/assets/special/Dresden.webp', text: 'Dresden', caption: 'watch world cup' },
             ]}
             bend={3}
             textColor="#1a1a1a"

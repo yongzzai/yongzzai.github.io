@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react'
 
-const GLITCH_COLORS = ['#2b4539', '#61dca3', '#61b3dc']
+// Kept in the original green/teal/blue family, but dark enough to read against
+// the light page background now that the panel fades into it.
+const GLITCH_COLORS = ['#2b4539', '#2f8f63', '#2a6f96']
 const CHARACTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$&*()-_+=/[]{};:<>.,0123456789'
 const CHAR_WIDTH = 10
 const CHAR_HEIGHT = 20
@@ -22,7 +24,7 @@ const chars = Array.from(CHARACTERS)
 const randChar = () => chars[Math.floor(Math.random() * chars.length)]
 const randColor = () => GLITCH_COLORS[Math.floor(Math.random() * GLITCH_COLORS.length)]
 
-export function LetterGlitch({ className = '' }) {
+export function LetterGlitch({ className = '', fadeColor = '#f9f8f6', spread = 0 }) {
   const canvasRef = useRef(null)
 
   useEffect(() => {
@@ -117,15 +119,27 @@ export function LetterGlitch({ className = '' }) {
       clearTimeout(resizeTimer)
       window.removeEventListener('resize', onResize)
     }
-  }, [])
+  }, [spread])
 
+  // Fade the letters out into the page background instead of into black, so the
+  // panel has no visible edge — only the characters appear to move. Interpolate
+  // between explicit rgba stops of the same colour; going from the `transparent`
+  // keyword would blend through rgba(0,0,0,0) and grey out the midpoint.
+  const fade = hexToRgb(fadeColor) || { r: 249, g: 248, b: 246 }
+  const rgba = (a) => `rgba(${fade.r},${fade.g},${fade.b},${a})`
+
+  // A `farthest-corner` ellipse reaches 100% at the corners, so the midpoint of
+  // each edge only sits at ~71% of the gradient. Reaching full page colour by
+  // 72% is what guarantees the panel has no visible edge anywhere, not just at
+  // the corners.
   return (
-    <div className={`absolute inset-0 overflow-hidden ${className}`}>
+    <div className={`absolute pointer-events-none ${className}`} style={{ inset: -spread }}>
       <canvas ref={canvasRef} className="w-full h-full" />
-      {/* outer vignette */}
       <div
-        className="absolute inset-0 pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.6) 100%)' }}
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(ellipse at center, ${rgba(0)} 40%, ${rgba(0.55)} 56%, ${rgba(1)} 70%)`,
+        }}
       />
     </div>
   )
