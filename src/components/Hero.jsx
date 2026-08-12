@@ -290,6 +290,7 @@ export function Hero() {
               { image: '/assets/special/BPM Conference.webp', text: 'BPM2025', caption: 'with BPM community' },
               { image: '/assets/special/ICPR Conference.webp', text: 'ICPR28', caption: 'photo by Eunhee' },
               { image: '/assets/special/LOGMS2023.webp', text: 'LOGMS2023', caption: 'first conference' },
+              { image: '/assets/special/macao.webp', text: 'Macao', caption: "Taekhyun's presentation" },
               { image: '/assets/special/Graduation (BSc).webp', text: 'B.Sc.', caption: 'become a graduate' },
               { image: '/assets/special/Graduation(MSc).webp', text: 'M.Sc.', caption: 'become a researcher' },
               { image: '/assets/special/Berlin.webp', text: 'Berlin', caption: 'come to study' },
