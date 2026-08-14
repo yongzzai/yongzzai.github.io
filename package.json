@@ -8,6 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "sync:pubs": "node scripts/fetch-scholar.mjs",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
   },

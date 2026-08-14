@@ -5,7 +5,6 @@ import { Hero } from './components/Hero'
 import { Research } from './components/Research'
 import { Publications } from './components/Publications'
 import { Conferences } from './components/Conferences'
-import { Teaching } from './components/Teaching'
 import { Footer } from './components/Footer'
 
 export default function App() {
@@ -32,7 +31,6 @@ export default function App() {
         <Research />
         <Publications />
         <Conferences />
-        <Teaching />
         <Footer />
       </main>
     </div>

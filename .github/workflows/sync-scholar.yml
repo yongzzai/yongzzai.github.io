@@ -1,0 +1,50 @@
+name: Sync Google Scholar
+
+on:
+  schedule:
+    # 1st and 15th at 03:00 UTC (12:00 KST). Cron has no "every 2 weeks", so
+    # twice a month is the closest stable approximation.
+    - cron: '0 3 1,15 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Scholar has no API and sometimes CAPTCHAs datacenter IPs. The committed
+      # JSON stays valid in that case, so a failed run just skips a cycle.
+      - name: Fetch from Google Scholar
+        run: npm run sync:pubs
+
+      - name: Open PR if publications changed
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: chore/sync-scholar
+          commit-message: 'chore: sync publications from Google Scholar'
+          title: 'chore: sync publications from Google Scholar'
+          body: |
+            Automated biweekly sync of `src/data/publications.generated.json`.
+
+            Review the diff before merging:
+            - **New paper?** It shows up with Scholar's raw title/venue. Add an
+              entry to `src/data/publications.overrides.js` to tidy the venue
+              string, or `hidden: true` for Korean-language work.
+            - **Unexpected change?** Scholar occasionally revises titles or dates
+              on existing records. Pin the value in the overrides file.
+
+            Merging this triggers the usual Pages deploy.
+          add-paths: src/data/publications.generated.json
+          delete-branch: true

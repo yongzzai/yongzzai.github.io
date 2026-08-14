@@ -1,0 +1,92 @@
+[
+  {
+    "id": "YxFIm0AAAAAJ:qUcmZB5y_30C",
+    "title": "LoopUS: Recasting Pretrained LLMs into Looped Latent Refinement Models",
+    "authors": "Park, T., Lee, Y., Kim, D., & Bae, H.",
+    "venue": "arXiv preprint arXiv:2605.11011",
+    "year": "2026.05",
+    "sortKey": "2026-05-10",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:qUcmZB5y_30C"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:HDshCWvjkbEC",
+    "title": "Process-Aware Procurement Lead Time Prediction for Shipyard Delay Mitigation",
+    "authors": "Lee, Y., Park, E., Park, D., Kim, D., Choi, J., & Bae, H.",
+    "venue": "Sustainable Systems in an Internetworked Digital World: Proceedings of the 28th International Conference on Production Research 2025, 3",
+    "year": "2026.05",
+    "sortKey": "2026-05-00",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:HDshCWvjkbEC"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:blknAaTinKkC",
+    "title": "Hybrid Temporal Autoencoder and Similarity Matching for Low Aggregation Level Long Time Series Forecasting",
+    "authors": "Park, H., Sim, S., Park, K., Lee, Y., Park, E., & Bae, H.",
+    "venue": "Journal of Forecasting",
+    "year": "2026",
+    "sortKey": "2026-00-00",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:blknAaTinKkC"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:W7OEmFMy1HYC",
+    "title": "JustDense: Just using Dense instead of Sequence Mixer for Time Series analysis",
+    "authors": "Park, T., Lee, Y., Park, D., Kim, D., & Bae, H.",
+    "venue": "2025 IEEE International Conference on Big Data (BigData), 1172-1184",
+    "year": "2025.12",
+    "sortKey": "2025-12-08",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:W7OEmFMy1HYC"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:dhFuZR0502QC",
+    "title": "DHiM: A Dual-Modality Hierarchical Network for Multi-Perspective Business Process Anomaly Detection",
+    "authors": "이용재, 배혜림",
+    "venue": "대한산업공학회 추계학술대회 논문집, 3544-3556",
+    "year": "2025.11",
+    "sortKey": "2025-11-00",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:dhFuZR0502QC"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:JV2RwH3_ST0C",
+    "title": "Rewarding Structural Conformance of Reasoning using Process Mining",
+    "authors": "Lee, Y., Park, T., Sim, S., & Bae, H.",
+    "venue": "arXiv preprint arXiv:2510.25065",
+    "year": "2025.10",
+    "sortKey": "2025-10-29",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:JV2RwH3_ST0C"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:YsMSGLbcyi4C",
+    "title": "Multi-task trained graph neural network for business process anomaly detection with a limited number of Labeled anomalies",
+    "authors": "Lee, Y., Kim, D., Kim, D., & Bae, H.",
+    "venue": "International Conference on Business Process Management, 361-378",
+    "year": "2025.08",
+    "sortKey": "2025-08-31",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:YsMSGLbcyi4C"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:9yKSN-GCB0IC",
+    "title": "Identifying key factors influencing import container dwell time using eXplainable Artificial Intelligence",
+    "authors": "Lee, Y., Park, K., Lee, H., Son, J., Kim, S., & Bae, H.",
+    "venue": "Maritime Transport Research, 7, 100116",
+    "year": "2024.12",
+    "sortKey": "2024-12-01",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:9yKSN-GCB0IC"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:u5HHmVD_uO8C",
+    "title": "Predictive process monitoring for remaining time prediction with transfer learning",
+    "authors": "Iman, A.N., Kamal, I.M., Ramadhan, M.H., Kim, D., Lee, Y., & Bae, H.",
+    "venue": "ICIC Exp. Lett., 18(8), 851-858",
+    "year": "2024.08",
+    "sortKey": "2024-08-00",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:u5HHmVD_uO8C"
+  },
+  {
+    "id": "YxFIm0AAAAAJ:LkGwnXOMwfcC",
+    "title": "화물의 특성 및 적재 공간을 고려한 LCL 화물 적재 알고리즘",
+    "authors": "박대산, 조상민, 박동윤, 이용재, 김도희, 배혜림",
+    "venue": "지능정보연구, 29(4), 375-393",
+    "year": "2023.12",
+    "sortKey": "2023-12-00",
+    "scholarUrl": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=YxFIm0AAAAAJ&citation_for_view=YxFIm0AAAAAJ:LkGwnXOMwfcC"
+  }
+]

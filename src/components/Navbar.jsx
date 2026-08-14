@@ -9,7 +9,6 @@ const navItems = [
   { label: 'Projects', href: '#research' },
   { label: 'Publications', href: '#publications' },
   { label: 'Conferences', href: '#conferences' },
-  { label: 'Teaching', href: '#teaching' },
 ]
 
 export function Navbar() {
