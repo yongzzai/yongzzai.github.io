@@ -286,6 +286,7 @@ class App {
     this.onResize()
     this.createGeometry()
     this.createMedias(items, bend, textColor, borderRadius, font, captionColor, captionFont, captionScale)
+    this.startMidStrip()
     this.update()
     this.addEventListeners()
   }
@@ -305,6 +306,22 @@ class App {
   }
   createGeometry() {
     this.planeGeometry = new Plane(this.gl, { heightSegments: 50, widthSegments: 100 })
+  }
+  // Medias are laid out from index 0 rightwards (x = width * index), so a
+  // scroll of 0 puts the first item dead centre and leaves the whole left half
+  // of the viewport empty -- the arc looks cropped until autoplay drifts far
+  // enough for the wrap-around to backfill it. The strip is two copies of the
+  // items, so starting at the seam shows an identical frame with items already
+  // present on both sides. It is also an exact multiple of the item width, so
+  // onCheck's snapping stays aligned.
+  startMidStrip() {
+    const media = this.medias?.[0]
+    if (!media?.width) return
+    const start = media.width * (this.medias.length / 2)
+    this.scroll.current = start
+    this.scroll.target = start
+    this.scroll.last = start
+    this.scroll.position = start
   }
   createMedias(items, bend = 1, textColor, borderRadius, font, captionColor, captionFont, captionScale) {
     this.mediasImages = [...items, ...items]

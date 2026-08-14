@@ -13,7 +13,7 @@ export function Footer() {
     <footer className="py-16 max-w-5xl mx-auto px-6 border-t border-border">
       <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
         <p className="font-mono text-xs text-mono">
-          Yongjae Lee · yongzzai.com
+          Designed and built by Yongjae Lee
         </p>
         <div className="flex items-center gap-4">
           {socials.map(({ icon: Icon, href, label }) => (
@@ -29,6 +29,9 @@ export function Footer() {
             </a>
           ))}
         </div>
+        <p className="font-mono text-xs text-mono">
+          Components are referenced from <a href="https://reactbits.dev/" target="_blank" rel="noopener noreferrer" className="text-muted hover:text-ink transition-colors duration-200">ReactBits</a>
+        </p>
       </div>
     </footer>
   )

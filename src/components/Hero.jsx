@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 import { FaLinkedinIn, FaGithub, FaResearchgate, FaFilePdf, FaCode, FaLayerGroup, FaFileCode, FaDatabase } from 'react-icons/fa'
 import { FaGraduationCap } from 'react-icons/fa'
-import { SplitText } from './ui/SplitText'
+import StrokeText from './ui/StrokeText'
 import { RotatingText } from './ui/RotatingText'
 import { LetterGlitch } from './ui/LetterGlitch'
 import { HoloCard } from './ui/HoloCard'
@@ -171,13 +171,28 @@ const fadeUp = (delay) => ({
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex flex-col justify-start max-w-5xl mx-auto px-6 pt-28">
+    <section className="relative min-h-screen flex flex-col justify-start max-w-5xl mx-auto px-6 pt-24">
       <div className="grid md:grid-cols-[1fr_auto] gap-12 items-start">
         {/* Left: text */}
         <div className="flex flex-col justify-between md:min-h-[370px]">
           <div>
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-semibold text-ink leading-tight mb-5">
-              <SplitText text="Yongjae Lee" delay={0.08} />
+            {/* StrokeText draws its own SVG type, so the size lives in props
+                rather than in Tailwind text-* classes. */}
+            <h1 className="mb-5">
+              <StrokeText
+                text="Yongjae Lee"
+                fontSize={72}
+                fontWeight={600}
+                letterSpacing={-2}
+                strokeWidth={1.2}
+                strokeColor="#3b5bdb"
+                fillColor="#1a1a1a"
+                drawDuration={1.4}
+                fillDelay={0.15}
+                stagger={0.04}
+                trigger="mount"
+                fillMode="wipe"
+              />
             </h1>
 
             <motion.div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-base sm:text-lg font-light mb-6" {...fadeUp(0.55)}>
@@ -253,7 +268,7 @@ export function Hero() {
       </div>
 
       {/* Tech Stack */}
-      <motion.div className="mt-8 mb-8" {...fadeUp(1.0)}>
+      <motion.div className="mt-6 mb-6" {...fadeUp(1.0)}>
         <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
           Tools &amp; Stack
         </p>
@@ -266,10 +281,17 @@ export function Hero() {
 
       {/* Where I've Been */}
       <motion.div className="mb-20" {...fadeUp(1.05)}>
-        <p className="font-mono text-base tracking-widest mb-3 text-center">
-          <span className="text-highlight font-bold">LEE</span>
-          <span className="text-mono">vent Log</span>
-        </p>
+        {/* The rules sit inline with the label, so the row is exactly as tall
+            as the text and the gallery below keeps its position. They fade out
+            towards the edges to pull the eye to the centre. */}
+        <div className="flex items-center gap-4 mb-2">
+          <span className="h-px flex-1 bg-gradient-to-r from-transparent to-ink/20" />
+          <p className="font-mono text-xl font-bold tracking-widest whitespace-nowrap">
+            <span className="text-highlight">LEE</span>
+            <span className="text-ink">vent Log</span>
+          </p>
+          <span className="h-px flex-1 bg-gradient-to-l from-transparent to-ink/20" />
+        </div>
         <div style={{ height: '280px' }}>
           <CircularGallery
             items={[

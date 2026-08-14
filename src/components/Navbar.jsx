@@ -1,14 +1,15 @@
 import { FaHome, FaBars } from 'react-icons/fa'
 import { useRef, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import PillNav from './ui/PillNav'
 import TextType from './ui/TextType'
 import GlassSurface from './ui/GlassSurface'
 
 const navItems = [
-  { label: 'Projects', href: '#research' },
-  { label: 'Publications', href: '#publications' },
-  { label: 'Conferences', href: '#conferences' },
+  { label: 'Projects', href: '/proj' },
+  { label: 'Publications', href: '/pubs' },
+  { label: 'Conferences', href: '/conf' },
 ]
 
 export function Navbar() {
@@ -16,6 +17,16 @@ export function Navbar() {
   const logoTweenRef = useRef(null)
   const [mobileOpen, setMobileOpen] = useState(false)
   const mobileMenuRef = useRef(null)
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  // The nav renders real <a href> elements so middle-click and "open in new
+  // tab" still work; this only takes over the plain left-click.
+  const handleNav = (e, href) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
+    e.preventDefault()
+    navigate(href)
+  }
 
   const handleLogoEnter = () => {
     logoTweenRef.current?.kill()
@@ -84,7 +95,8 @@ export function Navbar() {
           <div style={{ pointerEvents: 'auto', flexShrink: 0 }}>
             <GlassSurface width={42} height={42} borderRadius={21}>
               <a
-                href="#"
+                href="/"
+                onClick={e => handleNav(e, "/")}
                 ref={logoRef}
                 onMouseEnter={handleLogoEnter}
                 style={{
@@ -105,6 +117,8 @@ export function Navbar() {
             <GlassSurface width="100%" height={42} borderRadius={21}>
               <PillNav
                 items={navItems}
+                activeHref={pathname}
+                onItemClick={handleNav}
                 ease="power2.easeOut"
                 pillColor="rgba(0, 0, 0, 0.07)"
                 hoveredPillTextColor="#1a1a1a"
@@ -150,7 +164,8 @@ export function Navbar() {
           <div style={{ pointerEvents: 'auto', flexShrink: 0 }}>
             <GlassSurface width={42} height={42} borderRadius={21}>
               <a
-                href="#"
+                href="/"
+                onClick={(e) => handleNav(e, '/')}
                 style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -215,7 +230,10 @@ export function Navbar() {
             <li key={item.href}>
               <a
                 href={item.href}
-                onClick={closeMobile}
+                onClick={(e) => {
+                  closeMobile()
+                  handleNav(e, item.href)
+                }}
                 style={{
                   display: 'block',
                   padding: '12px 16px',
@@ -224,11 +242,14 @@ export function Navbar() {
                   fontSize: '15px',
                   fontWeight: 500,
                   borderRadius: '16px',
-                  background: 'rgba(0, 0, 0, 0.03)',
+                  background: pathname === item.href ? 'rgba(59, 91, 219, 0.08)' : 'rgba(0, 0, 0, 0.03)',
                   transition: 'background 0.2s',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(59, 91, 219, 0.08)' }}
-                onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(0, 0, 0, 0.03)' }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background =
+                    pathname === item.href ? 'rgba(59, 91, 219, 0.08)' : 'rgba(0, 0, 0, 0.03)'
+                }}
               >
                 {item.label}
               </a>
