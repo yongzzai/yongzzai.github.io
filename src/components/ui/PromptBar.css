@@ -1,0 +1,113 @@
+/* Trimmed from React Bits' PromptBar.css; colours come from the theme tokens. */
+.prompt-bar {
+  --pb-bg: rgb(var(--c-surface));
+  --pb-ink: rgb(var(--c-ink));
+  --pb-w: 520px;
+  --pb-radius: 18px;
+  --pb-press: 0.96;
+  --pb-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+
+  position: relative;
+  width: min(var(--pb-w), 100%);
+  color: var(--pb-ink);
+  font-family: inherit;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.prompt-bar__field {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid rgb(var(--c-border));
+  border-radius: var(--pb-radius);
+  background: var(--pb-bg);
+  box-shadow: 0 24px 60px -30px rgb(0 0 0 / 0.45);
+}
+
+.prompt-bar__input {
+  min-height: 24px;
+  padding: 0 2px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.prompt-bar__placeholder {
+  color: color-mix(in srgb, var(--pb-ink) 45%, transparent);
+}
+
+.prompt-bar__caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 1px;
+  vertical-align: -0.15em;
+  background: currentColor;
+  animation: prompt-bar-caret 1s steps(1) infinite;
+}
+
+@keyframes prompt-bar-caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+.prompt-bar__bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.prompt-bar__spacer {
+  flex: 1 1 auto;
+}
+
+.prompt-bar__tool,
+.prompt-bar__send {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 9px;
+}
+
+.prompt-bar__tool {
+  color: color-mix(in srgb, var(--pb-ink) 60%, transparent);
+}
+
+.prompt-bar__send {
+  background: color-mix(in srgb, var(--pb-ink) 12%, var(--pb-bg));
+  color: color-mix(in srgb, var(--pb-ink) 55%, var(--pb-bg));
+  transition:
+    background-color 200ms ease,
+    color 200ms ease,
+    transform 160ms var(--pb-ease-out);
+}
+
+.prompt-bar__send[data-armed] {
+  background: var(--pb-ink);
+  color: var(--pb-bg);
+}
+
+.prompt-bar__send[data-pressed] {
+  transform: scale(var(--pb-press));
+}
+
+.prompt-bar__glyph {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transform-origin: 50% 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prompt-bar__caret {
+    animation: none;
+  }
+
+  .prompt-bar__send[data-pressed] {
+    transform: none;
+  }
+}
