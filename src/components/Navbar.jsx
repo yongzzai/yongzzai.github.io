@@ -1,17 +1,14 @@
 import { FaHome, FaBars } from 'react-icons/fa'
 import { useRef, useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { gsap } from 'gsap'
 import PillNav from './ui/PillNav'
 import TextType from './ui/TextType'
 import GlassSurface from './ui/GlassSurface'
 import { ThemeToggle } from './ui/ThemeToggle'
+import { SECTIONS, useActiveSection } from '../lib/activeSection'
 
-const navItems = [
-  { label: 'Projects', href: '/proj' },
-  { label: 'Publications', href: '/pubs' },
-  { label: 'Conferences', href: '/conf' },
-]
+const navItems = SECTIONS.map(({ id, label }) => ({ label, href: `/#${id}` }))
 
 const INK = 'rgb(var(--c-ink))'
 const ACTIVE_BG = 'rgb(var(--c-highlight) / 0.1)'
@@ -23,10 +20,12 @@ export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const mobileMenuRef = useRef(null)
   const navigate = useNavigate()
-  const { pathname } = useLocation()
+  const activeSection = useActiveSection()
+  const activeHref = activeSection ? `/#${activeSection}` : null
 
   // The nav renders real <a href> elements so middle-click and "open in new
-  // tab" still work; this only takes over the plain left-click.
+  // tab" still work; this only takes over the plain left-click. Layout scrolls
+  // to the #section (or the top) on every navigation, repeat clicks included.
   const handleNav = (e, href) => {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return
     e.preventDefault()
@@ -123,7 +122,7 @@ export function Navbar() {
             <GlassSurface width="100%" height={42} borderRadius={21}>
               <PillNav
                 items={navItems}
-                activeHref={pathname}
+                activeHref={activeHref}
                 onItemClick={handleNav}
                 ease="power2.easeOut"
                 baseColor="rgb(var(--c-surface))"
@@ -259,12 +258,12 @@ export function Navbar() {
                   fontSize: '15px',
                   fontWeight: 500,
                   borderRadius: '16px',
-                  background: pathname === item.href ? ACTIVE_BG : IDLE_BG,
+                  background: activeHref === item.href ? ACTIVE_BG : IDLE_BG,
                   transition: 'background 0.2s',
                 }}
                 onMouseEnter={(e) => { e.currentTarget.style.background = ACTIVE_BG }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = pathname === item.href ? ACTIVE_BG : IDLE_BG
+                  e.currentTarget.style.background = activeHref === item.href ? ACTIVE_BG : IDLE_BG
                 }}
               >
                 {item.label}

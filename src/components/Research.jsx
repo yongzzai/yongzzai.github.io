@@ -4,7 +4,7 @@ import { SpotlightCard } from './ui/SpotlightCard'
 
 export function Research() {
   return (
-    <section id="research" className="py-24 max-w-5xl mx-auto px-6">
+    <section id="projects" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
         <h2 className="text-3xl font-semibold text-ink mb-12">Projects</h2>
       </BlurFade>

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BlurFade } from './ui/BlurFade'
+import { SECTIONS } from '../lib/activeSection'
 
 export function NotFound() {
   return (
@@ -11,12 +12,7 @@ export function NotFound() {
           That URL doesn&apos;t exist. Try one of these instead.
         </p>
         <nav className="flex flex-wrap gap-3">
-          {[
-            { to: '/', label: 'Home' },
-            { to: '/proj', label: 'Projects' },
-            { to: '/pubs', label: 'Publications' },
-            { to: '/conf', label: 'Conferences' },
-          ].map(({ to, label }) => (
+          {[{ to: '/', label: 'Home' }, ...SECTIONS.map(({ id, label }) => ({ to: `/#${id}`, label }))].map(({ to, label }) => (
             <Link
               key={to}
               to={to}

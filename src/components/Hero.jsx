@@ -1,11 +1,10 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaLinkedinIn, FaGithub, FaResearchgate, FaFilePdf } from 'react-icons/fa'
+import { FaLinkedinIn, FaGithub, FaResearchgate, FaFilePdf, FaCode, FaLayerGroup, FaFileCode, FaDatabase } from 'react-icons/fa'
 import { FaGraduationCap } from 'react-icons/fa'
 import StrokeText from './ui/StrokeText'
 import { RotatingText } from './ui/RotatingText'
-import { LetterGlitch } from './ui/LetterGlitch'
-import { HoloCard } from './ui/HoloCard'
-import CircularGallery from './ui/CircularGallery'
+import DepthCarousel from './ui/DepthCarousel'
 import { useThemeColors } from '../lib/theme'
 
 const socials = [
@@ -14,6 +13,135 @@ const socials = [
   { icon: FaResearchgate, href: 'https://www.researchgate.net/profile/Yongjae-Lee-14', label: 'ResearchGate', hoverColor: '#00CCBB', iconSize: 22 },
   { icon: FaGithub, href: 'https://github.com/yongzzai', label: 'GitHub', hoverColor: '#8b5cf6' },
 ]
+
+// Photos in the LEEvent Log carousel, profile photo first; the caption under
+// it shows the front one.
+const EVENT_LOG = [
+  { image: '/assets/photo.jpg', title: 'Yongjae Lee' },
+  { image: '/assets/special/Daejeon.webp', title: 'Daejeon', subtitle: 'born and raised' },
+  { image: '/assets/special/Shanghai.webp', title: 'Shanghai', subtitle: 'with my brother' },
+  { image: '/assets/special/Hongkong.webp', title: 'Hong Kong', subtitle: 'with city lights' },
+  { image: '/assets/special/Lijiang.webp', title: 'Lijiang', subtitle: 'with my dad' },
+  { image: '/assets/special/Bogota.webp', title: 'Bogotá', subtitle: 'with traditional clothes' },
+  { image: '/assets/special/Rome.webp', title: 'Rome', subtitle: "in St. Peter's Basilica" },
+  { image: '/assets/special/(Hala) Madrid.webp', title: 'Madrid', subtitle: 'Hala Madrid!!' },
+  { image: '/assets/special/Paris.webp', title: 'Paris', subtitle: "Ici c'est Paris!!" },
+  { image: '/assets/special/Toledo.webp', title: 'Toledo', subtitle: 'with Prof. Bae' },
+  { image: '/assets/special/Granada.webp', title: 'Granada', subtitle: 'photo by Dohee 👍' },
+  { image: '/assets/special/Osaka.webp', title: 'Osaka', subtitle: 'photo by my mom' },
+  { image: '/assets/special/Jeju.webp', title: 'Jeju', subtitle: 'with my colleagues' },
+  { image: '/assets/special/Seoul.webp', title: 'Seoul', subtitle: 'photo by Younghoon' },
+  { image: '/assets/special/Army.webp', title: 'Military', subtitle: 'with Seungjoon' },
+  { image: '/assets/special/BPM Conference.webp', title: 'BPM2025', subtitle: 'with BPM community' },
+  { image: '/assets/special/ICPR Conference.webp', title: 'ICPR28', subtitle: 'photo by Eunhee' },
+  { image: '/assets/special/LOGMS2023.webp', title: 'LOGMS2023', subtitle: 'first conference' },
+  { image: '/assets/special/macao.webp', title: 'Macao', subtitle: "Taekhyun's presentation" },
+  { image: '/assets/special/Graduation (BSc).webp', title: 'B.Sc.', subtitle: 'become a graduate' },
+  { image: '/assets/special/Graduation(MSc).webp', title: 'M.Sc.', subtitle: 'become a researcher' },
+  { image: '/assets/special/Berlin.webp', title: 'Berlin', subtitle: 'come to study' },
+  { image: '/assets/special/Prague.webp', title: 'Prague', subtitle: 'with my brother' },
+  { image: '/assets/special/Dresden.webp', title: 'Dresden', subtitle: 'watch world cup' },
+]
+const EVENT_SLIDES = EVENT_LOG.map(({ image, title, subtitle }) => ({
+  image,
+  alt: subtitle ? `${title}, ${subtitle}` : title,
+}))
+
+const techCategories = [
+  {
+    Icon: FaCode,
+    title: 'Programming',
+    items: [
+      { name: 'Python', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', tech: 'python' },
+      { name: 'JavaScript', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', tech: 'javascript' },
+    ],
+  },
+  {
+    Icon: FaLayerGroup,
+    title: 'Frameworks',
+    items: [
+      { name: 'PyTorch', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg', tech: 'pytorch' },
+      { name: 'PyG', img: 'https://raw.githubusercontent.com/pyg-team/pyg_sphinx_theme/master/pyg_sphinx_theme/static/img/pyg_logo.png', tech: 'pyg' },
+    ],
+  },
+  {
+    Icon: FaFileCode,
+    title: 'Markup & Styling',
+    items: [
+      { name: 'HTML5', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', tech: 'html' },
+      { name: 'CSS3', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', tech: 'css' },
+      { name: 'LaTeX', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg', tech: 'latex' },
+    ],
+  },
+  {
+    Icon: FaDatabase,
+    title: 'Database',
+    items: [
+      { name: 'MySQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', tech: 'mysql' },
+      { name: 'Neo4j', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg', tech: 'neo4j' },
+    ],
+  },
+]
+
+const techHoverColors = {
+  python: '#3776AB', javascript: '#F7DF1E', pytorch: '#EE4C2C',
+  pyg: '#E8562A', html: '#E34F26', css: '#1572B6',
+  latex: '#008080', mysql: '#4479A1', neo4j: '#008CC1',
+}
+
+function TechCard({ category }) {
+  const Icon = category.Icon
+  return (
+    <div
+      className="rounded-xl px-3 py-2 border border-border transition-all duration-300 relative overflow-hidden bg-surface"
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = 'translateY(-3px)'
+        e.currentTarget.style.borderColor = 'rgb(var(--c-highlight))'
+        e.currentTarget.style.boxShadow = '0 6px 20px rgb(var(--c-highlight) / 0.12)'
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = ''
+        e.currentTarget.style.borderColor = ''
+        e.currentTarget.style.boxShadow = ''
+      }}
+    >
+      <div className="flex items-center gap-2 mb-1.5">
+        <div
+          className="w-6 h-6 rounded-md flex items-center justify-center bg-surface border border-border text-ink"
+        >
+          <Icon size={11} />
+        </div>
+        <span className="text-xs font-semibold text-ink font-sans">{category.title}</span>
+      </div>
+      <div className="flex flex-wrap gap-1">
+        {category.items.map((item) => (
+          <div
+            key={item.name}
+            className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-border text-muted transition-all duration-300 cursor-default"
+            style={{ fontSize: 10, background: 'rgb(var(--c-surface) / 0.6)' }}
+            onMouseEnter={(e) => {
+              const color = techHoverColors[item.tech] || '#8a64ff'
+              e.currentTarget.style.borderColor = color
+              e.currentTarget.style.boxShadow = `0 0 12px ${color}44`
+              e.currentTarget.style.transform = 'scale(1.05)'
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.borderColor = ''
+              e.currentTarget.style.boxShadow = ''
+              e.currentTarget.style.transform = ''
+            }}
+          >
+            {item.img
+              ? <img src={item.img} alt={item.name} style={{ width: 12, height: 12, objectFit: 'contain' }} />
+              : <span style={{ fontSize: 12 }}>{item.icon}</span>
+            }
+            <span className="font-mono">{item.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 function AboutLeeButton() {
   return (
@@ -74,12 +202,14 @@ const fadeUp = (delay) => ({
 
 export function Hero() {
   const colors = useThemeColors()
+  const [eventIndex, setEventIndex] = useState(0)
+  const event = EVENT_LOG[eventIndex]
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-start max-w-5xl mx-auto px-6 pt-24">
-      <div className="grid md:grid-cols-[1fr_auto] gap-12 items-start">
+    <section className="max-w-5xl mx-auto px-6 pt-24">
+      <div className="grid lg:grid-cols-[1fr_420px] gap-12 items-start">
         {/* Left: text */}
-        <div className="flex flex-col justify-between md:min-h-[370px]">
+        <div className="flex flex-col justify-between lg:min-h-[384px]">
           <div>
             {/* StrokeText draws its own SVG type, so the size lives in props
                 rather than in Tailwind text-* classes. */}
@@ -157,76 +287,45 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: photo with letter-glitch background */}
+        {/* Right: the LEEvent Log, profile photo first. */}
         <motion.div
-          className="hidden md:flex justify-end"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
         >
-          {/* The glitch field spills past this box via `spread` so it can be large
-              without widening the column and squeezing the bio text. */}
-          <div className="relative" style={{ width: 260, height: 370 }}>
-            <LetterGlitch spread={80} fadeColor={colors.bg} />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <HoloCard />
-            </div>
+          <div className="h-[340px]">
+            <DepthCarousel
+              items={EVENT_SLIDES}
+              cardWidth={240}
+              cardHeight={320}
+              spread={50}
+              showIndicators={false}
+              onChange={setEventIndex}
+            />
+          </div>
+          <div className="mt-2 text-center" aria-live="polite">
+            <p className="text-sm font-medium text-ink">{event.title}</p>
+            {/* A blank line when there is no caption keeps the block from jumping. */}
+            <p className="text-xs text-muted">{event.subtitle ?? '\u00a0'}</p>
+            <p className="mt-1 font-mono text-[11px] text-mono">
+              <span className="text-highlight">LEE</span>vent Log · {String(eventIndex + 1).padStart(2, '0')} /{' '}
+              {EVENT_LOG.length}
+            </p>
           </div>
         </motion.div>
       </div>
 
-      {/* Where I've Been */}
-      <motion.div className="mt-6 mb-20" {...fadeUp(1.0)}>
-        {/* The rules sit inline with the label, so the row is exactly as tall
-            as the text and the gallery below keeps its position. They fade out
-            towards the edges to pull the eye to the centre. */}
-        <div className="flex items-center gap-4 mb-2">
-          <span className="h-px flex-1 bg-gradient-to-r from-transparent to-ink/20" />
-          <p className="font-mono text-xl font-bold tracking-widest whitespace-nowrap">
-            <span className="text-highlight">LEE</span>
-            <span className="text-ink">vent Log</span>
-          </p>
-          <span className="h-px flex-1 bg-gradient-to-l from-transparent to-ink/20" />
-        </div>
-        <div style={{ height: '280px' }}>
-          <CircularGallery
-            items={[
-              { image: '/assets/special/Daejeon.webp', text: 'Daejeon', caption: 'born and raised'},
-              { image: '/assets/special/Shanghai.webp', text: 'Shanghai', caption: 'with my brother'},
-              { image: '/assets/special/Hongkong.webp', text: 'Hong Kong', caption: 'with city lights'},
-              { image: '/assets/special/Lijiang.webp', text: 'Lijiang', caption: 'with my dad' },
-              { image: '/assets/special/Bogota.webp', text: 'Bogotá', caption: 'with traditional clothes' },
-              { image: '/assets/special/Rome.webp', text: 'Rome', caption: "in St. Peter's Basilica" },
-              { image: '/assets/special/(Hala) Madrid.webp', text: 'Madrid', caption: 'Hala Madrid!!' },
-              { image: '/assets/special/Paris.webp', text: 'Paris', caption: "Ici c'est Paris!!" },
-              { image: '/assets/special/Toledo.webp', text: 'Toledo', caption: 'with Prof. Bae' },
-              { image: '/assets/special/Granada.webp', text: 'Granada', caption: 'photo by Dohee 👍' },
-              { image: '/assets/special/Osaka.webp', text: 'Osaka', caption: 'photo by my mom' },
-              { image: '/assets/special/Jeju.webp', text: 'Jeju', caption: 'with my colleagues' },
-              { image: '/assets/special/Seoul.webp', text: 'Seoul', caption: 'photo by Younghoon' },
-              { image: '/assets/special/Army.webp', text: 'Military', caption: 'with Seungjoon' },
-              { image: '/assets/special/BPM Conference.webp', text: 'BPM2025', caption: 'with BPM community' },
-              { image: '/assets/special/ICPR Conference.webp', text: 'ICPR28', caption: 'photo by Eunhee' },
-              { image: '/assets/special/LOGMS2023.webp', text: 'LOGMS2023', caption: 'first conference' },
-              { image: '/assets/special/macao.webp', text: 'Macao', caption: "Taekhyun's presentation" },
-              { image: '/assets/special/Graduation (BSc).webp', text: 'B.Sc.', caption: 'become a graduate' },
-              { image: '/assets/special/Graduation(MSc).webp', text: 'M.Sc.', caption: 'become a researcher' },
-              { image: '/assets/special/Berlin.webp', text: 'Berlin', caption: 'come to study' },
-              { image: '/assets/special/Prague.webp', text: 'Prague', caption: 'with my brother' },
-              { image: '/assets/special/Dresden.webp', text: 'Dresden', caption: 'watch world cup' },
-            ]}
-            bend={3}
-            textColor={colors.ink}
-            captionColor={colors.muted}
-            borderRadius={0.05}
-            font="bold 26px sans-serif"
-            scrollSpeed={2}
-            scrollEase={0.4}
-            autoPlay={1.5}
-          />
+      {/* Tech Stack */}
+      <motion.div className="mt-6 mb-6" {...fadeUp(1.0)}>
+        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
+          Tools &amp; Stack
+        </p>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+          {techCategories.map((cat) => (
+            <TechCard key={cat.title} category={cat} />
+          ))}
         </div>
       </motion.div>
-
     </section>
   )
 }

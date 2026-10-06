@@ -1,24 +1,24 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 
-const TITLES = {
-  '/': 'Yongjae Lee',
-  '/proj': 'Projects · Yongjae Lee',
-  '/pubs': 'Publications · Yongjae Lee',
-  '/conf': 'Conference Presentations · Yongjae Lee',
-}
-
 export function Layout() {
-  const { pathname } = useLocation()
+  const { pathname, hash, key } = useLocation()
+  const firstNavigation = useRef(true)
 
-  // Browsers restore the previous scroll offset on client-side navigation, so
-  // a fresh page would otherwise open halfway down.
+  // Every navigation lands somewhere explicit: the #section it names, or the
+  // top. `key` makes a repeat click on the same link scroll again. The first
+  // one jumps, since the browser's own anchor scroll ran before React rendered
+  // the section; later ones glide.
   useEffect(() => {
-    window.scrollTo(0, 0)
-    document.title = TITLES[pathname] ?? 'Yongjae Lee'
-  }, [pathname])
+    const behavior = firstNavigation.current ? 'instant' : 'smooth'
+    firstNavigation.current = false
+    const target = hash && document.getElementById(decodeURIComponent(hash.slice(1)))
+    if (target) target.scrollIntoView({ behavior })
+    else window.scrollTo({ top: 0, behavior })
+    document.title = pathname === '/' ? 'Yongjae Lee' : 'Page not found · Yongjae Lee'
+  }, [pathname, hash, key])
 
   return (
     <div className="min-h-screen bg-bg" style={{ position: 'relative' }}>
