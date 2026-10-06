@@ -5,20 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yongjae Lee</title>
     <script>
-      // Runs before first paint so dark-mode visitors never see a light flash.
+      // Runs before first paint so the default dark theme never flashes light.
       // Keep in sync with resolveTheme() in src/lib/theme.js.
       ;(function () {
         var stored = null
         try { stored = localStorage.getItem('theme') } catch (e) {}
-        if (stored === 'dark' || (stored !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)) {
-          document.documentElement.classList.add('dark')
-        }
+        if (stored !== 'light') document.documentElement.classList.add('dark')
       })()
     </script>
-    <script type="module" crossorigin src="/assets/index-BC4cp6Ug.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-D2PFFdob.css">
+    <script type="module" crossorigin src="/assets/index-b4EBoGzj.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Bz6EP4EW.css">
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"></div>
   </body>
 </html>
