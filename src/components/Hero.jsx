@@ -200,8 +200,11 @@ export function Hero() {
 
             <motion.div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-base sm:text-lg font-light mb-6" {...fadeUp(0.55)}>
               <span className="text-ink font-medium">Ph.D. Student</span>
-              <span className="text-muted hidden sm:inline">·</span>
-              <span className="flex items-center gap-x-2 text-sm sm:text-base">
+              {/* Below lg the rotating phrase can't always fit beside the title, so
+                  it gets its own line; otherwise it would hop between lines as the
+                  phrase length changes. */}
+              <span className="text-muted hidden lg:inline">·</span>
+              <span className="flex items-center gap-x-2 text-sm sm:text-base basis-full lg:basis-auto">
                 <span className="text-muted">Studying</span>
                 <RotatingText
                   texts={['Business Process Management', 'Process-Aware Agentic Systems', 'Deep Learning for BPM']}
