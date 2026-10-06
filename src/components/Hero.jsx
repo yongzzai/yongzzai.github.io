@@ -17,7 +17,7 @@ const socials = [
 // Photos in the LEEvent Log carousel, profile photo first; the caption under
 // it shows the front one.
 const EVENT_LOG = [
-  { image: '/assets/photo.jpg', title: 'Yongjae Lee' },
+  { image: '/assets/photo_yj.jpg', title: 'Yongjae Lee' },
   { image: '/assets/special/Daejeon.webp', title: 'Daejeon', subtitle: 'born and raised' },
   { image: '/assets/special/Shanghai.webp', title: 'Shanghai', subtitle: 'with my brother' },
   { image: '/assets/special/Hongkong.webp', title: 'Hong Kong', subtitle: 'with city lights' },
