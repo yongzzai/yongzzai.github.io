@@ -4,6 +4,17 @@
     <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yongjae Lee</title>
+    <script>
+      // Runs before first paint so dark-mode visitors never see a light flash.
+      // Keep in sync with resolveTheme() in src/lib/theme.js.
+      ;(function () {
+        var stored = null
+        try { stored = localStorage.getItem('theme') } catch (e) {}
+        if (stored === 'dark' || (stored !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        }
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

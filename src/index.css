@@ -40,6 +40,14 @@
   }
 }
 
+/* Theme switch: the new theme is revealed by a growing circle (src/lib/theme.js
+   animates the clip-path), so the default crossfade is turned off. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 @keyframes blink {
   0%, 50% { opacity: 1; }
   51%, 100% { opacity: 0; }
