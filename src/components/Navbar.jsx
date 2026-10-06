@@ -5,12 +5,17 @@ import { gsap } from 'gsap'
 import PillNav from './ui/PillNav'
 import TextType from './ui/TextType'
 import GlassSurface from './ui/GlassSurface'
+import { ThemeToggle } from './ui/ThemeToggle'
 
 const navItems = [
   { label: 'Projects', href: '/proj' },
   { label: 'Publications', href: '/pubs' },
   { label: 'Conferences', href: '/conf' },
 ]
+
+const INK = 'rgb(var(--c-ink))'
+const ACTIVE_BG = 'rgb(var(--c-highlight) / 0.1)'
+const IDLE_BG = 'rgb(var(--c-ink) / 0.03)'
 
 export function Navbar() {
   const logoRef = useRef(null)
@@ -86,7 +91,7 @@ export function Navbar() {
                   pauseDuration={1500}
                   showCursor={true}
                   cursorCharacter="|"
-                  style={{ fontSize: '0.95rem', fontWeight: 600, color: '#1a1a1a', lineHeight: 1, whiteSpace: 'nowrap' }}
+                  style={{ fontSize: '0.95rem', fontWeight: 600, color: INK, lineHeight: 1, whiteSpace: 'nowrap' }}
                 />
               </div>
             </GlassSurface>
@@ -106,9 +111,10 @@ export function Navbar() {
                   width: '100%',
                   height: '100%',
                   textDecoration: 'none',
+                  color: INK,
                 }}
               >
-                <FaHome size={18} color="#1a1a1a" />
+                <FaHome size={18} />
               </a>
             </GlassSurface>
           </div>
@@ -120,14 +126,19 @@ export function Navbar() {
                 activeHref={pathname}
                 onItemClick={handleNav}
                 ease="power2.easeOut"
-                pillColor="rgba(0, 0, 0, 0.07)"
-                hoveredPillTextColor="#1a1a1a"
-                pillTextColor="#1a1a1a"
-                hoverCircleColor="rgba(0, 0, 0, 0.1)"
+                baseColor="rgb(var(--c-surface))"
+                pillColor="rgb(var(--c-ink) / 0.07)"
+                hoveredPillTextColor={INK}
+                pillTextColor={INK}
+                hoverCircleColor="rgb(var(--c-ink) / 0.1)"
                 initialLoadAnimation={false}
                 fullWidth={true}
               />
             </GlassSurface>
+          </div>
+
+          <div style={{ pointerEvents: 'auto', flexShrink: 0 }}>
+            <ThemeToggle />
           </div>
         </div>
       </div>
@@ -155,7 +166,7 @@ export function Navbar() {
                   pauseDuration={1500}
                   showCursor={true}
                   cursorCharacter="|"
-                  style={{ fontSize: '0.85rem', fontWeight: 600, color: '#1a1a1a', lineHeight: 1, whiteSpace: 'nowrap' }}
+                  style={{ fontSize: '0.85rem', fontWeight: 600, color: INK, lineHeight: 1, whiteSpace: 'nowrap' }}
                 />
               </div>
             </GlassSurface>
@@ -173,11 +184,16 @@ export function Navbar() {
                   width: '100%',
                   height: '100%',
                   textDecoration: 'none',
+                  color: INK,
                 }}
               >
-                <FaHome size={18} color="#1a1a1a" />
+                <FaHome size={18} />
               </a>
             </GlassSurface>
+          </div>
+
+          <div style={{ pointerEvents: 'auto', flexShrink: 0 }}>
+            <ThemeToggle />
           </div>
 
           <div style={{ pointerEvents: 'auto', flexShrink: 0 }}>
@@ -194,9 +210,10 @@ export function Navbar() {
                   background: 'none',
                   border: 'none',
                   cursor: 'pointer',
+                  color: INK,
                 }}
               >
-                <FaBars size={16} color="#1a1a1a" />
+                <FaBars size={16} />
               </button>
             </GlassSurface>
           </div>
@@ -212,10 +229,10 @@ export function Navbar() {
           top: '4em',
           left: '1rem',
           right: '1rem',
-          background: 'rgba(255, 255, 255, 0.85)',
+          background: 'rgb(var(--c-surface) / 0.85)',
           backdropFilter: 'blur(20px) saturate(180%)',
           WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-          border: '1px solid rgba(0, 0, 0, 0.08)',
+          border: '1px solid rgb(var(--c-ink) / 0.08)',
           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
           borderRadius: '20px',
           zIndex: 998,
@@ -237,18 +254,17 @@ export function Navbar() {
                 style={{
                   display: 'block',
                   padding: '12px 16px',
-                  color: '#1a1a1a',
+                  color: INK,
                   textDecoration: 'none',
                   fontSize: '15px',
                   fontWeight: 500,
                   borderRadius: '16px',
-                  background: pathname === item.href ? 'rgba(59, 91, 219, 0.08)' : 'rgba(0, 0, 0, 0.03)',
+                  background: pathname === item.href ? ACTIVE_BG : IDLE_BG,
                   transition: 'background 0.2s',
                 }}
-                onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(59, 91, 219, 0.08)' }}
+                onMouseEnter={(e) => { e.currentTarget.style.background = ACTIVE_BG }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background =
-                    pathname === item.href ? 'rgba(59, 91, 219, 0.08)' : 'rgba(0, 0, 0, 0.03)'
+                  e.currentTarget.style.background = pathname === item.href ? ACTIVE_BG : IDLE_BG
                 }}
               >
                 {item.label}
