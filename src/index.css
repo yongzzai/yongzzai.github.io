@@ -5,6 +5,32 @@
 @tailwind utilities;
 
 @layer base {
+  /* Theme tokens as bare RGB channels; tailwind.config.js wraps them in rgb().
+     Canvas code reads them through useThemeColors() in src/lib/theme.js. */
+  :root {
+    color-scheme: light;
+    --c-bg: 249 248 246;
+    --c-surface: 255 255 255;
+    --c-border: 229 226 220;
+    --c-ink: 26 26 26;
+    --c-body: 45 45 45;
+    --c-muted: 122 122 122;
+    --c-highlight: 59 91 219;
+    --c-mono: 107 114 128;
+    --c-dot: 220 218 213;
+  }
+  .dark {
+    color-scheme: dark;
+    --c-bg: 18 17 16;
+    --c-surface: 27 26 24;
+    --c-border: 46 43 39;
+    --c-ink: 242 240 236;
+    --c-body: 217 214 208;
+    --c-muted: 154 149 141;
+    --c-highlight: 123 147 252;
+    --c-mono: 143 147 156;
+    --c-dot: 44 42 39;
+  }
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
