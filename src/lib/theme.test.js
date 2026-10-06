@@ -3,12 +3,11 @@ import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { channelsToHex, resolveTheme } from './theme.js'
 
-test('resolveTheme prefers a stored choice, else the OS', () => {
-  assert.equal(resolveTheme('dark', false), 'dark')
-  assert.equal(resolveTheme('light', true), 'light')
-  assert.equal(resolveTheme(null, true), 'dark')
-  assert.equal(resolveTheme(null, false), 'light')
-  assert.equal(resolveTheme('garbage', true), 'dark')
+test('resolveTheme defaults to dark unless light was chosen', () => {
+  assert.equal(resolveTheme('light'), 'light')
+  assert.equal(resolveTheme('dark'), 'dark')
+  assert.equal(resolveTheme(null), 'dark')
+  assert.equal(resolveTheme('garbage'), 'dark')
 })
 
 test('channelsToHex converts token channels', () => {
@@ -38,17 +37,16 @@ test('index.html has an inline boot script', () => {
   assert.ok(boot, 'no plain <script> block in index.html')
 })
 
-test('boot script matches resolveTheme', () => {
+test('boot script matches resolveTheme, whatever the OS prefers', () => {
   for (const stored of [null, 'light', 'dark']) {
     for (const prefersDark of [false, true]) {
-      assert.equal(runBoot({ stored, prefersDark }), resolveTheme(stored, prefersDark), `${stored}/${prefersDark}`)
+      assert.equal(runBoot({ stored, prefersDark }), resolveTheme(stored), `${stored}/${prefersDark}`)
     }
   }
 })
 
-test('boot script falls back to the OS when storage is blocked', () => {
-  assert.equal(runBoot({ storageThrows: true, prefersDark: true }), 'dark')
-  assert.equal(runBoot({ storageThrows: true, prefersDark: false }), 'light')
+test('boot script defaults to dark when storage is blocked', () => {
+  assert.equal(runBoot({ storageThrows: true, prefersDark: false }), 'dark')
 })
 
 // Token changes would otherwise start a colour transition on every element that

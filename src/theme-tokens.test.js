@@ -4,7 +4,7 @@ import assert from 'node:assert/strict'
 import tailwindConfig from '../tailwind.config.js'
 
 const css = readFileSync(new URL('./index.css', import.meta.url), 'utf8')
-const TOKENS = ['bg', 'surface', 'border', 'ink', 'body', 'muted', 'highlight', 'mono', 'dot']
+const TOKENS = ['bg', 'surface', 'border', 'ink', 'body', 'muted', 'highlight', 'mono']
 const TEXT = ['ink', 'body', 'muted', 'mono', 'highlight']
 
 // Returns { token: [r, g, b] } for the --c-* variables in the block opened by `selector {`.
@@ -43,7 +43,7 @@ test('light values are unchanged from the original palette', () => {
     Object.fromEntries(Object.entries(light).map(([k, v]) => [k, hex(v)])),
     {
       bg: '#f9f8f6', surface: '#ffffff', border: '#e5e2dc', ink: '#1a1a1a', body: '#2d2d2d',
-      muted: '#7a7a7a', highlight: '#3b5bdb', mono: '#6b7280', dot: '#dcdad5',
+      muted: '#7a7a7a', highlight: '#3b5bdb', mono: '#6b7280',
     },
   )
 })
@@ -60,7 +60,7 @@ test('dark text tokens reach 4.5:1 on bg and surface', () => {
 
 test('tailwind colors read the CSS variables', () => {
   const { colors } = tailwindConfig.theme.extend
-  for (const t of TOKENS.filter((t) => t !== 'dot')) {
+  for (const t of TOKENS) {
     assert.equal(colors[t], `rgb(var(--c-${t}) / <alpha-value>)`, t)
   }
 })

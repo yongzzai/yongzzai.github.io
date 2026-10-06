@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
-import { DotGrid } from './ui/DotGrid'
 import { Navbar } from './Navbar'
 import { Footer } from './Footer'
 
@@ -23,9 +22,6 @@ export function Layout() {
 
   return (
     <div className="min-h-screen bg-bg" style={{ position: 'relative' }}>
-      {/* Mounted above the router outlet so the field keeps animating across
-          navigations instead of restarting on every page. */}
-      <DotGrid />
       <Navbar />
       <main className="relative z-10 min-h-screen flex flex-col">
         <div className="flex-1">

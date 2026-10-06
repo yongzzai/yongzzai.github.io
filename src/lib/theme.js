@@ -1,25 +1,17 @@
 import { useMemo, useSyncExternalStore } from 'react'
 
 const STORAGE_KEY = 'theme'
-const TOKENS = ['bg', 'surface', 'border', 'ink', 'body', 'muted', 'highlight', 'mono', 'dot']
+const TOKENS = ['bg', 'surface', 'border', 'ink', 'body', 'muted', 'highlight', 'mono']
 
-// Mirrors the inline boot script in index.html, which runs before React loads.
-export function resolveTheme(stored, prefersDark) {
-  if (stored === 'light' || stored === 'dark') return stored
-  return prefersDark ? 'dark' : 'light'
+// Dark is the default; light only when the visitor picked it. Mirrors the
+// inline boot script in index.html, which runs before React loads.
+export function resolveTheme(stored) {
+  return stored === 'light' ? 'light' : 'dark'
 }
 
 // "59 91 219" (a --c-* token value) -> "#3b5bdb"
 export function channelsToHex(channels) {
   return `#${channels.trim().split(/\s+/).map((n) => Number(n).toString(16).padStart(2, '0')).join('')}`
-}
-
-function readStored() {
-  try {
-    return localStorage.getItem(STORAGE_KEY)
-  } catch {
-    return null
-  }
 }
 
 function writeStored(theme) {
@@ -57,19 +49,7 @@ export function setTheme(theme) {
   apply(theme)
 }
 
-let followingOs = false
-
-// Tracks the OS setting only until the visitor picks a theme themselves.
-function followOs() {
-  if (followingOs) return
-  followingOs = true
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!readStored()) apply(resolveTheme(null, e.matches))
-  })
-}
-
 function subscribe(listener) {
-  followOs()
   listeners.add(listener)
   return () => listeners.delete(listener)
 }

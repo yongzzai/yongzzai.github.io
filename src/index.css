@@ -17,7 +17,6 @@
     --c-muted: 122 122 122;
     --c-highlight: 59 91 219;
     --c-mono: 107 114 128;
-    --c-dot: 220 218 213;
   }
   .dark {
     color-scheme: dark;
@@ -29,7 +28,6 @@
     --c-muted: 154 149 141;
     --c-highlight: 123 147 252;
     --c-mono: 143 147 156;
-    --c-dot: 58 55 51;
   }
   html {
     scroll-behavior: smooth;
