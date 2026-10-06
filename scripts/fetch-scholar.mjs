@@ -3,7 +3,7 @@
 // Google Scholar has no public API, so this parses the profile HTML. The output
 // is committed to the repo and merged with publications.overrides.js at build
 // time, so the site never talks to Scholar at runtime -- a blocked run costs a
-// weekly refresh, nothing more.
+// single refresh, nothing more.
 //
 // Usage: npm run sync:pubs
 
@@ -17,6 +17,10 @@ const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
 const DELAY_MS = 1500
 
+// Scholar refuses datacenter IPs (GitHub's runners included) on and off, either
+// with a CAPTCHA page or a bare 403/429. That is expected, not a bug.
+class ScholarBlockedError extends Error {}
+
 async function fetchPage(url) {
   for (let attempt = 1; attempt <= 3; attempt++) {
     const res = await fetch(url, {
@@ -24,12 +28,15 @@ async function fetchPage(url) {
     })
     const html = await res.text()
 
-    if (/id="gs_captcha_c"|unusual traffic from your computer/i.test(html)) {
-      throw new Error('Google Scholar served a CAPTCHA -- this IP is rate limited.')
+    if (/id="gs_captcha_c"|unusual traffic from your computer|automated queries/i.test(html)) {
+      throw new ScholarBlockedError('Google Scholar served a CAPTCHA -- this IP is rate limited.')
     }
     if (res.ok) return html
 
-    if (attempt === 3) throw new Error(`HTTP ${res.status} for ${url}`)
+    if (attempt === 3) {
+      const msg = `HTTP ${res.status} for ${url}`
+      throw res.status === 403 || res.status === 429 ? new ScholarBlockedError(msg) : new Error(msg)
+    }
     await sleep(DELAY_MS * 2 ** attempt)
   }
 }
@@ -140,6 +147,12 @@ async function main() {
 }
 
 main().catch((err) => {
+  // In CI a block just skips this cycle: nothing was written, so the PR step
+  // finds no diff. Locally it still fails loudly.
+  if (err instanceof ScholarBlockedError && process.env.GITHUB_ACTIONS === 'true') {
+    console.log(`::warning::Google Scholar blocked this runner; skipping this cycle. (${err.message})`)
+    return
+  }
   console.error(`\nsync:pubs failed -- ${err.message}`)
   process.exit(1)
 })

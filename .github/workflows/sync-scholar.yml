@@ -2,9 +2,9 @@ name: Sync Google Scholar
 
 on:
   schedule:
-    # 1st and 15th at 03:00 UTC (12:00 KST). Cron has no "every 2 weeks", so
-    # twice a month is the closest stable approximation.
-    - cron: '0 3 1,15 * *'
+    # Daily at 03:00 UTC (12:00 KST). Scholar blocks most runner IPs, so frequent
+    # attempts are what keep the data fresh; a PR only opens when something changed.
+    - cron: '0 3 * * *'
   workflow_dispatch:
 
 permissions:
@@ -23,8 +23,8 @@ jobs:
         with:
           node-version: 20
 
-      # Scholar has no API and sometimes CAPTCHAs datacenter IPs. The committed
-      # JSON stays valid in that case, so a failed run just skips a cycle.
+      # Scholar has no API and often blocks datacenter IPs. The script logs that
+      # as a warning and exits cleanly, so a blocked run just skips a cycle.
       - name: Fetch from Google Scholar
         run: npm run sync:pubs
 
@@ -36,7 +36,7 @@ jobs:
           commit-message: 'chore: sync publications from Google Scholar'
           title: 'chore: sync publications from Google Scholar'
           body: |
-            Automated biweekly sync of `src/data/publications.generated.json`.
+            Automated sync of `src/data/publications.generated.json`.
 
             Review the diff before merging:
             - **New paper?** It shows up with Scholar's raw title/venue. Add an
