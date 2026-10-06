@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { startGlitches } from './letterGlitchGrid'
 
 // Kept in the original green/teal/blue family, but dark enough to read against
 // the light page background now that the panel fades into it.
@@ -73,13 +74,7 @@ export function LetterGlitch({ className = '', fadeColor = '#f9f8f6', spread = 0
     }
 
     function update() {
-      const count = Math.max(1, Math.floor(letters.length * 0.05))
-      for (let i = 0; i < count; i++) {
-        const idx = Math.floor(Math.random() * letters.length)
-        letters[idx].char = randChar()
-        letters[idx].targetColor = randColor()
-        letters[idx].progress = 0
-      }
+      startGlitches(letters, randChar, randColor)
     }
 
     function smooth() {
