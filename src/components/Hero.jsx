@@ -6,6 +6,7 @@ import { RotatingText } from './ui/RotatingText'
 import { LetterGlitch } from './ui/LetterGlitch'
 import { HoloCard } from './ui/HoloCard'
 import CircularGallery from './ui/CircularGallery'
+import { useThemeColors } from '../lib/theme'
 
 const socials = [
   { icon: FaGraduationCap, href: 'https://scholar.google.com/citations?user=YxFIm0AAAAAJ', label: 'Google Scholar', hoverColor: '#4285F4' },
@@ -62,11 +63,11 @@ function TechCard({ category }) {
   const Icon = category.Icon
   return (
     <div
-      className="rounded-xl px-3 py-2 border border-border transition-all duration-300 relative overflow-hidden bg-white"
+      className="rounded-xl px-3 py-2 border border-border transition-all duration-300 relative overflow-hidden bg-surface"
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'translateY(-3px)'
-        e.currentTarget.style.borderColor = '#3b5bdb'
-        e.currentTarget.style.boxShadow = '0 6px 20px rgba(59,91,219,0.12)'
+        e.currentTarget.style.borderColor = 'rgb(var(--c-highlight))'
+        e.currentTarget.style.boxShadow = '0 6px 20px rgb(var(--c-highlight) / 0.12)'
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.transform = ''
@@ -76,9 +77,9 @@ function TechCard({ category }) {
     >
       <div className="flex items-center gap-2 mb-1.5">
         <div
-          className="w-6 h-6 rounded-md flex items-center justify-center bg-surface border border-border"
+          className="w-6 h-6 rounded-md flex items-center justify-center bg-surface border border-border text-ink"
         >
-          <Icon size={11} color="#1a1a1a" />
+          <Icon size={11} />
         </div>
         <span className="text-xs font-semibold text-ink font-sans">{category.title}</span>
       </div>
@@ -87,7 +88,7 @@ function TechCard({ category }) {
           <div
             key={item.name}
             className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-border text-muted transition-all duration-300 cursor-default"
-            style={{ fontSize: 10, background: 'rgba(255,255,255,0.6)' }}
+            style={{ fontSize: 10, background: 'rgb(var(--c-surface) / 0.6)' }}
             onMouseEnter={(e) => {
               const color = techHoverColors[item.tech] || '#8a64ff'
               e.currentTarget.style.borderColor = color
@@ -120,8 +121,8 @@ function AboutLeeButton() {
       rel="noopener noreferrer"
       className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium border border-ink text-ink bg-transparent rounded transition-all duration-300"
       onMouseEnter={(e) => {
-        e.currentTarget.style.backgroundColor = '#3b5bdb'
-        e.currentTarget.style.color = '#ffffff'
+        e.currentTarget.style.backgroundColor = 'rgb(var(--c-highlight))'
+        e.currentTarget.style.color = 'rgb(var(--c-bg))'
         e.currentTarget.style.transform = 'translateY(-2px)'
         e.currentTarget.style.boxShadow = '0 5px 15px rgba(0,0,0,0.15)'
       }}
@@ -170,6 +171,8 @@ const fadeUp = (delay) => ({
 })
 
 export function Hero() {
+  const colors = useThemeColors()
+
   return (
     <section className="relative min-h-screen flex flex-col justify-start max-w-5xl mx-auto px-6 pt-24">
       <div className="grid md:grid-cols-[1fr_auto] gap-12 items-start">
@@ -185,8 +188,8 @@ export function Hero() {
                 fontWeight={600}
                 letterSpacing={-2}
                 strokeWidth={1.2}
-                strokeColor="#3b5bdb"
-                fillColor="#1a1a1a"
+                strokeColor={colors.highlight}
+                fillColor={colors.ink}
                 drawDuration={1.4}
                 fillDelay={0.15}
                 stagger={0.04}
@@ -259,7 +262,7 @@ export function Hero() {
           {/* The glitch field spills past this box via `spread` so it can be large
               without widening the column and squeezing the bio text. */}
           <div className="relative" style={{ width: 260, height: 370 }}>
-            <LetterGlitch spread={80} />
+            <LetterGlitch spread={80} fadeColor={colors.bg} />
             <div className="absolute inset-0 flex items-center justify-center">
               <HoloCard />
             </div>
@@ -320,7 +323,8 @@ export function Hero() {
               { image: '/assets/special/Dresden.webp', text: 'Dresden', caption: 'watch world cup' },
             ]}
             bend={3}
-            textColor="#1a1a1a"
+            textColor={colors.ink}
+            captionColor={colors.muted}
             borderRadius={0.05}
             font="bold 26px sans-serif"
             scrollSpeed={2}
