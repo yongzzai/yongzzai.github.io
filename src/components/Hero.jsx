@@ -287,8 +287,10 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Right: the LEEvent Log, profile photo first. */}
+        {/* Right: the LEEvent Log, profile photo first. In the single-column
+            layout below lg it moves above the bio. */}
         <motion.div
+          className="order-first lg:order-none"
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
