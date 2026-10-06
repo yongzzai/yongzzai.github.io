@@ -19,17 +19,24 @@ test('channelsToHex converts token channels', () => {
 const html = readFileSync(new URL('../../index.html', import.meta.url), 'utf8')
 const boot = html.match(/<script>([\s\S]*?)<\/script>/)?.[1]
 
-function runBoot({ stored = null, prefersDark = false, storageThrows = false }) {
+// `stored` is this visit's choice (sessionStorage); `legacy` is what older
+// versions of the site left in localStorage.
+function runBoot({ stored = null, legacy = null, prefersDark = false, storageThrows = false }) {
   const classes = new Set()
   const document = { documentElement: { classList: { add: (c) => classes.add(c) } } }
-  const localStorage = {
+  const storage = (value) => ({
     getItem() {
       if (storageThrows) throw new Error('blocked')
-      return stored
+      return value
     },
-  }
+  })
   const matchMedia = () => ({ matches: prefersDark })
-  new Function('document', 'localStorage', 'matchMedia', boot)(document, localStorage, matchMedia)
+  new Function('document', 'sessionStorage', 'localStorage', 'matchMedia', boot)(
+    document,
+    storage(stored),
+    storage(legacy),
+    matchMedia,
+  )
   return classes.has('dark') ? 'dark' : 'light'
 }
 
@@ -45,6 +52,12 @@ test('boot script matches resolveTheme, whatever the OS prefers', () => {
   }
 })
 
+// Every visit starts dark: a light choice only lasts for the visit it was made
+// in, and one an older version saved for good no longer counts.
+test('boot script ignores a light choice left by an earlier visit', () => {
+  assert.equal(runBoot({ legacy: 'light' }), 'dark')
+})
+
 test('boot script defaults to dark when storage is blocked', () => {
   assert.equal(runBoot({ storageThrows: true, prefersDark: false }), 'dark')
 })
@@ -58,7 +71,7 @@ test('setTheme flips the class with CSS transitions suspended, then restores the
     children: [],
     appendChild(el) { this.children.push(el); log.push('style added') },
   }
-  const saved = { document: globalThis.document, localStorage: globalThis.localStorage, getComputedStyle: globalThis.getComputedStyle }
+  const saved = { document: globalThis.document, sessionStorage: globalThis.sessionStorage, getComputedStyle: globalThis.getComputedStyle }
   let dark = false
   globalThis.document = {
     head,
@@ -74,7 +87,7 @@ test('setTheme flips the class with CSS transitions suspended, then restores the
       },
     },
   }
-  globalThis.localStorage = { getItem: () => null, setItem() {} }
+  globalThis.sessionStorage = { getItem: () => null, setItem() {} }
   globalThis.getComputedStyle = () => ({})
   try {
     setTheme('dark')

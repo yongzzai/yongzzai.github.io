@@ -6,10 +6,11 @@
     <title>Yongjae Lee</title>
     <script>
       // Runs before first paint so the default dark theme never flashes light.
-      // Keep in sync with resolveTheme() in src/lib/theme.js.
+      // A light choice lasts only for the visit (sessionStorage), so every new
+      // visit starts dark. Keep in sync with resolveTheme() in src/lib/theme.js.
       ;(function () {
         var stored = null
-        try { stored = localStorage.getItem('theme') } catch (e) {}
+        try { stored = sessionStorage.getItem('theme') } catch (e) {}
         if (stored !== 'light') document.documentElement.classList.add('dark')
       })()
     </script>

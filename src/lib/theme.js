@@ -3,8 +3,9 @@ import { useMemo, useSyncExternalStore } from 'react'
 const STORAGE_KEY = 'theme'
 const TOKENS = ['bg', 'surface', 'border', 'ink', 'body', 'muted', 'highlight', 'mono']
 
-// Dark is the default; light only when the visitor picked it. Mirrors the
-// inline boot script in index.html, which runs before React loads.
+// Dark is the default; light only when the visitor picked it during this visit
+// (the choice lives in sessionStorage, so every new visit starts dark). Mirrors
+// the inline boot script in index.html, which runs before React loads.
 export function resolveTheme(stored) {
   return stored === 'light' ? 'light' : 'dark'
 }
@@ -16,7 +17,7 @@ export function channelsToHex(channels) {
 
 function writeStored(theme) {
   try {
-    localStorage.setItem(STORAGE_KEY, theme)
+    sessionStorage.setItem(STORAGE_KEY, theme)
   } catch {
     // Storage blocked: the choice still applies, it just won't survive a reload.
   }
