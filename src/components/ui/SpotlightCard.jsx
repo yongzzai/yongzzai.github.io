@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 
-export function SpotlightCard({ children, className = '', spotlightColor = 'rgba(59,91,219,0.10)' }) {
+export function SpotlightCard({ children, className = '', spotlightColor = 'rgb(var(--c-highlight) / 0.10)' }) {
   const cardRef = useRef(null)
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
   const [hovered, setHovered] = useState(false)

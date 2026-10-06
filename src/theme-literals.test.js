@@ -4,11 +4,12 @@ import assert from 'node:assert/strict'
 
 // Files that must take every theme-dependent colour from tokens. Brand colours
 // (social/tech hover colours) are allowed; light-theme literals are not.
-const THEMED = ['components/Navbar.jsx', 'components/ui/ThemeToggle.jsx']
+const THEMED = ['components/Navbar.jsx', 'components/ui/ThemeToggle.jsx', 'components/ui/SpotlightCard.jsx']
 
 const LIGHT_ONLY = [
   /#1a1a1a/i,
   /#3b5bdb/i,
+  /rgba\(\s*59\s*,\s*91\s*,\s*219/,
   /#f9f8f6/i,
   /#ffffff\b/i,
   /\bbg-white\b/,

@@ -42,12 +42,10 @@
   box-shadow: 0px 4px 24px rgba(17, 17, 26, 0.04);
 }
 
-@media (prefers-color-scheme: dark) {
-  .glass-surface--fallback {
-    background: rgba(255, 255, 255, 0.07);
-    backdrop-filter: blur(12px) saturate(1.8) brightness(1.2);
-    -webkit-backdrop-filter: blur(12px) saturate(1.8) brightness(1.2);
-  }
+.dark .glass-surface--fallback {
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(12px) saturate(1.8) brightness(1.2);
+  -webkit-backdrop-filter: blur(12px) saturate(1.8) brightness(1.2);
 }
 
 @supports not (backdrop-filter: blur(10px)) {

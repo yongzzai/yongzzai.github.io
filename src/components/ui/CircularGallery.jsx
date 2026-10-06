@@ -94,6 +94,16 @@ class Title {
     this.mesh.position.y = this.placement === 'below' ? -offset : offset
     this.mesh.setParent(this.plane)
   }
+  // Re-rasterises the label in a new colour (theme switch) without rebuilding
+  // the mesh, so the carousel keeps its scroll position.
+  setColor(color) {
+    if (!color || color === this.textColor) return
+    this.textColor = color
+    const { texture } = createTextTexture(this.gl, this.text, this.font, color)
+    const map = this.mesh.program.uniforms.tMap
+    this.gl.deleteTexture(map.value.texture)
+    map.value = texture
+  }
 }
 
 class Media {
@@ -215,6 +225,10 @@ class Media {
         scale: this.captionScale,
       })
     }
+  }
+  setColors(textColor, captionColor) {
+    this.title.setColor(textColor)
+    this.captionTitle?.setColor(captionColor)
   }
   update(scroll, direction) {
     this.plane.position.x = this.x - scroll.current - this.extra
@@ -424,6 +438,9 @@ class App {
     this.container.addEventListener('mouseenter', this.boundOnMouseEnter)
     this.container.addEventListener('mouseleave', this.boundOnMouseLeave)
   }
+  setColors(textColor, captionColor) {
+    this.medias?.forEach((media) => media.setColors(textColor, captionColor))
+  }
   destroy() {
     window.cancelAnimationFrame(this.raf)
     window.removeEventListener('resize', this.boundOnResize)
@@ -458,11 +475,20 @@ export default function CircularGallery({
   scrollEase = 0.05,
 }) {
   const containerRef = useRef(null)
+  const appRef = useRef(null)
   useEffect(() => {
     const app = new App(containerRef.current, {
       items, bend, textColor, captionColor, borderRadius, font, captionFont, captionScale, scrollSpeed, scrollEase,
     })
-    return () => { app.destroy() }
+    appRef.current = app
+    return () => {
+      appRef.current = null
+      app.destroy()
+    }
   }, [])
+  // Colours change with the theme; patch the label textures in place.
+  useEffect(() => {
+    appRef.current?.setColors(textColor, captionColor)
+  }, [textColor, captionColor])
   return <div className="circular-gallery" ref={containerRef} />
 }
