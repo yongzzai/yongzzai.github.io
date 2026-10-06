@@ -50,3 +50,41 @@ test('boot script falls back to the OS when storage is blocked', () => {
   assert.equal(runBoot({ storageThrows: true, prefersDark: true }), 'dark')
   assert.equal(runBoot({ storageThrows: true, prefersDark: false }), 'light')
 })
+
+// Token changes would otherwise start a colour transition on every element that
+// has one (cards, chips, links), so they visibly fade behind the theme switch.
+test('setTheme flips the class with CSS transitions suspended, then restores them', async () => {
+  const { setTheme } = await import('./theme.js')
+  const log = []
+  const head = {
+    children: [],
+    appendChild(el) { this.children.push(el); log.push('style added') },
+  }
+  const saved = { document: globalThis.document, localStorage: globalThis.localStorage, getComputedStyle: globalThis.getComputedStyle }
+  let dark = false
+  globalThis.document = {
+    head,
+    body: {},
+    createElement: () => ({
+      textContent: '',
+      remove() { head.children = head.children.filter((c) => c !== this); log.push('style removed') },
+    }),
+    documentElement: {
+      classList: {
+        toggle(_, on) { dark = on; log.push(`class toggled, suppressing=${head.children.some((s) => /transition:\s*none/.test(s.textContent))}`) },
+        contains: () => dark,
+      },
+    },
+  }
+  globalThis.localStorage = { getItem: () => null, setItem() {} }
+  globalThis.getComputedStyle = () => ({})
+  try {
+    setTheme('dark')
+    assert.deepEqual(log, ['style added', 'class toggled, suppressing=true'])
+    await new Promise((r) => setTimeout(r, 20))
+    assert.deepEqual(log, ['style added', 'class toggled, suppressing=true', 'style removed'])
+    assert.equal(dark, true)
+  } finally {
+    Object.assign(globalThis, saved)
+  }
+})

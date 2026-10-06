@@ -64,3 +64,15 @@ test('tailwind colors read the CSS variables', () => {
     assert.equal(colors[t], `rgb(var(--c-${t}) / <alpha-value>)`, t)
   }
 })
+
+// PillNav marks the current page with a dot drawn in --base (the surface token,
+// white in light mode). In dark mode that is surface-on-glass and disappears, so
+// a .dark override must give it at least the 3:1 non-text contrast of WCAG 1.4.11.
+test('active-page nav dot stands out from the dark surface', () => {
+  const pillCss = readFileSync(new URL('./components/ui/PillNav.css', import.meta.url), 'utf8')
+  const m = pillCss.match(/\.dark\s+\.pill\.is-active::after\s*\{[^}]*background:\s*rgb\(var\(--c-([\w-]+)\)\)/)
+  assert.ok(m, 'no .dark .pill.is-active::after { background: rgb(var(--c-*)) } rule in PillNav.css')
+  const dark = tokens('\\.dark')
+  const ratio = contrast(dark[m[1]], dark.surface)
+  assert.ok(ratio >= 3, `${m[1]} on surface: ${ratio.toFixed(2)}`)
+})

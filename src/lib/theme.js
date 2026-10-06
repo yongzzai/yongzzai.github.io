@@ -36,8 +36,19 @@ export function getTheme() {
 
 const listeners = new Set()
 
+// Swapping the tokens would otherwise start a colour transition on everything
+// that has one (cards, chips, links), fading them behind the theme switch.
+function withoutTransitions(change) {
+  const style = document.createElement('style')
+  style.textContent = '*,*::before,*::after{transition:none!important}'
+  document.head.appendChild(style)
+  change()
+  getComputedStyle(document.body).opacity // flush styles while transitions are off
+  setTimeout(() => style.remove(), 1)
+}
+
 function apply(theme) {
-  document.documentElement.classList.toggle('dark', theme === 'dark')
+  withoutTransitions(() => document.documentElement.classList.toggle('dark', theme === 'dark'))
   listeners.forEach((listener) => listener())
 }
 

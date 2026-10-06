@@ -141,6 +141,12 @@
   z-index: 4;
 }
 
+/* --base is the surface token (white in light mode); in dark mode that is
+   near-black on dark glass, so the current-page dot would vanish. */
+.dark .pill.is-active::after {
+  background: rgb(var(--c-muted));
+}
+
 .desktop-only {
   display: block;
 }
