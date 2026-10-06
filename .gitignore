@@ -1,5 +1,6 @@
 assets/cvtex/*
 .claude/
+.superpowers/
 
 # Build output (auto-generated on deploy)
 dist/
