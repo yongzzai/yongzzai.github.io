@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { FaLinkedinIn, FaGithub, FaResearchgate, FaFilePdf, FaCode, FaLayerGroup, FaFileCode, FaDatabase } from 'react-icons/fa'
+import { FaLinkedinIn, FaGithub, FaResearchgate, FaFilePdf } from 'react-icons/fa'
 import { FaGraduationCap } from 'react-icons/fa'
 import StrokeText from './ui/StrokeText'
 import { RotatingText } from './ui/RotatingText'
@@ -14,104 +14,6 @@ const socials = [
   { icon: FaResearchgate, href: 'https://www.researchgate.net/profile/Yongjae-Lee-14', label: 'ResearchGate', hoverColor: '#00CCBB', iconSize: 22 },
   { icon: FaGithub, href: 'https://github.com/yongzzai', label: 'GitHub', hoverColor: '#8b5cf6' },
 ]
-
-
-
-const techCategories = [
-  {
-    Icon: FaCode,
-    title: 'Programming',
-    items: [
-      { name: 'Python', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', tech: 'python' },
-      { name: 'JavaScript', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', tech: 'javascript' },
-    ],
-  },
-  {
-    Icon: FaLayerGroup,
-    title: 'Frameworks',
-    items: [
-      { name: 'PyTorch', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg', tech: 'pytorch' },
-      { name: 'PyG', img: 'https://raw.githubusercontent.com/pyg-team/pyg_sphinx_theme/master/pyg_sphinx_theme/static/img/pyg_logo.png', tech: 'pyg' },
-    ],
-  },
-  {
-    Icon: FaFileCode,
-    title: 'Markup & Styling',
-    items: [
-      { name: 'HTML5', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', tech: 'html' },
-      { name: 'CSS3', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', tech: 'css' },
-      { name: 'LaTeX', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg', tech: 'latex' },
-    ],
-  },
-  {
-    Icon: FaDatabase,
-    title: 'Database',
-    items: [
-      { name: 'MySQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', tech: 'mysql' },
-      { name: 'Neo4j', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg', tech: 'neo4j' },
-    ],
-  },
-]
-
-const techHoverColors = {
-  python: '#3776AB', javascript: '#F7DF1E', pytorch: '#EE4C2C',
-  pyg: '#E8562A', html: '#E34F26', css: '#1572B6',
-  latex: '#008080', mysql: '#4479A1', neo4j: '#008CC1',
-}
-
-function TechCard({ category }) {
-  const Icon = category.Icon
-  return (
-    <div
-      className="rounded-xl px-3 py-2 border border-border transition-all duration-300 relative overflow-hidden bg-surface"
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-3px)'
-        e.currentTarget.style.borderColor = 'rgb(var(--c-highlight))'
-        e.currentTarget.style.boxShadow = '0 6px 20px rgb(var(--c-highlight) / 0.12)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = ''
-        e.currentTarget.style.borderColor = ''
-        e.currentTarget.style.boxShadow = ''
-      }}
-    >
-      <div className="flex items-center gap-2 mb-1.5">
-        <div
-          className="w-6 h-6 rounded-md flex items-center justify-center bg-surface border border-border text-ink"
-        >
-          <Icon size={11} />
-        </div>
-        <span className="text-xs font-semibold text-ink font-sans">{category.title}</span>
-      </div>
-      <div className="flex flex-wrap gap-1">
-        {category.items.map((item) => (
-          <div
-            key={item.name}
-            className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-border text-muted transition-all duration-300 cursor-default"
-            style={{ fontSize: 10, background: 'rgb(var(--c-surface) / 0.6)' }}
-            onMouseEnter={(e) => {
-              const color = techHoverColors[item.tech] || '#8a64ff'
-              e.currentTarget.style.borderColor = color
-              e.currentTarget.style.boxShadow = `0 0 12px ${color}44`
-              e.currentTarget.style.transform = 'scale(1.05)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = ''
-              e.currentTarget.style.boxShadow = ''
-              e.currentTarget.style.transform = ''
-            }}
-          >
-            {item.img
-              ? <img src={item.img} alt={item.name} style={{ width: 12, height: 12, objectFit: 'contain' }} />
-              : <span style={{ fontSize: 12 }}>{item.icon}</span>
-            }
-            <span className="font-mono">{item.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
 
 function AboutLeeButton() {
   return (
@@ -273,20 +175,8 @@ export function Hero() {
         </motion.div>
       </div>
 
-      {/* Tech Stack */}
-      <motion.div className="mt-6 mb-6" {...fadeUp(1.0)}>
-        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
-          Tools &amp; Stack
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {techCategories.map((cat) => (
-            <TechCard key={cat.title} category={cat} />
-          ))}
-        </div>
-      </motion.div>
-
       {/* Where I've Been */}
-      <motion.div className="mb-20" {...fadeUp(1.05)}>
+      <motion.div className="mt-6 mb-20" {...fadeUp(1.0)}>
         {/* The rules sit inline with the label, so the row is exactly as tall
             as the text and the gallery below keeps its position. They fade out
             towards the edges to pull the eye to the centre. */}
