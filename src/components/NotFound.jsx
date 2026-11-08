@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom'
 import { BlurFade } from './ui/BlurFade'
-import { SECTIONS } from '../lib/activeSection'
+import { PAGES, hashForPage } from '../lib/pages'
 
 export function NotFound() {
   return (
-    <section className="pt-40 pb-24 max-w-5xl mx-auto px-6">
+    <section className="pt-40 pb-40 max-w-5xl mx-auto px-6">
       <BlurFade>
-        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">404</p>
-        <h2 className="text-3xl font-semibold text-ink mb-4">Page not found</h2>
-        <p className="text-sm text-muted mb-8">
+        <p className="font-mono text-sm text-mono uppercase tracking-widest mb-3">404</p>
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-ink mb-4">Page not found</h2>
+        <p className="text-base text-muted mb-8">
           That URL doesn&apos;t exist. Try one of these instead.
         </p>
         <nav className="flex flex-wrap gap-3">
-          {[{ to: '/', label: 'Home' }, ...SECTIONS.map(({ id, label }) => ({ to: `/#${id}`, label }))].map(({ to, label }) => (
+          {PAGES.map(({ label }, i) => ({ to: `/${hashForPage(i)}`, label })).map(({ to, label }) => (
             <Link
               key={to}
               to={to}
-              className="px-4 py-2 text-sm border border-border rounded-full bg-surface text-body hover:text-ink transition-colors"
+              className="px-4 py-2 text-base border border-border rounded-full bg-surface text-body hover:text-ink transition-colors"
             >
               {label}
             </Link>

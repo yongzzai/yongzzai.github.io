@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pangolin&display=swap');
+/* Brush hand for the motto, cut down to its glyphs (MOTTO_GLYPHS in
+   src/lib/motto.js, URL-encoded): the full CJK font is megabytes. */
+@import url('https://fonts.googleapis.com/css2?family=Zhi+Mang+Xing&text=%E5%BF%85%E6%AD%BB%E5%8D%B3%E7%94%9F%E9%AA%A8%E8%82%89%E4%B9%8B%E6%83%85&display=block');
 
 @tailwind base;
 @tailwind components;
@@ -6,36 +9,78 @@
 
 @layer base {
   /* Theme tokens as bare RGB channels; tailwind.config.js wraps them in rgb().
-     Canvas code reads them through useThemeColors() in src/lib/theme.js. */
+     Canvas code reads them through useThemeColors() in src/lib/theme.js.
+
+     The text sits on a photo (the wallpaper in Layout.jsx), so each theme takes
+     its text tints from its own sky and its accent from the one hue that scene
+     lacks: aqua against the pink dusk, magenta against the blue-and-sand noon.
+     --veil is how much of --c-bg is laid over the photo; with it, every text
+     token clears 4.5:1 on ~98%+ of the wallpaper's pixels (measured, not
+     guessed). Lower it and the mountains (light) or the horizon (dark) start
+     eating the muted text again. */
   :root {
     color-scheme: light;
-    --c-bg: 249 248 246;
+    --c-bg: 245 246 248;
     --c-surface: 255 255 255;
-    --c-border: 229 226 220;
-    --c-ink: 26 26 26;
-    --c-body: 45 45 45;
-    --c-muted: 122 122 122;
-    --c-highlight: 59 91 219;
-    --c-mono: 107 114 128;
+    --c-border: 214 211 226;
+    --c-ink: 23 18 58;
+    --c-body: 33 27 70;
+    --c-muted: 56 50 94;
+    --c-highlight: 140 0 80;
+    --c-mono: 44 56 102;
+    --veil: 0.65;
   }
   .dark {
     color-scheme: dark;
-    --c-bg: 18 17 16;
-    --c-surface: 27 26 24;
-    --c-border: 46 43 39;
-    --c-ink: 242 240 236;
-    --c-body: 217 214 208;
-    --c-muted: 154 149 141;
-    --c-highlight: 123 147 252;
-    --c-mono: 143 147 156;
+    --c-bg: 21 18 43;
+    --c-surface: 31 27 58;
+    --c-border: 64 57 100;
+    --c-ink: 255 247 241;
+    --c-body: 244 237 240;
+    --c-muted: 224 214 234;
+    --c-highlight: 124 245 223;
+    --c-mono: 208 222 247;
+    --veil: 0.55;
+  }
+  /* Typefaces. tailwind.config.js points font-sans/display/mono/brush at
+     these, so a font change is a CSS edit the dev server picks up live (a
+     change in the Tailwind config needs a server restart). Pangolin has one
+     weight; bold text is drawn heavier by the browser. */
+  :root {
+    --font-sans: 'Pangolin', system-ui, sans-serif;
+    --font-display: var(--font-sans);
+    --font-mono: var(--font-sans);
+    --font-brush: 'Zhi Mang Xing', serif;
   }
   html {
     scroll-behavior: smooth;
     overflow-x: hidden;
   }
   body {
-    @apply bg-bg text-body font-sans;
+    @apply bg-bg text-body font-sans antialiased;
   }
+}
+
+/* The still wallpaper behind the whole site, one per theme, under a veil of the
+   page colour (see --veil above). Only the active theme's image is fetched. */
+.wallpaper {
+  background:
+    linear-gradient(rgb(var(--c-bg) / var(--veil)), rgb(var(--c-bg) / var(--veil))),
+    url('/assets/Wallpaper_light.webp') center / cover no-repeat;
+}
+.dark .wallpaper {
+  background:
+    linear-gradient(rgb(var(--c-bg) / var(--veil)), rgb(var(--c-bg) / var(--veil))),
+    url('/assets/Wallpaper_dark.webp') center / cover no-repeat;
+}
+
+/* The home page's pager (components/Pager.jsx) is swiped, not scrolled with a
+   bar; the page dots above the dock show where you are. */
+.pager {
+  scrollbar-width: none;
+}
+.pager::-webkit-scrollbar {
+  display: none;
 }
 
 /* Theme switch: the new theme is revealed by a growing circle (src/lib/theme.js

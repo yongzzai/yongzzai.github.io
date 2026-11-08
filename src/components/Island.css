@@ -1,0 +1,30 @@
+.island-bar {
+  padding-top: max(10px, env(safe-area-inset-top));
+}
+
+/* Black on either theme, like the real one; the faint ring keeps its edge on
+   the dark wallpaper. */
+.island {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 8.5rem;
+  max-width: 100%;
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  background: rgb(0 0 0);
+  color: rgb(255 255 255 / 0.92);
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgb(255 255 255 / 0.08),
+    0 10px 30px -12px rgb(0 0 0 / 0.6);
+}
+
+.island .text-type {
+  white-space: nowrap;
+}

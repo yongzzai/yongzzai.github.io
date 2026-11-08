@@ -1,0 +1,248 @@
+.dock-bar {
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
+}
+
+.dock {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  padding: 10px 12px 8px;
+  border-radius: 18px;
+  background: rgb(var(--c-surface) / 0.4);
+  border: 1px solid rgb(var(--c-ink) / 0.12);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.55);
+}
+
+/* One app: the icon, its name underneath. The slot is as wide as whichever is
+   wider, so long names ("Publications") get room without spreading the short
+   ones, and every pair of neighbouring names keeps the dock's gap. */
+.dock-app {
+  --size: 52px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  min-width: var(--size);
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* A rounded square (iOS uses ~22% corners) with a white glyph on the app's
+   colours. react-icons draw at 1em, so font-size sizes the glyph. */
+.dock-icon {
+  display: grid;
+  place-items: center;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 23%;
+  background: linear-gradient(160deg, var(--app-from), var(--app-to));
+  color: rgb(255 255 255);
+  font-size: calc(var(--size) * 0.48);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.25),
+    0 2px 6px rgb(0 0 0 / 0.18);
+  transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.dock-app:active .dock-icon {
+  transform: scale(0.9);
+}
+
+.dock-app:focus-visible {
+  outline: none;
+}
+
+.dock-app:focus-visible .dock-icon {
+  outline: 2px solid rgb(var(--c-highlight));
+  outline-offset: 3px;
+}
+
+/* Like iOS's dark icons: a dark tile, and the app's colour moves to the glyph. */
+.dark .dock-icon {
+  background: linear-gradient(160deg, #2c2a3a, #171523);
+  color: var(--app-from);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.08),
+    0 2px 6px rgb(0 0 0 / 0.3);
+}
+
+.dock-label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  color: rgb(var(--c-muted));
+}
+
+.dock-app[aria-current='page'] .dock-label {
+  font-weight: 700;
+  color: rgb(var(--c-ink));
+}
+
+.dock-divider {
+  align-self: center;
+  width: 1px;
+  height: 40px;
+  margin: 0 0 16px; /* level with the icons, not icon + name */
+  background: rgb(var(--c-ink) / 0.18);
+}
+
+/* The macOS-style dock (mouse and trackpad; Dock.jsx sets .is-magnifying).
+   The bar keeps its height while icons grow out of the top of it, and the
+   names move into a bubble over the hovered icon, so the written ones are
+   kept only for screen readers. */
+.dock.is-magnifying {
+  height: 68px;
+  gap: 10px;
+  padding: 0 10px 10px;
+}
+
+.dock.is-magnifying .dock-app {
+  --size: 48px;
+  min-width: 0;
+}
+
+.dock.is-magnifying .dock-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.dock.is-magnifying .dock-divider {
+  align-self: flex-end;
+  height: 44px;
+  margin: 0 2px 2px;
+}
+
+/* The page on screen gets a dot under its icon, like a running app. */
+.dock-run {
+  display: none;
+  position: absolute;
+  bottom: -7px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin-left: -2px;
+  border-radius: 999px;
+  background: rgb(var(--c-ink) / 0.85);
+}
+
+.dock.is-magnifying .dock-app[aria-current='page'] .dock-run {
+  display: block;
+}
+
+.dock-tip {
+  position: absolute;
+  bottom: calc(100% + 12px);
+  left: 50%;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: rgb(var(--c-surface) / 0.85);
+  border: 1px solid rgb(var(--c-ink) / 0.12);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 6px 18px -8px rgb(0 0 0 / 0.5);
+  color: rgb(var(--c-ink));
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* The bubble's point, aimed at its icon. */
+.dock-tip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border: 5px solid transparent;
+  border-top-color: rgb(var(--c-surface) / 0.85);
+}
+
+/* Page dots above the dock; the wide one is the page on screen. They sit on a
+   small frosted pill so they stay legible when a page's text scrolls under. */
+.dock-dots {
+  display: flex;
+  gap: 8px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgb(var(--c-surface) / 0.35);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.dock-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgb(var(--c-ink) / 0.3);
+  transition:
+    width 200ms ease,
+    background 200ms ease;
+}
+
+.dock-dot.is-active {
+  width: 18px;
+  background: rgb(var(--c-ink));
+}
+
+/* Five apps fit a 320px phone at this size. */
+@media (max-width: 420px) {
+  .dock {
+    gap: 8px;
+    padding: 8px 9px 7px;
+    border-radius: 16px;
+  }
+  .dock-app {
+    --size: 44px;
+  }
+  .dock-label {
+    font-size: 9.5px;
+    letter-spacing: -0.01em;
+  }
+  .dock-divider {
+    height: 34px;
+    margin: 0 0 14px;
+  }
+}
+
+/* Narrower phones (360px Androids, the old 320px iPhone SE): a tighter dock
+   so all six apps stay on screen. */
+@media (max-width: 370px) {
+  .dock-bar {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+  .dock {
+    gap: 6px;
+    padding: 7px 6px 6px;
+  }
+  .dock-app {
+    --size: 38px;
+  }
+  .dock-label {
+    font-size: 9px;
+  }
+  .dock-divider {
+    height: 30px;
+    margin: 0 0 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock-icon,
+  .dock-dot {
+    transition: none;
+  }
+}

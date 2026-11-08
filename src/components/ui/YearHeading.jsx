@@ -2,8 +2,8 @@
 export function YearHeading({ year, count, unit }) {
   return (
     <div className="flex items-baseline gap-3 border-b-2 border-ink pb-2 mb-6">
-      <h3 className="font-mono text-3xl font-bold text-ink leading-none tracking-tight">{year}</h3>
-      <span className="font-mono text-xs text-mono">
+      <h3 className="font-display text-3xl sm:text-4xl font-bold text-ink leading-none tracking-tight">{year}</h3>
+      <span className="font-mono text-sm text-mono">
         {count} {unit}
         {count === 1 ? '' : 's'}
       </span>

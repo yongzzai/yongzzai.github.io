@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { FaLinkedinIn, FaGithub, FaResearchgate, FaFilePdf, FaCode, FaLayerGroup, FaFileCode, FaDatabase } from 'react-icons/fa'
+import { FaLinkedinIn, FaGithub, FaResearchgate, FaFilePdf } from 'react-icons/fa'
 import { FaGraduationCap } from 'react-icons/fa'
 import StrokeText from './ui/StrokeText'
 import { RotatingText } from './ui/RotatingText'
@@ -47,109 +47,13 @@ const EVENT_SLIDES = EVENT_LOG.map(({ image, title, subtitle }) => ({
   alt: subtitle ? `${title}, ${subtitle}` : title,
 }))
 
-const techCategories = [
-  {
-    Icon: FaCode,
-    title: 'Programming',
-    items: [
-      { name: 'Python', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg', tech: 'python' },
-      { name: 'JavaScript', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg', tech: 'javascript' },
-    ],
-  },
-  {
-    Icon: FaLayerGroup,
-    title: 'Frameworks',
-    items: [
-      { name: 'PyTorch', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pytorch/pytorch-original.svg', tech: 'pytorch' },
-      { name: 'PyG', img: 'https://raw.githubusercontent.com/pyg-team/pyg_sphinx_theme/master/pyg_sphinx_theme/static/img/pyg_logo.png', tech: 'pyg' },
-    ],
-  },
-  {
-    Icon: FaFileCode,
-    title: 'Markup & Styling',
-    items: [
-      { name: 'HTML5', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg', tech: 'html' },
-      { name: 'CSS3', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg', tech: 'css' },
-      { name: 'LaTeX', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/latex/latex-original.svg', tech: 'latex' },
-    ],
-  },
-  {
-    Icon: FaDatabase,
-    title: 'Database',
-    items: [
-      { name: 'MySQL', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg', tech: 'mysql' },
-      { name: 'Neo4j', img: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/neo4j/neo4j-original.svg', tech: 'neo4j' },
-    ],
-  },
-]
-
-const techHoverColors = {
-  python: '#3776AB', javascript: '#F7DF1E', pytorch: '#EE4C2C',
-  pyg: '#E8562A', html: '#E34F26', css: '#1572B6',
-  latex: '#008080', mysql: '#4479A1', neo4j: '#008CC1',
-}
-
-function TechCard({ category }) {
-  const Icon = category.Icon
-  return (
-    <div
-      className="rounded-xl px-3 py-2 border border-border transition-all duration-300 relative overflow-hidden bg-surface"
-      onMouseEnter={(e) => {
-        e.currentTarget.style.transform = 'translateY(-3px)'
-        e.currentTarget.style.borderColor = 'rgb(var(--c-highlight))'
-        e.currentTarget.style.boxShadow = '0 6px 20px rgb(var(--c-highlight) / 0.12)'
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.transform = ''
-        e.currentTarget.style.borderColor = ''
-        e.currentTarget.style.boxShadow = ''
-      }}
-    >
-      <div className="flex items-center gap-2 mb-1.5">
-        <div
-          className="w-6 h-6 rounded-md flex items-center justify-center bg-surface border border-border text-ink"
-        >
-          <Icon size={11} />
-        </div>
-        <span className="text-xs font-semibold text-ink font-sans">{category.title}</span>
-      </div>
-      <div className="flex flex-wrap gap-1">
-        {category.items.map((item) => (
-          <div
-            key={item.name}
-            className="flex items-center gap-1 px-2 py-0.5 rounded-full border border-border text-muted transition-all duration-300 cursor-default"
-            style={{ fontSize: 10, background: 'rgb(var(--c-surface) / 0.6)' }}
-            onMouseEnter={(e) => {
-              const color = techHoverColors[item.tech] || '#8a64ff'
-              e.currentTarget.style.borderColor = color
-              e.currentTarget.style.boxShadow = `0 0 12px ${color}44`
-              e.currentTarget.style.transform = 'scale(1.05)'
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.borderColor = ''
-              e.currentTarget.style.boxShadow = ''
-              e.currentTarget.style.transform = ''
-            }}
-          >
-            {item.img
-              ? <img src={item.img} alt={item.name} style={{ width: 12, height: 12, objectFit: 'contain' }} />
-              : <span style={{ fontSize: 12 }}>{item.icon}</span>
-            }
-            <span className="font-mono">{item.name}</span>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 function AboutLeeButton() {
   return (
     <a
       href="/assets/cv.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium border border-ink text-ink bg-transparent rounded transition-all duration-300"
+      className="inline-flex items-center gap-2 px-6 py-3 text-base font-medium border border-ink text-ink bg-transparent rounded transition-all duration-300"
       onMouseEnter={(e) => {
         e.currentTarget.style.backgroundColor = 'rgb(var(--c-highlight))'
         e.currentTarget.style.color = 'rgb(var(--c-bg))'
@@ -217,8 +121,8 @@ export function Hero() {
               <StrokeText
                 text="Yongjae Lee"
                 fontSize={72}
-                fontWeight={600}
-                letterSpacing={-2}
+                fontWeight={400}
+                letterSpacing={-1}
                 strokeWidth={1.2}
                 strokeColor={colors.highlight}
                 fillColor={colors.ink}
@@ -230,13 +134,13 @@ export function Hero() {
               />
             </h1>
 
-            <motion.div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-base sm:text-lg font-light mb-6" {...fadeUp(0.55)}>
+            <motion.div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-lg sm:text-xl font-light mb-6" {...fadeUp(0.55)}>
               <span className="text-ink font-medium">Ph.D. Student</span>
               {/* Below lg the rotating phrase can't always fit beside the title, so
                   it gets its own line; otherwise it would hop between lines as the
                   phrase length changes. */}
               <span className="text-muted hidden lg:inline">·</span>
-              <span className="flex items-center gap-x-2 text-sm sm:text-base basis-full lg:basis-auto">
+              <span className="flex items-center gap-x-2 text-base sm:text-lg basis-full lg:basis-auto">
                 <span className="text-muted">Studying</span>
                 <RotatingText
                   texts={['Business Process Management', 'Process-Aware Agentic Systems', 'Deep Learning for BPM']}
@@ -246,31 +150,24 @@ export function Hero() {
             </motion.div>
 
             <motion.div className="flex flex-col gap-3 mb-4" {...fadeUp(0.7)}>
-              <div className="flex items-start gap-2 text-sm">
-                <span className="text-highlight text-lg mt-0.5 shrink-0">▸</span>
+              <div className="flex items-start gap-2 text-base">
+                <span className="text-highlight text-xl mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-medium">Ph.D. in Computer Science <span className="text-muted font-normal">(2026.08 ~ Present)</span></div>
+                  <div className="text-body font-bold">Ph.D. in Computer Science <span className="text-muted font-normal">(2026.08 ~ Present)</span></div>
                   <div className="text-muted">Hasso Plattner Institute (Universität Potsdam), Potsdam, Germany</div>
                 </div>
               </div>
-              {/* <div className="flex items-start gap-2 text-sm">
-                <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
+              <div className="flex items-start gap-2 text-base">
+                <span className="text-muted text-xl mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-medium">Associate Research Engineer <span className="text-muted font-normal">(2026.03 ~ 2026.06)</span></div>
-                  <div className="text-muted">Industrial Artificial Intelligence Research Institute, Busan, South Korea</div>
-                </div>
-              </div> */}
-              <div className="flex items-start gap-2 text-sm">
-                <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
-                <div>
-                  <div className="text-body font-medium">M.Sc. in Industrial Data Science &amp; Engineering <span className="text-muted font-normal">(2024.03 ~ 2026.02)</span></div>
+                  <div className="text-body font-bold">M.Sc. in Industrial Data Science &amp; Engineering <span className="text-muted font-normal">(2024.03 ~ 2026.02)</span></div>
                   <div className="text-muted">Pusan National University, Busan, South Korea</div>
                 </div>
               </div>
-              <div className="flex items-start gap-2 text-sm">
-                <span className="text-muted text-lg mt-0.5 shrink-0">▸</span>
+              <div className="flex items-start gap-2 text-base">
+                <span className="text-muted text-xl mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-medium">B.Sc. in Industrial Engineering <span className="text-muted font-normal">(2018.03 ~ 2024.02)</span></div>
+                  <div className="text-body font-bold">B.Sc. in Industrial Engineering <span className="text-muted font-normal">(2018.03 ~ 2024.02)</span></div>
                   <div className="text-muted">Pusan National University, Busan, South Korea</div>
                 </div>
               </div>
@@ -295,7 +192,9 @@ export function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6, delay: 0.3, ease: 'easeOut' }}
         >
-          <div className="h-[340px]">
+          {/* Shorter below lg, where it sits above the bio, so the cards
+              shrink with it and don't take over a phone screen. */}
+          <div className="h-[220px] lg:h-[340px]">
             <DepthCarousel
               items={EVENT_SLIDES}
               cardWidth={240}
@@ -306,28 +205,16 @@ export function Hero() {
             />
           </div>
           <div className="mt-2 text-center" aria-live="polite">
-            <p className="text-sm font-medium text-ink">{event.title}</p>
+            <p className="text-base font-medium text-ink">{event.title}</p>
             {/* A blank line when there is no caption keeps the block from jumping. */}
-            <p className="text-xs text-muted">{event.subtitle ?? '\u00a0'}</p>
-            <p className="mt-1 font-mono text-[11px] text-mono">
+            <p className="text-sm text-muted">{event.subtitle ?? '\u00a0'}</p>
+            <p className="mt-1 font-mono text-xs text-mono">
               <span className="text-highlight">LEE</span>vent Log · {String(eventIndex + 1).padStart(2, '0')} /{' '}
               {EVENT_LOG.length}
             </p>
           </div>
         </motion.div>
       </div>
-
-      {/* Tech Stack */}
-      <motion.div className="mt-6 mb-6" {...fadeUp(1.0)}>
-        <p className="font-mono text-xs text-mono uppercase tracking-widest mb-3">
-          Tools &amp; Stack
-        </p>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-          {techCategories.map((cat) => (
-            <TechCard key={cat.title} category={cat} />
-          ))}
-        </div>
-      </motion.div>
     </section>
   )
 }

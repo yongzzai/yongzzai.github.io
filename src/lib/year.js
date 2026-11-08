@@ -13,6 +13,12 @@ export function splitYear(value) {
   return { year, month: MONTHS[Number(month) - 1] ?? '' }
 }
 
+// '2026.08' -> '08.2026' (the Journey's date column);  '2026' -> '2026'
+export function monthDotYear(value) {
+  const [year, month] = String(value ?? '').split('.')
+  return month ? `${month}.${year}` : year
+}
+
 // Returns [[year, items], ...] in first-seen order, so a list already sorted
 // newest-first stays newest-first.
 export function groupByYear(items) {

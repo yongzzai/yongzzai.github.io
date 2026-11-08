@@ -5,7 +5,7 @@ import assert from 'node:assert/strict'
 // Files that must take every theme-dependent colour from tokens. Brand colours
 // (social/tech hover colours) are allowed; light-theme literals are not, except
 // on lines marked `theme-neutral` (decoration deliberately drawn over both).
-const THEMED = ['components/Navbar.jsx', 'components/ui/ThemeToggle.jsx', 'components/ui/SpotlightCard.jsx', 'components/Hero.jsx', 'components/Layout.jsx']
+const THEMED = ['components/Island.jsx', 'components/Dock.jsx', 'components/ui/SpotlightCard.jsx', 'components/Hero.jsx', 'components/Layout.jsx']
 
 const LIGHT_ONLY = [
   /#1a1a1a/i,

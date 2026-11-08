@@ -9,8 +9,8 @@ export function Conferences() {
   return (
     <section id="conferences" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
-        <h2 className="text-3xl font-semibold text-ink mb-2">Conference Presentations</h2>
-        <p className="text-xs text-muted mb-12">* Presenter only</p>
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-ink mb-2">Conference Presentations</h2>
+        <p className="text-sm text-muted mb-12">* Presenter only</p>
       </BlurFade>
 
       <div className="space-y-14">
@@ -24,14 +24,14 @@ export function Conferences() {
               {rows.map(({ item, delay }) => (
                 <BlurFade key={item.title} delay={delay}>
                   <li className="grid grid-cols-1 sm:grid-cols-[6rem_1fr] gap-1 sm:gap-6 border-b border-border pb-4 last:border-0">
-                    <div className="font-mono text-xs text-mono pt-1 leading-snug sm:whitespace-pre-line">
+                    <div className="font-mono text-sm text-mono pt-1 leading-snug sm:whitespace-pre-line">
                       {splitYear(item.year).month}
                       {'\n'}
                       {item.venue_short}
                     </div>
                     <div className="space-y-1">
-                      <h4 className="text-sm font-semibold text-ink leading-snug">{item.title}</h4>
-                      <p className="text-sm text-muted italic">{item.venue}</p>
+                      <h4 className="text-base font-semibold text-ink leading-snug">{item.title}</h4>
+                      <p className="text-base text-muted italic">{item.venue}</p>
                     </div>
                   </li>
                 </BlurFade>

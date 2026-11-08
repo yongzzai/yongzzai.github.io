@@ -37,24 +37,26 @@ test('light and dark blocks define every token', () => {
   }
 })
 
-test('light values are unchanged from the original palette', () => {
-  const light = tokens(':root')
-  assert.deepEqual(
-    Object.fromEntries(Object.entries(light).map(([k, v]) => [k, hex(v)])),
-    {
-      bg: '#f9f8f6', surface: '#ffffff', border: '#e5e2dc', ink: '#1a1a1a', body: '#2d2d2d',
-      muted: '#7a7a7a', highlight: '#3b5bdb', mono: '#6b7280',
-    },
-  )
-})
-
-test('dark text tokens reach 4.5:1 on bg and surface', () => {
-  const dark = tokens('\\.dark')
-  for (const t of TEXT) {
-    for (const ground of ['bg', 'surface']) {
-      const ratio = contrast(dark[t], dark[ground])
-      assert.ok(ratio >= 4.5, `${t} on ${ground}: ${ratio.toFixed(2)}`)
+for (const [name, sel] of [['light', ':root'], ['dark', '\\.dark']]) {
+  test(`${name} text tokens reach 4.5:1 on bg and surface`, () => {
+    const theme = tokens(sel)
+    for (const t of TEXT) {
+      for (const ground of ['bg', 'surface']) {
+        const ratio = contrast(theme[t], theme[ground])
+        assert.ok(ratio >= 4.5, `${t} on ${ground}: ${ratio.toFixed(2)} (${hex(theme[t])} on ${hex(theme[ground])})`)
+      }
     }
+  })
+}
+
+// The wallpaper behind the text is only readable under a veil of --c-bg; the
+// token values in index.css were tuned against these strengths, so a theme
+// without one (or with a much thinner one) puts text back on the bare photo.
+test('each theme veils the wallpaper enough for its text tokens', () => {
+  for (const sel of [':root', '\\.dark']) {
+    const m = css.match(new RegExp(`^\\s*${sel}\\s*\\{[^}]*--veil:\\s*([\\d.]+);`, 'm'))
+    assert.ok(m, `no --veil in "${sel} {"`)
+    assert.ok(Number(m[1]) >= 0.5, `${sel} --veil ${m[1]} is below 0.5`)
   }
 })
 
@@ -63,16 +65,4 @@ test('tailwind colors read the CSS variables', () => {
   for (const t of TOKENS) {
     assert.equal(colors[t], `rgb(var(--c-${t}) / <alpha-value>)`, t)
   }
-})
-
-// PillNav marks the current page with a dot drawn in --base (the surface token,
-// white in light mode). In dark mode that is surface-on-glass and disappears, so
-// a .dark override must give it at least the 3:1 non-text contrast of WCAG 1.4.11.
-test('active-page nav dot stands out from the dark surface', () => {
-  const pillCss = readFileSync(new URL('./components/ui/PillNav.css', import.meta.url), 'utf8')
-  const m = pillCss.match(/\.dark\s+\.pill\.is-active::after\s*\{[^}]*background:\s*rgb\(var\(--c-([\w-]+)\)\)/)
-  assert.ok(m, 'no .dark .pill.is-active::after { background: rgb(var(--c-*)) } rule in PillNav.css')
-  const dark = tokens('\\.dark')
-  const ratio = contrast(dark[m[1]], dark.surface)
-  assert.ok(ratio >= 3, `${m[1]} on surface: ${ratio.toFixed(2)}`)
 })

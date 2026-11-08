@@ -9,8 +9,8 @@ export function Publications() {
   return (
     <section id="publications" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
-        <h2 className="text-3xl font-semibold text-ink mb-2">Publications</h2>
-        <p className="text-xs text-muted mb-12">* Excluding Korean Publications</p>
+        <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-ink mb-2">Publications</h2>
+        <p className="text-sm text-muted mb-12">* Excluding Korean Publications</p>
       </BlurFade>
 
       <div className="space-y-14">
@@ -26,13 +26,13 @@ export function Publications() {
                   <li className="grid grid-cols-1 sm:grid-cols-[6rem_1fr] gap-1 sm:gap-6 border-b border-border pb-4 last:border-0">
                     {/* The year lives in the section heading, so the row only
                         needs the month to stay ordered at a glance. */}
-                    <span className="font-mono text-xs text-mono pt-1 leading-snug">
+                    <span className="font-mono text-sm text-mono pt-1 leading-snug">
                       {splitYear(item.year).month}
                     </span>
                     <div className="space-y-1">
-                      <h4 className="text-sm font-semibold text-ink leading-snug">{item.title}</h4>
-                      <p className="text-sm text-muted italic">{item.venue}</p>
-                      <p className="text-sm text-muted">{item.authors}</p>
+                      <h4 className="text-base font-semibold text-ink leading-snug">{item.title}</h4>
+                      <p className="text-base text-muted italic">{item.venue}</p>
+                      <p className="text-base text-muted">{item.authors}</p>
                     </div>
                   </li>
                 </BlurFade>

@@ -1,11 +1,12 @@
 // Adapted from React Bits' DepthCarousel (Components/DepthCarousel): the demo's
 // default items are dropped, only horizontal wheel/trackpad input turns the
 // carousel so vertical page scrolling passes through, and the cards are scaled
-// to the stack's real width (depthCarouselFit.js) rather than a rough estimate.
+// to the stack's real width and the container's height (depthCarouselFit.js)
+// rather than a rough estimate, so the parent's height sets the card size.
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import './DepthCarousel.css';
-import { fitScale } from './depthCarouselFit';
+import { fitScale, placeCard } from './depthCarouselFit';
 
 const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 const normalizeItem = it => (typeof it === 'string' ? { image: it, alt: '' } : it);
@@ -70,6 +71,7 @@ const DepthCarousel = ({
     ease,
     loop,
     cardWidth,
+    cardHeight,
     perspective,
     autoplayDelay
   };
@@ -91,16 +93,16 @@ const DepthCarousel = ({
         if (d > n / 2) d -= n;
       }
 
-      const back = Math.max(0, d);
-      const az = Math.abs(d);
-      const shown = az <= cfg.visibleCards + 0.5;
+      // Invisible cards are parked near the stack and hidden, so none is ever
+      // projected from the camera plane (see placeCard).
+      const { offset, visible } = placeCard(d, cfg);
+      const back = Math.max(0, offset);
 
-      const tz = -cfg.depth * d;
-      const tx = dir * cfg.spread * d;
-      const ry = dir * cfg.tilt * clamp(d, 0, 1);
+      const tz = -cfg.depth * offset;
+      const tx = dir * cfg.spread * offset;
+      const ry = dir * cfg.tilt * clamp(offset, 0, 1);
 
-      let opacity = d < 0 ? Math.max(0, 1 + d) : 1;
-      if (!shown) opacity = 0;
+      const opacity = visible ? (d < 0 ? 1 + d : 1) : 0;
 
       const brightness = Math.max(0.15, 1 - back * cfg.falloff);
       const blurPx = cfg.blur > 0 ? Math.min(cfg.blur, (back / Math.max(1, cfg.visibleCards)) * cfg.blur) : 0;
@@ -110,7 +112,9 @@ const DepthCarousel = ({
       el.style.opacity = opacity.toFixed(3);
       el.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blurPx.toFixed(2)}px)`;
       el.style.zIndex = String(zi);
-      el.style.pointerEvents = shown && opacity > 0.05 ? 'auto' : 'none';
+      // Hidden, not just transparent: a transparent card is still drawn.
+      el.style.visibility = visible ? 'visible' : 'hidden';
+      el.style.pointerEvents = visible && opacity > 0.05 ? 'auto' : 'none';
 
       const ov = overlayRefs.current[i];
       if (ov) ov.style.opacity = clamp(back * cfg.falloff * 1.25, 0, 0.86).toFixed(3);
@@ -175,7 +179,10 @@ const DepthCarousel = ({
     const root = rootRef.current;
     if (!root) return;
     const ro = new ResizeObserver(entries => {
-      scaleRef.current = fitScale(entries[0].contentRect.width, cfgRef.current);
+      const { width, height } = entries[0].contentRect;
+      scaleRef.current = fitScale(width, height, cfgRef.current);
+      // The arrows sit beside the front card, so CSS needs its on-screen width.
+      root.style.setProperty('--dc-card-w', `${cfgRef.current.cardWidth * scaleRef.current}px`);
       layout(posRef.current);
     });
     ro.observe(root);

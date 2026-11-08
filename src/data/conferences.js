@@ -7,7 +7,7 @@ export const conferences = [
   },
   {
     year: '2025.09',
-    venue_short: 'BPM 2025',
+    venue_short: 'BPM2025',
     title: 'Multi-task trained Graph Neural Network for Business Process Anomaly Detection with a Limited Number of Labeled Anomalies',
     venue: '23rd International Conference on Business Process Management, Seville',
   },
@@ -19,7 +19,7 @@ export const conferences = [
   },
   {
     year: '2023.09',
-    venue_short: 'LOGMS 2023',
+    venue_short: 'LOGMS2023',
     title: 'Import Container Dwell Time: Analysis of Determinant Factors with Explainable Artificial Intelligence',
     venue: 'The 11th International Conference on Logistics and Maritime Systems, Busan',
   },

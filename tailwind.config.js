@@ -9,9 +9,6 @@ export default {
   darkMode: 'class',
   theme: {
     extend: {
-      screens: {
-        nav: '901px',
-      },
       colors: {
         bg: token('bg'),
         surface: token('surface'),
@@ -22,9 +19,15 @@ export default {
         highlight: token('highlight'),
         mono: token('mono'),
       },
+      // The typefaces themselves are CSS variables in src/index.css.
       fontFamily: {
-        sans: ['"DM Sans"', 'system-ui', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'monospace'],
+        sans: ['var(--font-sans)'],
+        // Section titles and years.
+        display: ['var(--font-display)'],
+        // Dates, counts and venues.
+        mono: ['var(--font-mono)'],
+        // The calligraphy motto only; loaded as a subset of its glyphs.
+        brush: ['var(--font-brush)'],
       },
     },
   },
