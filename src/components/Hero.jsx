@@ -149,25 +149,27 @@ export function Hero() {
               </span>
             </motion.div>
 
+            {/* On phones each date range gets its own line under the degree,
+                instead of breaking wherever the long name happens to wrap. */}
             <motion.div className="flex flex-col gap-3 mb-4" {...fadeUp(0.7)}>
               <div className="flex items-start gap-2 text-base">
                 <span className="text-highlight text-xl mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-bold">Ph.D. in Computer Science <span className="text-muted font-normal">(2026.08 ~ Present)</span></div>
+                  <div className="text-body font-bold">Ph.D. in Computer Science <span className="block sm:inline text-muted font-normal">(2026.08 ~ Present)</span></div>
                   <div className="text-muted">Hasso Plattner Institute (Universität Potsdam), Potsdam, Germany</div>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-base">
                 <span className="text-muted text-xl mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-bold">M.Sc. in Industrial Data Science &amp; Engineering <span className="text-muted font-normal">(2024.03 ~ 2026.02)</span></div>
+                  <div className="text-body font-bold">M.Sc. in Industrial Data Science &amp; Engineering <span className="block sm:inline text-muted font-normal">(2024.03 ~ 2026.02)</span></div>
                   <div className="text-muted">Pusan National University, Busan, South Korea</div>
                 </div>
               </div>
               <div className="flex items-start gap-2 text-base">
                 <span className="text-muted text-xl mt-0.5 shrink-0">▸</span>
                 <div>
-                  <div className="text-body font-bold">B.Sc. in Industrial Engineering <span className="text-muted font-normal">(2018.03 ~ 2024.02)</span></div>
+                  <div className="text-body font-bold">B.Sc. in Industrial Engineering <span className="block sm:inline text-muted font-normal">(2018.03 ~ 2024.02)</span></div>
                   <div className="text-muted">Pusan National University, Busan, South Korea</div>
                 </div>
               </div>
