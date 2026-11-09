@@ -2,17 +2,40 @@
   padding-bottom: max(14px, env(safe-area-inset-bottom));
 }
 
+/* The bar's glass is a GlassSurface (Dock.jsx), the same refracting glass the
+   old top navbar had. It sits behind the apps as a layer rather than wrapping
+   them, because it clips its contents and the magnified icons and name bubbles
+   reach out of the bar. */
 .dock {
+  position: relative;
+  isolation: isolate;
   display: flex;
   align-items: flex-end;
   gap: 12px;
   padding: 10px 12px 8px;
   border-radius: 18px;
-  background: rgb(var(--c-surface) / 0.4);
-  border: 1px solid rgb(var(--c-ink) / 0.12);
-  -webkit-backdrop-filter: blur(24px) saturate(170%);
-  backdrop-filter: blur(24px) saturate(170%);
-  box-shadow: 0 18px 40px -18px rgb(0 0 0 / 0.55);
+}
+
+.dock > .dock-glass {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* The glass alone is clear, so the bar would vanish on the dark wallpaper and
+   the icons would have nothing to rise out of. A faint tint and a hairline
+   edge, as on the macOS Dock, give the bar its outline. Painted over the
+   glass (after it, same layer) and under the apps. */
+.dock::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: rgb(var(--c-surface) / 0.22);
+  box-shadow: inset 0 0 0 1px rgb(var(--c-ink) / 0.16);
+  pointer-events: none;
 }
 
 /* One app: the icon, its name underneath. The slot is as wide as whichever is
@@ -35,7 +58,7 @@
 }
 
 /* A rounded square (iOS uses ~22% corners) with a white glyph on the app's
-   colours. react-icons draw at 1em, so font-size sizes the glyph. */
+   colours. */
 .dock-icon {
   display: grid;
   place-items: center;
@@ -44,11 +67,17 @@
   border-radius: 23%;
   background: linear-gradient(160deg, var(--app-from), var(--app-to));
   color: rgb(255 255 255);
-  font-size: calc(var(--size) * 0.48);
   box-shadow:
     inset 0 1px 0 rgb(255 255 255 / 0.25),
     0 2px 6px rgb(0 0 0 / 0.18);
   transition: transform 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* The glyph is a share of its tile, so it grows with it when the dock
+   magnifies (the tile's size is animated, the glyph just follows). */
+.dock-icon > svg {
+  width: 48%;
+  height: 48%;
 }
 
 .dock-app:active .dock-icon {
@@ -95,17 +124,21 @@
 }
 
 /* The macOS-style dock (mouse and trackpad; Dock.jsx sets .is-magnifying).
-   The bar keeps its height while icons grow out of the top of it, and the
-   names move into a bubble over the hovered icon, so the written ones are
-   kept only for screen readers. */
+   A thin bar that keeps its height while icons grow out of the top of it,
+   and the names move into a bubble over the hovered icon, so the written
+   ones are kept only for screen readers. */
+/* Proportions of the macOS Dock, in resting icons (44px): bar 1.55 tall,
+   0.28 of space below the icons (where the running dot sits), 0.3 between
+   them. */
 .dock.is-magnifying {
   height: 68px;
-  gap: 10px;
-  padding: 0 10px 10px;
+  gap: 13px;
+  padding: 0 12px 12px;
 }
 
+/* --size here is the resting size; BASE in Dock.jsx matches it. */
 .dock.is-magnifying .dock-app {
-  --size: 48px;
+  --size: 44px;
   min-width: 0;
 }
 
@@ -117,17 +150,18 @@
   clip-path: inset(50%);
 }
 
+/* Most of the bar's height, centred, like the macOS separator. */
 .dock.is-magnifying .dock-divider {
-  align-self: flex-end;
-  height: 44px;
-  margin: 0 2px 2px;
+  align-self: center;
+  height: 54px;
+  margin: 12px 0 0;
 }
 
 /* The page on screen gets a dot under its icon, like a running app. */
 .dock-run {
   display: none;
   position: absolute;
-  bottom: -7px;
+  bottom: -8px;
   left: 50%;
   width: 4px;
   height: 4px;
@@ -202,7 +236,6 @@
   .dock {
     gap: 8px;
     padding: 8px 9px 7px;
-    border-radius: 16px;
   }
   .dock-app {
     --size: 44px;

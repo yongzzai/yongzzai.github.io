@@ -4,6 +4,7 @@ import { IoBook, IoFlask, IoFolderOpen, IoHome, IoMic, IoMoon, IoSunny } from 'r
 import { useNavigate } from 'react-router-dom'
 import { PAGES, hashForPage, useActivePage } from '../lib/pages'
 import { toggleTheme, useTheme } from '../lib/theme'
+import GlassSurface from './ui/GlassSurface'
 import './Dock.css'
 
 // Each page is an app icon with its own colour pair. Theme-neutral: like real
@@ -19,11 +20,20 @@ const APPS = {
 const SETTINGS = { from: '#b0b0b8', to: '#5d5d66' }
 
 // Magnification, as in the macOS Dock: icons within REACH px of the pointer
-// grow from BASE towards PEAK the closer they are, on a quick spring.
-const BASE = 48
-const PEAK = 76
-const REACH = 150
+// grow from BASE up to PEAK (about 1.45x; the Dock's own 1.9x read as too
+// big here), along a raised-cosine bell so neighbours swell and settle
+// smoothly, on a quick spring. The bar's proportions follow the Dock's
+// (Dock.css). BASE matches the resting --size there.
+const BASE = 44
+const PEAK = 64
+const REACH = 260
 const SPRING = { mass: 0.1, stiffness: 170, damping: 14 }
+
+// 1 under the pointer, easing to 0 at REACH (a raised cosine).
+const bell = (d) => {
+  const t = Math.max(0, 1 - Math.abs(d) / REACH)
+  return 0.5 - 0.5 * Math.cos(Math.PI * t)
+}
 
 // Only with a mouse or trackpad. Touch screens have nothing to hover, and the
 // mouse events a tap sends would leave an icon swollen. Reduced motion keeps
@@ -50,8 +60,7 @@ function DockApp({ as: Tag, mouseX, magnify, Icon, colours, label, tip, current,
     const r = ref.current?.getBoundingClientRect()
     return r ? x - (r.left + r.width / 2) : Infinity
   })
-  const size = useSpring(useTransform(distance, [-REACH, 0, REACH], [BASE, PEAK, BASE]), SPRING)
-  const glyph = useTransform(size, (s) => s * 0.48)
+  const size = useSpring(useTransform(distance, (d) => BASE + (PEAK - BASE) * bell(d)), SPRING)
 
   return (
     <Tag
@@ -83,13 +92,13 @@ function DockApp({ as: Tag, mouseX, magnify, Icon, colours, label, tip, current,
         className="dock-icon"
         // Always set, even when still: framer-motion leaves a style it once
         // wrote in place, so a dock that stops magnifying (a tablet losing
-        // its trackpad) would otherwise keep the last size.
+        // its trackpad) would otherwise keep the last size. The glyph is
+        // sized from the tile in Dock.css, so the two grow together.
         style={{
           '--app-from': colours.from,
           '--app-to': colours.to,
           width: magnify ? size : 'var(--size)',
           height: magnify ? size : 'var(--size)',
-          fontSize: magnify ? glyph : 'calc(var(--size) * 0.48)',
         }}
       >
         <Icon aria-hidden="true" />
@@ -139,6 +148,8 @@ export function Dock() {
         onMouseMove={magnify ? (e) => mouseX.set(e.clientX) : undefined}
         onMouseLeave={() => mouseX.set(Infinity)}
       >
+        {/* The bar's glass; its radius matches .dock's border-radius. */}
+        <GlassSurface className="dock-glass" width="100%" height="100%" borderRadius={18} />
         {PAGES.map((page, i) => {
           const { Icon, ...colours } = APPS[page.id]
           const href = `/${hashForPage(i)}`
