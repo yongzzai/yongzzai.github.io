@@ -1,6 +1,6 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { fitScale, placeCard, stackReach } from './depthCarouselFit.js'
+import { backReach, fitScale, placeCard, stackReach } from './depthCarouselFit.js'
 
 const hero = { cardWidth: 240, cardHeight: 320, spread: 50, depth: 220, perspective: 1400, visibleCards: 4 }
 
@@ -56,4 +56,12 @@ test('visible cards keep their real place; only the others are parked and hidden
     assert.equal(visible, d > -1 && d <= hero.visibleCards + 0.5, `d=${d.toFixed(2)}`)
     if (visible) assert.equal(offset, d)
   }
+})
+
+// How far the cards behind stick out past the front card's edge (the stack
+// fans out to one side), so the arrows can clear them.
+test('backReach is the part of the stack beyond the front card', () => {
+  assert.equal(backReach(hero), stackReach(hero) - hero.cardWidth / 2)
+  assert.ok(backReach(hero) > 0)
+  assert.equal(backReach({ ...hero, spread: 0 }), 0)
 })

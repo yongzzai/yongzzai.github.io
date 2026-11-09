@@ -36,7 +36,7 @@ export function Pager({ children }) {
     if (state?.fromPager && index === current.current) return
     const behavior = first.current || reducedMotion() ? 'instant' : 'smooth'
     if (!first.current && index === current.current) {
-      pager.children[index]?.scrollTo({ top: 0, behavior })
+      pager.children[index]?.firstElementChild?.scrollTo({ top: 0, behavior })
     } else {
       pager.scrollTo({ left: index * pager.clientWidth, behavior })
     }
@@ -104,13 +104,20 @@ export function Pager({ children }) {
       ref={ref}
       className="pager flex h-dvh w-full overflow-x-auto overflow-y-hidden snap-x snap-mandatory overscroll-x-contain"
     >
+      {/* Two layers per page: the outer one is what snapping lines up, and it
+          never moves; the inner one scrolls the page and is what folds in 3D
+          (index.css). A folded box would shift its own snap position, and a
+          long jump across pages chased that moving target and stalled short
+          of it. */}
       {Children.map(children, (child, i) => (
-        <div
-          role="region"
-          aria-label={PAGES[i].label}
-          className="h-full w-full shrink-0 snap-start snap-always overflow-y-auto overflow-x-hidden pb-36"
-        >
-          {child}
+        <div className="pager-page h-full w-full shrink-0 snap-start snap-always">
+          <div
+            role="region"
+            aria-label={PAGES[i].label}
+            className="pager-face h-full w-full overflow-y-auto overflow-x-hidden pb-36"
+          >
+            {child}
+          </div>
         </div>
       ))}
     </div>

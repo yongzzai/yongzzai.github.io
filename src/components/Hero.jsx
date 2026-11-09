@@ -6,6 +6,7 @@ import StrokeText from './ui/StrokeText'
 import { RotatingText } from './ui/RotatingText'
 import DepthCarousel from './ui/DepthCarousel'
 import { useThemeColors } from '../lib/theme'
+import { useMediaQuery } from '../lib/useMediaQuery'
 
 const socials = [
   { icon: FaGraduationCap, href: 'https://scholar.google.com/citations?user=YxFIm0AAAAAJ', label: 'Google Scholar', hoverColor: '#4285F4' },
@@ -106,6 +107,7 @@ const fadeUp = (delay) => ({
 
 export function Hero() {
   const colors = useThemeColors()
+  const wide = useMediaQuery('(min-width: 1024px)') // Tailwind's lg
   const [eventIndex, setEventIndex] = useState(0)
   const event = EVENT_LOG[eventIndex]
 
@@ -197,11 +199,14 @@ export function Hero() {
           {/* Shorter below lg, where it sits above the bio, so the cards
               shrink with it and don't take over a phone screen. */}
           <div className="h-[220px] lg:h-[340px]">
+            {/* Narrow screens fan the stack out less, so it doesn't trail off to
+                the right of the photo: three cards behind, closer together. */}
             <DepthCarousel
               items={EVENT_SLIDES}
               cardWidth={240}
               cardHeight={320}
-              spread={50}
+              spread={wide ? 50 : 36}
+              visibleCards={wide ? 4 : 3}
               showIndicators={false}
               onChange={setEventIndex}
             />

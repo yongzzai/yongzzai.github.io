@@ -99,9 +99,14 @@
     .pager {
       perspective: 150vw;
     }
-    /* Out last: while a page leaves, its exit wins over its finished entry.
-       It only fills forwards, so before then the entry is in charge. */
-    .pager > * {
+    /* The fold is on each page's inner layer (Pager.jsx); the outer layer,
+       which snapping lines up, stays flat and passes the pager's perspective
+       through. Out last: while a page leaves, its exit wins over its finished
+       entry. It only fills forwards, so before then the entry is in charge. */
+    .pager-page {
+      transform-style: preserve-3d;
+    }
+    .pager-face {
       animation:
         page-fold-in linear both,
         page-fold-out linear forwards;

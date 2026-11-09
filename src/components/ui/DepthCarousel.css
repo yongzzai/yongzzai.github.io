@@ -103,6 +103,24 @@
   right: max(16px, calc(50% - var(--dc-card-w, 100%) / 2 - 42px - 32px));
 }
 
+/* Below lg the carousel sits alone above the bio with room to its sides, so
+   the arrows go symmetrically outside the whole stack (front card plus the
+   cards fanned out behind it, --dc-back), slightly smaller to suit the smaller
+   cards. Mirrored about the front card, so they stay level with the caption
+   under it; they may reach a little into the page's side padding. */
+@media (max-width: 1023.98px) {
+  .depth-carousel__arrow {
+    width: 36px;
+    height: 36px;
+  }
+  .depth-carousel__arrow--prev {
+    left: max(-16px, calc(50% - var(--dc-card-w, 100%) / 2 - var(--dc-back, 0px) - 12px - 36px));
+  }
+  .depth-carousel__arrow--next {
+    right: max(-16px, calc(50% - var(--dc-card-w, 100%) / 2 - var(--dc-back, 0px) - 12px - 36px));
+  }
+}
+
 .depth-carousel__dots {
   position: absolute;
   bottom: 16px;

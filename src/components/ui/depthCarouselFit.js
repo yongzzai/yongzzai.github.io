@@ -13,6 +13,12 @@ export function stackReach({ cardWidth, spread, depth, perspective, visibleCards
   return reach
 }
 
+// How far the cards behind stick out past the front card's edge: the stack
+// fans out to one side, and the arrows have to clear it there.
+export function backReach(config) {
+  return stackReach(config) - config.cardWidth / 2
+}
+
 // The stack is centred on the front card, so it needs twice its reach (plus a
 // little air). Upstream reserved cardWidth + 2 * spread + 120 instead, which
 // shrank the cards well below what the container could hold. Vertically the

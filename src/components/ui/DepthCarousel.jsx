@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import gsap from 'gsap';
 import './DepthCarousel.css';
-import { fitScale, placeCard } from './depthCarouselFit';
+import { backReach, fitScale, placeCard } from './depthCarouselFit';
 
 const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
 const normalizeItem = it => (typeof it === 'string' ? { image: it, alt: '' } : it);
@@ -175,19 +175,26 @@ const DepthCarousel = ({
 
   const navigateBy = useCallback(step => setFocus(focusRef.current + step, true), [setFocus]);
 
+  // Sizes the stack to the carousel and lays it out: on resize, and when the
+  // stack's shape changes (the hero spreads it less on narrow screens). The
+  // arrows sit beside the stack, so CSS gets the front card's on-screen width
+  // and how far the cards behind it stick out.
+  const fit = useCallback(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    scaleRef.current = fitScale(root.clientWidth, root.clientHeight, cfgRef.current);
+    root.style.setProperty('--dc-card-w', `${cfgRef.current.cardWidth * scaleRef.current}px`);
+    root.style.setProperty('--dc-back', `${backReach(cfgRef.current) * scaleRef.current}px`);
+    layout(posRef.current);
+  }, [layout]);
+
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
-    const ro = new ResizeObserver(entries => {
-      const { width, height } = entries[0].contentRect;
-      scaleRef.current = fitScale(width, height, cfgRef.current);
-      // The arrows sit beside the front card, so CSS needs its on-screen width.
-      root.style.setProperty('--dc-card-w', `${cfgRef.current.cardWidth * scaleRef.current}px`);
-      layout(posRef.current);
-    });
+    const ro = new ResizeObserver(fit);
     ro.observe(root);
     return () => ro.disconnect();
-  }, [layout]);
+  }, [fit]);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -328,8 +335,8 @@ const DepthCarousel = ({
   }, [autoplay, autoplayDelay, count, navigateBy]);
 
   useEffect(() => {
-    layout(posRef.current);
-  }, [layout, depth, spread, tilt, tiltDirection, visibleCards, falloff, blur, cardWidth, cardHeight, radius, count]);
+    fit();
+  }, [fit, depth, spread, tilt, tiltDirection, visibleCards, falloff, blur, cardWidth, cardHeight, perspective, radius, count]);
 
   useEffect(
     () => () => {
