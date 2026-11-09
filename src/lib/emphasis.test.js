@@ -28,3 +28,15 @@ test('a lone asterisk is just a character', () => {
   assert.deepEqual(parseEmphasis('5 * 3 = 15'), [{ text: '5 * 3 = 15' }])
   assert.deepEqual(parseEmphasis('a ** b'), [{ text: 'a ** b' }])
 })
+
+test('^…^ is superscript, e.g. an equal-contribution dagger after a name', () => {
+  assert.deepEqual(parseEmphasis('Park, T.^†^, **Lee, Y.**^†^, & Bae, H.'), [
+    { text: 'Park, T.' },
+    { text: '†', sup: true },
+    { text: ', ' },
+    { text: 'Lee, Y.', bold: true },
+    { text: '†', sup: true },
+    { text: ', & Bae, H.' },
+  ])
+  assert.deepEqual(parseEmphasis('2^ 3'), [{ text: '2^ 3' }])
+})

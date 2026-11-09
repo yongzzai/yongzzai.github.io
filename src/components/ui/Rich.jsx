@@ -1,7 +1,8 @@
 import { Fragment } from 'react'
 import { parseEmphasis } from '../../lib/emphasis'
 
-// Text from the data files with its **bold** and *italic* rendered.
+// Text from the data files with its **bold**, *italic* and ^superscript^
+// rendered.
 export function Rich({ text }) {
   return parseEmphasis(text).map((run, i) =>
     run.bold ? (
@@ -10,6 +11,8 @@ export function Rich({ text }) {
       </strong>
     ) : run.italic ? (
       <em key={i}>{run.text}</em>
+    ) : run.sup ? (
+      <sup key={i}>{run.text}</sup>
     ) : (
       <Fragment key={i}>{run.text}</Fragment>
     ),

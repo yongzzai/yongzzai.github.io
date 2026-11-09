@@ -7,7 +7,6 @@
     "dev": "vite",
     "build": "vite build && node scripts/emit-routes.mjs",
     "preview": "vite preview",
-    "sync:pubs": "node scripts/fetch-scholar.mjs",
     "test": "node --test",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"

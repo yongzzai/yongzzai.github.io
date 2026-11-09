@@ -2,6 +2,7 @@ import { publications } from '../data/publications'
 import { groupByYear, splitYear, withStagger } from '../lib/year'
 import { BlurFade } from './ui/BlurFade'
 import { YearHeading } from './ui/YearHeading'
+import { Rich } from './ui/Rich'
 
 export function Publications() {
   const sections = withStagger(groupByYear(publications))
@@ -10,6 +11,7 @@ export function Publications() {
     <section id="publications" className="py-24 max-w-5xl mx-auto px-6">
       <BlurFade>
         <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-ink mb-2">Publications</h2>
+        <p className="text-sm text-muted">† Equal Contribution</p>
         <p className="text-sm text-muted mb-12">* Excluding Korean Publications</p>
       </BlurFade>
 
@@ -32,7 +34,10 @@ export function Publications() {
                     <div className="space-y-1">
                       <h4 className="text-base font-semibold text-ink leading-snug">{item.title}</h4>
                       <p className="text-base text-muted italic">{item.venue}</p>
-                      <p className="text-base text-muted">{item.authors}</p>
+                      {/* **name** in the data is drawn bold (lib/emphasis.js). */}
+                      <p className="text-base text-muted">
+                        <Rich text={item.authors} />
+                      </p>
                     </div>
                   </li>
                 </BlurFade>
