@@ -3,28 +3,252 @@
 }
 
 /* Black on either theme, like the real one; the faint ring keeps its edge on
-   the dark wallpaper. */
+   the dark wallpaper. Island.jsx animates its width, height and corners to
+   fit whichever layer it is showing. */
 .island {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 8.5rem;
+  position: relative;
   max-width: 100%;
-  height: 38px;
-  padding: 0 18px;
-  border-radius: 999px;
   background: rgb(0 0 0);
   color: rgb(255 255 255 / 0.92);
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
   overflow: hidden;
   box-shadow:
     0 0 0 1px rgb(255 255 255 / 0.08),
     0 10px 30px -12px rgb(0 0 0 / 0.6);
 }
 
-.island .text-type {
+/* Each thing the island can hold is a layer at its own natural size, pinned
+   to the island's top centre, so it is revealed as the island grows round it
+   instead of being squeezed. Scale is animated as a transform, so the
+   centring uses the separate translate property. */
+.island-layer {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+  transform-origin: top center;
+}
+
+/* Only the player can be tapped; the greeting lets clicks through. */
+.island.is-music {
+  pointer-events: auto;
+}
+
+.island-greeting {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 8.5rem;
+  height: 38px;
+  padding: 0 18px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
   white-space: nowrap;
+}
+
+.island-greeting .text-type {
+  white-space: nowrap;
+}
+
+/* Compact: the cover inset at the left, the waveform at the right, the
+   middle left empty where the real island has its camera. Its width is
+   COMPACT_WIDTH in Island.jsx. */
+.island-compact {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+  height: 38px;
+  padding: 0 16px 0 10px;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.island-compact:focus-visible {
+  outline: 2px solid rgb(var(--c-highlight));
+  outline-offset: -3px;
+  border-radius: 19px;
+}
+
+.island-cover {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  object-fit: cover;
+}
+
+.island-cover--large {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+}
+
+.island-wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 18px;
+}
+
+.island-wave i {
+  width: 3px;
+  height: 100%;
+  border-radius: 3px;
+  background: rgb(255 255 255 / 0.85);
+  transform-origin: center;
+  animation: island-wave 0.9s ease-in-out infinite alternate;
+}
+
+/* Different tempos so the bars never move together. */
+.island-wave i:nth-child(1) { animation-duration: 0.82s; }
+.island-wave i:nth-child(2) { animation-duration: 0.61s; animation-delay: -0.3s; }
+.island-wave i:nth-child(3) { animation-duration: 0.97s; animation-delay: -0.5s; }
+.island-wave i:nth-child(4) { animation-duration: 0.7s; animation-delay: -0.2s; }
+.island-wave i:nth-child(5) { animation-duration: 0.88s; animation-delay: -0.6s; }
+
+.island-wave.is-colored i {
+  background: linear-gradient(to top, var(--wave-low), var(--wave-high));
+}
+
+.island-wave.is-paused i {
+  animation: none;
+  transform: scaleY(0.22);
+}
+
+@keyframes island-wave {
+  from {
+    transform: scaleY(0.22);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Open: the iOS "now playing" layout. Its width is OPEN_WIDTH in Island.jsx. */
+.island-player {
+  display: grid;
+  gap: 14px;
+  width: min(400px, calc(100vw - 24px));
+  padding: 18px 20px 12px;
+}
+
+.island-player__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.island-player__titles {
+  flex: 1;
+  min-width: 0;
+}
+
+.island-player__title,
+.island-player__artist {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.island-player__title {
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: rgb(255 255 255);
+}
+
+.island-player__artist {
+  font-size: 15px;
+  line-height: 1.3;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.island-player .island-wave {
+  gap: 3px;
+  height: 28px;
+  margin-right: 2px;
+}
+
+.island-player .island-wave i {
+  width: 3.5px;
+}
+
+.island-player__time {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  color: rgb(255 255 255 / 0.6);
+}
+
+.island-progress {
+  flex: 1;
+  height: 5px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.18);
+  overflow: hidden;
+}
+
+.island-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: rgb(255 255 255 / 0.75);
+  transition: width 1s linear;
+}
+
+.island-player__controls {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+
+.island-player__controls button {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: rgb(255 255 255);
+  font-size: 28px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.island-player__controls button.is-main {
+  font-size: 36px;
+}
+
+.island-player__controls button:hover {
+  background: rgb(255 255 255 / 0.08);
+}
+
+.island-player__controls button:focus-visible {
+  outline: 2px solid rgb(var(--c-highlight));
+}
+
+.island-player__airplay {
+  position: absolute;
+  right: 0;
+  font-size: 24px;
+  color: rgb(255 255 255 / 0.55);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .island-wave i {
+    animation: none;
+    transform: scaleY(0.6);
+  }
+  .island-progress > span {
+    transition: none;
+  }
 }

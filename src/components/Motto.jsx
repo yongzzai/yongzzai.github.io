@@ -46,7 +46,7 @@ export function Motto() {
         <figure
           ref={ref}
           className="flex flex-row-reverse items-start gap-[0.08em] font-brush text-ink leading-none"
-          style={{ fontSize: `clamp(2.75rem, calc(${MARGIN_VW} * 0.3), 5rem)` }}
+          style={{ fontSize: `clamp(2.75rem, calc(${MARGIN_VW} * 0.01), 5rem)` }}
         >
           {MOTTO_COLUMNS.map((column, i) => (
             <motion.span
